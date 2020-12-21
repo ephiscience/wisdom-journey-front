@@ -1,27 +1,33 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Criterion } from '../board/board.component'
+
 @Component({
   selector: 'app-criterion-card',
   template: `
     <div *ngIf="criterion">
       {{ criterion.text }}
-      <button (click)="buttonClicked()">Valider</button>
+      <button (click)="check1= true" (click)="buttonClicked()">Check 1</button>
+      <button (click)="check2= true" (click)="buttonClicked()">Check 2</button>
     </div>
   `,
   styles: [
   ]
 })
+
 export class CriterionCardComponent implements OnInit {
   @Input() criterion?: Criterion
-  @Output() validated = new EventEmitter<void>()
+  @Output() validated = new EventEmitter<boolean>()
+  check1 = false;
+  check2 = false;
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   buttonClicked(){
-    this.validated.emit()
-  }
+    if (this.check1 && this.check2 == true) {
+      this.validated.emit(this.check1 && this.check2)
+    }
 
+  }
 }

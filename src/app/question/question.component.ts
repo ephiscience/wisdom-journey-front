@@ -13,7 +13,6 @@ import { Question } from '../board/board.component'
 })
 export class QuestionComponent implements OnInit {
   @Input() question: Question | null = null
-  @Input() reversed: boolean = false
 
   constructor() { }
 

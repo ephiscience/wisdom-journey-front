@@ -27,6 +27,24 @@ function randomQuestion(): Question {
   template: `
     <div>
       board works!
+      <div>
+        <app-question [question]="displayedQuestion" ></app-question>
+        <button (click)="loadQuestion()">Next</button>
+
+        <div *ngIf="game.remainingCriterions.length; else noCriterion">
+          <app-criterion-card *ngFor="let c of game.remainingCriterions.slice(0, 3)" [criterion]="c" (validated)="onCriterionValidated(c)"></app-criterion-card>
+        </div>
+        <ng-template #noCriterion>Tous les critères ont été validés, bravo!</ng-template>
+      </div>
+    </div>
+  `,
+  styles: [
+  ]
+})
+
+/* `
+    <div>
+      board works!
       <button (click)="loadQuestion()">Nouvelle question</button>
       <div>
         <app-question [question]="displayedQuestion" [reversed]="true"></app-question>
@@ -39,20 +57,10 @@ function randomQuestion(): Question {
         <app-question [question]="displayedQuestion"></app-question>
       </div>
     </div>
-  `,
-  styles: [
-  ]
-})
+  `
+  */ 
 export class BoardComponent implements OnInit {
   displayedQuestion: Question | null = null
-  displayedCriterions = [
-    { text: "Expliquer" },
-    { text: "Expliquer" },
-    { text: "Expliquer" },
-    { text: "Expliquer" },
-    { text: "Decrire" },
-    { text: "Plaisanter" }
-  ]
 
   @Input() game: Game | null = null;
 
@@ -60,16 +68,20 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+ 
+  //removes criterion from game.remainingCriterion and adds criterion to game.validatedCriterion
+  // What should I do with the error ? 
   onCriterionValidated(c: Criterion) {
-    this.displayedCriterions = this.displayedCriterions.filter(
+    this.game.remainingCriterions = this.game.remainingCriterions.filter(
+
       e => e.text != c.text
-    )
+    );
+    this.game.validatedCriterions.push(c);
   }
 
   loadQuestion(){
     setTimeout(() => {
       this.displayedQuestion = randomQuestion()
-    }, 3000)
+    }, 1000)
   }
 }

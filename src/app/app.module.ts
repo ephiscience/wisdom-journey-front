@@ -8,6 +8,9 @@ import { PlayerComponent } from './player/player.component';
 import { CriterionCardComponent } from './criterion-card/criterion-card.component';
 import { QuestionComponent } from './question/question.component';
 import { GameComponent } from './game/game.component';
+import { GameStatusComponent } from './game-status/game-status.component';
+import { PlayersComponent } from './players/players.component';
+import { CriterionPointsComponent } from './criterion-points/criterion-points.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { GameComponent } from './game/game.component';
     PlayerComponent,
     CriterionCardComponent,
     QuestionComponent,
-    GameComponent
+    GameComponent,
+    GameStatusComponent,
+    PlayersComponent,
+    CriterionPointsComponent
   ],
   imports: [
     BrowserModule,
