@@ -12,9 +12,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CriterionPointsComponent implements OnInit {
 
-  @Input() NumCriterions: number;
+  @Input() NumCriterions: Number;
 
-  constructor() { }
+  constructor() {this.NumCriterions = 0} // should I initialize it ? 
 
   ngOnInit(): void {
   }

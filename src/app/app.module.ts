@@ -11,6 +11,8 @@ import { GameComponent } from './game/game.component';
 import { GameStatusComponent } from './game-status/game-status.component';
 import { PlayersComponent } from './players/players.component';
 import { CriterionPointsComponent } from './criterion-points/criterion-points.component';
+import { QuestionPointsComponent } from './question-points/question-points.component';
+import { TimerComponent } from './timer/timer.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { CriterionPointsComponent } from './criterion-points/criterion-points.co
     GameComponent,
     GameStatusComponent,
     PlayersComponent,
-    CriterionPointsComponent
+    CriterionPointsComponent,
+    QuestionPointsComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,

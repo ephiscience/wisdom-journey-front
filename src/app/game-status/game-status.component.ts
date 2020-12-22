@@ -4,9 +4,11 @@ import { Game } from '../game/game.component';
 @Component({
   selector: 'app-game-status',
   template: `
-    <p>
-      <app-criterion-points [NumCriterions]=game.remainingCriterions.length></app-criterion-points>
-    </p>
+    <div>
+      <app-criterion-points [NumCriterions]=game.validatedCriterions.length></app-criterion-points>
+      <app-timer> Timer </app-timer> 
+      <app-question-points [NumQuestions]=game.remainingQuestions.length></app-question-points>
+    </div>
   `,
   styles: [
   ]
