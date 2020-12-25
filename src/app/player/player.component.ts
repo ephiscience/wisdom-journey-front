@@ -15,9 +15,7 @@ export class PlayerComponent implements OnInit {
   @Input() player!: Player;
   @Input() orateur!: boolean;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

@@ -15,28 +15,29 @@ export interface Criterion {
   template: `
     <div>
       <div>
-      <div *ngIf="game.remainingQuestions.length; else noQuestion">
-        <app-question [question]="game.remainingQuestions[0]" (click)="loadQuestion()"> </app-question>
+        <div *ngIf="game.remainingQuestions.length; else noQuestion">
+          <app-question [question]="game.remainingQuestions[0]" (click)="loadQuestion()"></app-question>
         </div>
         <ng-template #noQuestion>Il n'y a plus de Questions</ng-template>
 
         <div *ngIf="game.remainingCriterions.length; else noCriterion">
-          <app-criterion-card *ngFor="let c of game.remainingCriterions.slice(0, 3);index as i" [criterion]="c" (validated)="onCriterionValidated(c, i)"></app-criterion-card>
+          <app-criterion-card
+            *ngFor="let c of game.remainingCriterions.slice(0, 3);index as i"
+            [criterion]="c"
+            (validated)="onCriterionValidated(c, i)">
+          </app-criterion-card>
         </div>
         <ng-template #noCriterion>Tous les critères ont été validés, bravo!</ng-template>
       </div>
     </div>
   `,
-  styles: [
-  ]
+  styles: []
 })
 
 export class BoardComponent implements OnInit {
-
   @Input() game!: Game;
 
-  constructor() { }
-
+  constructor() {}
 
   ngOnInit(): void {}
 
@@ -45,8 +46,8 @@ export class BoardComponent implements OnInit {
     if (this.game == null) {
       return;
     } else {
-    this.game.validatedCriterions.push(c);
-    this.game.remainingCriterions.splice(i, 1);
+      this.game.validatedCriterions.push(c);
+      this.game.remainingCriterions.splice(i, 1);
     }
   }
 
@@ -55,7 +56,8 @@ export class BoardComponent implements OnInit {
       if (this.game == null) {
         return;
       } else {
-      this.game.remainingQuestions.shift(); }
+        this.game.remainingQuestions.shift();
+      }
     }, 1000);
   }
 }

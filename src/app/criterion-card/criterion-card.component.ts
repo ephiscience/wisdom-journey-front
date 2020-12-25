@@ -6,12 +6,11 @@ import { Criterion } from '../board/board.component';
   template: `
     <div *ngIf="criterion">
       {{ criterion.text }}
-      <button (click)="check1= true" (click)="buttonClicked()">Check 1</button>
-      <button (click)="check2= true" (click)="buttonClicked()">Check 2</button>
+      <button (click)="check1 = true" (click)="buttonClicked()">Check 1</button>
+      <button (click)="check2 = true" (click)="buttonClicked()">Check 2</button>
     </div>
   `,
-  styles: [
-  ]
+  styles: []
 })
 
 export class CriterionCardComponent implements OnInit {
@@ -22,12 +21,11 @@ export class CriterionCardComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  buttonClicked(): void{
-    if (this.check1 && this.check2 === true) {
+  buttonClicked(): void {
+    if (this.check1 && this.check2) {
       this.validated.emit(this.check1 && this.check2);
     }
-
   }
 }
