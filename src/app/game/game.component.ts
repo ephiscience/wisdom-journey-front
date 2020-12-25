@@ -15,7 +15,7 @@ export interface Game {
 // TODO: build an exmaple game here
  const EXAMPLE_GAME: Game = {
    players: [{name: "player 1"}, {name: "player 2"}, {name: "player 3"}, {name: "player 4"}],
-   remainingCriterions: [{"text": "criterion1"}, {"text": "criterion2"}, {"text": "criterion3"}, {"text": "criterion4"},{"text": "criterion5"},{"text": "criterion6"}],
+   remainingCriterions: [{"text": "criterion 1"}, {"text": "criterion 2"}, {"text": "criterion 1"}, {"text": "criterion 3"},{"text": "criterion 3"},{"text": "criterion 2"}],
    remainingQuestions: [{"text": "question1"},{"text": "question2"},{"text": "question3"},{"text": "question4"},{"text": "question5"}],
    validatedCriterions: []
 
@@ -25,9 +25,9 @@ export interface Game {
 @Component({ 
   selector: 'app-game',
   template: `
-    <app-game-status [game]=game></app-game-status>
+    <app-game-status [game]=game (shuffleRoless)="triggerChangesInPlayerComp()" ></app-game-status>
     <app-board [game]=game></app-board> <!-- app-board will need: question + criterions to display -->
-    <app-players></app-players>
+    <app-players [game]=game [shuffles]="playerShuffle"></app-players>
   `,
   styles: [
     `
@@ -38,14 +38,26 @@ export interface Game {
   ]
 })
 
-//Je comprends pas bien ce que ça fait // c'est la que on mettera le service pour récupérer les game data ?
-// WHy does GameComponent has @input decorator ?
+
 export class GameComponent implements OnInit {
-  @Input() game: Game | null = null
+  @Input() game: Game
+  playerShuffle: boolean = true 
 
 
   constructor() { this.game = EXAMPLE_GAME}
 
   ngOnInit(): void {
+    this.assertInputsProvided(); 
+  }
+
+  //do I need this ? 
+  private assertInputsProvided(): void {
+    if (!this.game) { 
+      throw (new Error("The required input [game] was not provided"));
+    }
+  }
+
+  triggerChangesInPlayerComp(){
+    this.playerShuffle  = ! this.playerShuffle 
   }
 }

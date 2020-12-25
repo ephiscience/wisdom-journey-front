@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-  <h1>{{'Title:' + title}} </h1>
+  <h1>Title: {{ title }} </h1>
   <app-game>  </app-game>
   `,
   styles: [`
@@ -13,5 +13,5 @@ import { Component } from '@angular/core';
   `]
 })
 export class AppComponent {
-  title = 'The new sefsefapp';
+  title = 'The game';
 }

@@ -4,7 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'app-criterion-points',
   template: `
   <p>
-      {{'Number of criterions validated:' + NumCriterions}} 
+      {{'Number of criterions validated:' + numCriterions}} 
   </p>
   `,
   styles: [
@@ -12,9 +12,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CriterionPointsComponent implements OnInit {
 
-  @Input() NumCriterions: Number;
+  @Input() numCriterions!: Number;
 
-  constructor() {this.NumCriterions = 0} // should I initialize it ? 
+  constructor() {} 
 
   ngOnInit(): void {
   }

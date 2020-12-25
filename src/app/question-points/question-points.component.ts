@@ -4,16 +4,16 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'app-question-points',
   template: `
     <div>
-    {{'Number of questions remaining:' + NumQuestions}} 
+    {{'Number of questions remaining:' + numQuestions}} 
     </div>
   `,
   styles: [
   ]
 })
 export class QuestionPointsComponent implements OnInit {
-  @Input() NumQuestions: Number;
+  @Input() numQuestions!: Number;
 
-  constructor() {this.NumQuestions = 0} // should I initialize it ? 
+  constructor() {}  
 
   ngOnInit(): void {
   }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Question } from '../board/board.component'
 
 @Component({
@@ -6,6 +6,7 @@ import { Question } from '../board/board.component'
   template: `
     <p *ngIf="question">
       La question est: {{ question.text }}
+      <button (click)="nextQuestion()">Next</button>
     </p>
   `,
   styles: [
@@ -13,10 +14,15 @@ import { Question } from '../board/board.component'
 })
 export class QuestionComponent implements OnInit {
   @Input() question: Question | null = null
+  @Output() next = new EventEmitter()
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  nextQuestion(){
+    this.next.emit();
   }
 
 }

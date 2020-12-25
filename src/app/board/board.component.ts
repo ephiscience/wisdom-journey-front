@@ -16,13 +16,12 @@ export interface Criterion {
     <div>
       <div>
       <div *ngIf="game.remainingQuestions.length; else noQuestion">
-        <app-question [question]=game.remainingQuestions[0] ></app-question>
-        <button (click)="loadQuestion()">Next</button>
+        <app-question [question]="game.remainingQuestions[0]" (click)="loadQuestion()"> </app-question>
         </div>
         <ng-template #noQuestion>Il n'y a plus de Questions</ng-template>
 
         <div *ngIf="game.remainingCriterions.length; else noCriterion">
-          <app-criterion-card *ngFor="let c of game.remainingCriterions.slice(0, 3)" [criterion]="c" (validated)="onCriterionValidated(c)"></app-criterion-card>
+          <app-criterion-card *ngFor="let c of game.remainingCriterions.slice(0, 3);index as i" [criterion]="c" (validated)="onCriterionValidated(c, i)"></app-criterion-card>
         </div>
         <ng-template #noCriterion>Tous les critères ont été validés, bravo!</ng-template>
       </div>
@@ -34,29 +33,28 @@ export interface Criterion {
 
 export class BoardComponent implements OnInit {
 
-  @Input() game: Game | null = null;
+  @Input() game!: Game;
 
   constructor() { }
+
 
   ngOnInit(): void {
   }
  
   //removes criterion from game.remainingCriterion and adds criterion to game.validatedCriterion
-  // What should I do with the error ? 
-  onCriterionValidated(c: Criterion) {
-    if (this.game ==null) return;
-    this.game.remainingCriterions = this.game.remainingCriterions.filter(
-
-      e => e.text != c.text
-    );
+  onCriterionValidated(c: Criterion, i: number) {
+    if (this.game ==null) {return}
+    else {
     this.game.validatedCriterions.push(c);
+    this.game.remainingCriterions.splice(i, 1);
+    }
   }
 
   loadQuestion(){
     setTimeout(() => {
       if (this.game ==null) return;
       else {
-      let removedQuestion = this.game.remainingQuestions.shift()}
+      this.game.remainingQuestions.shift()}
     }, 1000)
   }
 }
