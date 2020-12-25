@@ -2,27 +2,27 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Criterion, Question } from '../board/board.component';
 
 export interface Player {
-  name: string
+  name: string;
 }
 
 export interface Game {
-  players: Player[],
-  remainingCriterions: Criterion[],
-  remainingQuestions: Question[],
-  validatedCriterions: Criterion[],
+  players: Player[];
+  remainingCriterions: Criterion[];
+  remainingQuestions: Question[];
+  validatedCriterions: Criterion[];
 }
 
-// TODO: build an exmaple game here
- const EXAMPLE_GAME: Game = {
-   players: [{name: "player 1"}, {name: "player 2"}, {name: "player 3"}, {name: "player 4"}],
-   remainingCriterions: [{"text": "criterion 1"}, {"text": "criterion 2"}, {"text": "criterion 1"}, {"text": "criterion 3"},{"text": "criterion 3"},{"text": "criterion 2"}],
-   remainingQuestions: [{"text": "question1"},{"text": "question2"},{"text": "question3"},{"text": "question4"},{"text": "question5"}],
-   validatedCriterions: []
+// TODO: build an exmaple game her
+const EXAMPLE_GAME: Game = {
+players: [{name: 'player 1'}, {name: 'player 2'}, {name: 'player 3'}, {name: 'player 4'}],
+remainingCriterions: [{text: 'criterion 1'}, {text: 'criterion 2'}, {text: 'criterion 1'}, {text: 'criterion 3'}, {text: 'criterion 3'}, {text: 'criterion 2'}],
+remainingQuestions: [{text: 'question1'}, {text: 'question2'}, {text: 'question3'}, { text: 'question4'}, {text: 'question5'}],
+validatedCriterions: []
+};
 
- }
-//shuffle EXAMPLE_GAME.remainingCriterions ??
+// shuffle EXAMPLE_GAME.remainingCriterions ??
 
-@Component({ 
+@Component({
   selector: 'app-game',
   template: `
     <app-game-status [game]=game (shuffleRoless)="triggerChangesInPlayerComp()" ></app-game-status>
@@ -40,24 +40,24 @@ export interface Game {
 
 
 export class GameComponent implements OnInit {
-  @Input() game: Game
-  playerShuffle: boolean = true 
+  @Input() game: Game;
+  playerShuffle = true;
 
 
-  constructor() { this.game = EXAMPLE_GAME}
+  constructor() { this.game = EXAMPLE_GAME; }
 
   ngOnInit(): void {
-    this.assertInputsProvided(); 
+    this.assertInputsProvided();
   }
 
-  //do I need this ? 
+
   private assertInputsProvided(): void {
-    if (!this.game) { 
-      throw (new Error("The required input [game] was not provided"));
+    if (!this.game) {
+      throw (new Error('The required input [game] was not provided'));
     }
   }
 
-  triggerChangesInPlayerComp(){
-    this.playerShuffle  = ! this.playerShuffle 
+  triggerChangesInPlayerComp(): void{
+    this.playerShuffle  = ! this.playerShuffle;
   }
 }

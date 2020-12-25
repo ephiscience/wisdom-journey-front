@@ -1,8 +1,10 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { Game} from '../game/game.component';
 
-function shuffle(array: any) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+function shuffle(array: any[]): Array<any>{
+  let currentIndex = array.length;
+  let temporaryValue;
+  let randomIndex;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
@@ -31,35 +33,34 @@ function shuffle(array: any) {
   ]
 })
 export class PlayersComponent implements OnInit, OnChanges{
-  @Input() game! :Game
-  @Input() shuffles! : boolean
-  roles!: boolean[]
+  @Input() game!: Game;
+  @Input() shuffles!: boolean;
+  roles!: boolean[];
 
   constructor() {}
 
   ngOnInit(): void {
-    this.assignRoles()
+    this.assignRoles();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['shuffles']) {
-      this.shuffleRoles();  }
-    
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["shuffles"]) {
+      this.shuffleRoles(); }
 }
 
-  assignRoles(){
-    var i;
+  assignRoles(): void{
+    let i;
     this.roles = [true, true];
-    for (i =0; i< this.game.players.length -2; i++){
-      this.roles.push(false)
+    for (i = 0; i < this.game.players.length - 2; i++){
+      this.roles.push(false);
     }
-    this.roles= shuffle(this.roles)
+    this.roles = shuffle(this.roles);
 
   }
 
-  shuffleRoles(){
-    console.log("roles changed");
-    this.roles= shuffle(this.roles);
+  shuffleRoles(): void{
+    console.log('roles changed');
+    this.roles = shuffle(this.roles);
   }
 
 }

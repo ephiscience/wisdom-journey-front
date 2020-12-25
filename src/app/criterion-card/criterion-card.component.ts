@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Criterion } from '../board/board.component'
+import { Criterion } from '../board/board.component';
 
 @Component({
   selector: 'app-criterion-card',
@@ -15,8 +15,8 @@ import { Criterion } from '../board/board.component'
 })
 
 export class CriterionCardComponent implements OnInit {
-  @Input() criterion?: Criterion
-  @Output() validated = new EventEmitter<boolean>()
+  @Input() criterion?: Criterion;
+  @Output() validated = new EventEmitter<boolean>();
   check1 = false;
   check2 = false;
 
@@ -24,9 +24,9 @@ export class CriterionCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  buttonClicked(){
-    if (this.check1 && this.check2 == true) {
-      this.validated.emit(this.check1 && this.check2)
+  buttonClicked(): void{
+    if (this.check1 && this.check2 === true) {
+      this.validated.emit(this.check1 && this.check2);
     }
 
   }

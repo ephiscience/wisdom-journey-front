@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Game } from '../game/game.component';
 
 export interface Question {
-  text: string
+  text: string;
 }
 
 export interface Criterion {
-  text: string
+  text: string;
 }
 
 
@@ -38,23 +38,24 @@ export class BoardComponent implements OnInit {
   constructor() { }
 
 
-  ngOnInit(): void {
-  }
- 
-  //removes criterion from game.remainingCriterion and adds criterion to game.validatedCriterion
-  onCriterionValidated(c: Criterion, i: number) {
-    if (this.game ==null) {return}
-    else {
+  ngOnInit(): void {}
+
+  // removes criterion from game.remainingCriterion and adds criterion to game.validatedCriterion
+  onCriterionValidated(c: Criterion, i: number): void {
+    if (this.game == null) {
+      return;
+    } else {
     this.game.validatedCriterions.push(c);
     this.game.remainingCriterions.splice(i, 1);
     }
   }
 
-  loadQuestion(){
+  loadQuestion(): void {
     setTimeout(() => {
-      if (this.game ==null) return;
-      else {
-      this.game.remainingQuestions.shift()}
-    }, 1000)
+      if (this.game == null) {
+        return;
+      } else {
+      this.game.remainingQuestions.shift(); }
+    }, 1000);
   }
 }

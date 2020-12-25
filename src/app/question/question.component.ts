@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Question } from '../board/board.component'
+import { Question } from '../board/board.component';
 
 @Component({
   selector: 'app-question',
@@ -13,15 +13,15 @@ import { Question } from '../board/board.component'
   ]
 })
 export class QuestionComponent implements OnInit {
-  @Input() question: Question | null = null
-  @Output() next = new EventEmitter()
+  @Input() question: Question | null = null;
+  @Output() next = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  nextQuestion(){
+  nextQuestion(): void{
     this.next.emit();
   }
 

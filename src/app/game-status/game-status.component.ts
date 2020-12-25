@@ -7,7 +7,7 @@ import { Game } from '../game/game.component';
   template: `
     <div>
       <app-criterion-points [numCriterions]=game.validatedCriterions.length></app-criterion-points>
-      <app-timer (additionalCriteria)="removeAdditionalCriterion()" (nextQuestion)="displayNextQuestion()" (shuffleRoles)="emitShuffleRoles()"></app-timer> 
+      <app-timer (additionalCriteria)="removeAdditionalCriterion()" (nextQuestion)="displayNextQuestion()" (shuffleRoles)="emitShuffleRoles()"></app-timer>
       <app-question-points [numQuestions]=game.remainingQuestions.length></app-question-points>
     </div>
   `,
@@ -16,30 +16,32 @@ import { Game } from '../game/game.component';
 })
 export class GameStatusComponent implements OnInit {
   @Input() game!: Game ;
-  @Output() shuffleRoless = new EventEmitter()
+  @Output() shuffleRoless = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  removeAdditionalCriterion() {
-    if (this.game.remainingCriterions ==null) {return;}
-    else{
-    let removedCriterionText = this.game.remainingCriterions[this.game.remainingCriterions.length -1].text;
+  removeAdditionalCriterion(): void {
+    if ( this.game.remainingCriterions == null ) {
+      return;
+    } else {
+    const removedCriterionText = this.game.remainingCriterions[this.game.remainingCriterions.length - 1].text;
     this.game.remainingCriterions.splice(-1, 1);
-    this.game.validatedCriterions.push({"text": removedCriterionText});
+    this.game.validatedCriterions.push({text: removedCriterionText});
   }
   }
-  displayNextQuestion() {
+  displayNextQuestion(): void {
+      if (this.game == null) {
+        return;
+      } else {
+      this.game.remainingQuestions.shift();
+    }
+  }
 
-      if (this.game ==null) return;
-      else {
-      this.game.remainingQuestions.shift()}
-  }
-
-  emitShuffleRoles(){
-    this.shuffleRoless.emit()
+  emitShuffleRoles(): void {
+    this.shuffleRoless.emit();
 
   }
 

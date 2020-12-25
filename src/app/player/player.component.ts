@@ -12,8 +12,8 @@ import { Player} from '../game/game.component';
   ]
 })
 export class PlayerComponent implements OnInit {
-  @Input() player!: Player
-  @Input() orateur: boolean = false
+  @Input() player!: Player;
+  @Input() orateur!: boolean;
 
   constructor() { }
 
