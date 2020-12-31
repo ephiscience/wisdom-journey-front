@@ -1,38 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { GameModule } from 'src/app/game/game.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BoardComponent } from './board/board.component';
-import { PlayerComponent } from './player/player.component';
-import { CriterionCardComponent } from './criterion-card/criterion-card.component';
-import { QuestionComponent } from './question/question.component';
-import { GameComponent } from './game/game.component';
-import { GameStatusComponent } from './game-status/game-status.component';
-import { PlayersComponent } from './players/players.component';
-import { CriterionPointsComponent } from './criterion-points/criterion-points.component';
-import { QuestionPointsComponent } from './question-points/question-points.component';
-import { TimerComponent } from './timer/timer.component';
+import { IndexComponent } from './index/index.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BoardComponent,
-    PlayerComponent,
-    CriterionCardComponent,
-    QuestionComponent,
-    GameComponent,
-    GameStatusComponent,
-    PlayersComponent,
-    CriterionPointsComponent,
-    QuestionPointsComponent,
-    TimerComponent
+    IndexComponent,
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

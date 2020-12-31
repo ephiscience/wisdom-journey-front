@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Game } from '../game/game.component';
+import { Game } from 'src/app/game/game.component';
 
 export interface Question {
   text: string;

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CriterionPointsComponent } from './criterion-points.component';
+import { CriterionPointsComponent } from 'src/app/game/criterion-points/criterion-points.component';
 
 describe('CriterionPointsComponent', () => {
   let component: CriterionPointsComponent;

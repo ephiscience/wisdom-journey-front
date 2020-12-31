@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Game } from '../game/game.component';
+import { Game } from 'src/app/game/game.component';
 
 function shuffle(array: any[]): Array<any> {
   let currentIndex = array.length;

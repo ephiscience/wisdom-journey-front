@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Criterion } from '../board/board.component';
+import { Criterion } from 'src/app/game/board/board.component';
 
 @Component({
   selector: 'app-criterion-card',

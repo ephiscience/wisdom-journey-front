@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Criterion, Question } from '../board/board.component';
+import { Criterion, Question } from 'src/app/game/board/board.component';
 
 export interface Player {
   name: string;
@@ -38,7 +38,6 @@ const EXAMPLE_GAME: Game = {
   `
 })
 
-
 export class GameComponent implements OnInit {
   @Input() game: Game;
   playerShuffle = true;
@@ -57,7 +56,7 @@ export class GameComponent implements OnInit {
 
   private assertInputsProvided(): void {
     if (!this.game) {
-      throw (new Error('The required input [game] was not provided'));
+      throw new Error('The required input [game] was not provided');
     }
   }
 }

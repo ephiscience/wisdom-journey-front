@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Game } from '../game/game.component';
+import { Game } from 'src/app/game/game.component';
 
 @Component({
   selector: 'app-game-status',
