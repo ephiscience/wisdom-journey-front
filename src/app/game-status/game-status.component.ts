@@ -48,7 +48,7 @@ export class GameStatusComponent implements OnInit {
   }
 
   checkVictory(): void{
-    if (this.game.remainingQuestions.length == 1 && this.game.remainingCriterions.length > 0){
+    if (this.game.remainingQuestions.length === 1 && this.game.remainingCriterions.length > 0){
       const answer = confirm('DEFEAT! \n Do you want to play again ?');
       if (answer === true){
         this.reloadGame.emit();
@@ -56,7 +56,7 @@ export class GameStatusComponent implements OnInit {
         console.log('return to menu');
       }
     }
-    else if (this.game.remainingQuestions.length > 0 && this.game.remainingCriterions.length == 0){
+    else if (this.game.remainingQuestions.length > 0 && this.game.remainingCriterions.length === 0){
       const answer = confirm('VICTORY ! \n Do you want to play again ?');
       if (answer === true){
         this.reloadGame.emit();

@@ -36,7 +36,12 @@ export interface Game {
 
 // TODO: build an exmaple game her
 const EXAMPLE_GAME: Game = {
-  players: [{name: 'player 1', speaking: true}, {name: 'player 2', speaking: true}, {name: 'player 3', speaking: false}, {name: 'player 4', speaking: false}],
+  players: [
+    {name: 'player 1', speaking: true}, 
+    {name: 'player 2', speaking: true},
+    {name: 'player 3', speaking: false},
+    {name: 'player 4', speaking: false}
+  ],
   remainingCriterions: [
     {text: 'criterion 1'},
     {text: 'criterion 2'},
@@ -74,15 +79,15 @@ export class GameComponent implements OnInit{
   }
 
   changePlayerRoles(): void {
-    let playerRoles: boolean[] = []
-    for (let i = 0; i < this.game.players.length; i ++){
-      playerRoles.push(this.game.players[i].speaking)
+    let playerRoles: boolean[] = [];
+    for (const player of this.game.players){
+      playerRoles.push(player.speaking);
     }
     //console.log(playerRoles);
     playerRoles = shuffle(playerRoles);
     //console.log(playerRoles);
     for (let i = 0; i < this.game.players.length; i ++){
-      this.game.players[i].speaking = playerRoles[i]
+      this.game.players[i].speaking = playerRoles[i];
     }
   }
   reloadGame(): void {

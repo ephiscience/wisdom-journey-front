@@ -43,8 +43,8 @@ export class BoardComponent implements OnInit{
   ngOnInit(): void {}
 
   checkVictory(): void {
-    console.log('check victory conditions')
-    if (this.game.remainingQuestions.length == 1 && this.game.remainingCriterions.length > 0){
+    console.log('check victory conditions');
+    if (this.game.remainingQuestions.length === 1 && this.game.remainingCriterions.length > 0){
       const answer = confirm('DEFEAT! \n Do you want to play again ?');
       if (answer === true){
         this.reloadGame.emit();
@@ -52,7 +52,7 @@ export class BoardComponent implements OnInit{
         console.log('return to menu');
       }
     }
-    else if (this.game.remainingQuestions.length > 0 && this.game.remainingCriterions.length == 0){
+    else if (this.game.remainingQuestions.length > 0 && this.game.remainingCriterions.length === 0){
       const answer = confirm('VICTORY ! \n Do you want to play again ?');
       if (answer === true){
         this.reloadGame.emit();

@@ -14,13 +14,13 @@ const maximumTime = 10000;
   ]
 })
 export class TimerComponent implements OnInit {
-  time: number;
-  timerID!: any; // Fix error with NodeJS.Timeout at some point
-  paused = false;
   @Output() additionalCriteria = new EventEmitter<boolean>();
   @Output() nextQuestion = new EventEmitter();
   @Output() shuffleRoles = new EventEmitter();
   @Output() checkVictory = new EventEmitter();
+  time: number;
+  timerID!: any; // Fix error with NodeJS.Timeout at some point
+  paused = false;
   //@Input() EndOfGame: boolean; ?
 
   constructor() { this.time = maximumTime;  }
