@@ -37,7 +37,7 @@ export interface Game {
 // TODO: build an exmaple game her
 const EXAMPLE_GAME: Game = {
   players: [
-    {name: 'player 1', speaking: true}, 
+    {name: 'player 1', speaking: true},
     {name: 'player 2', speaking: true},
     {name: 'player 3', speaking: false},
     {name: 'player 4', speaking: false}
