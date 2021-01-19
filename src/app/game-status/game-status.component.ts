@@ -8,7 +8,8 @@ import { Game } from '../game/game.component';
       <app-criterion-points [numCriterions]=game.validatedCriterions.length></app-criterion-points>
       <app-timer (additionalCriteria)="removeAdditionalCriterion()"
                  (nextQuestion)="displayNextQuestion()"
-                 (shuffleRoles)="emitShuffleRoles()">
+                 (shuffleRoles)="emitShuffleRoles()"
+                 (checkVictory)="checkVictory()">
       </app-timer>
       <app-question-points [numQuestions]=game.remainingQuestions.length></app-question-points>
     </div>
@@ -18,6 +19,7 @@ import { Game } from '../game/game.component';
 export class GameStatusComponent implements OnInit {
   @Input() game!: Game;
   @Output() shuffleRoless = new EventEmitter();
+  @Output() reloadGame = new EventEmitter();
 
   constructor() {}
 
@@ -43,5 +45,24 @@ export class GameStatusComponent implements OnInit {
 
   emitShuffleRoles(): void {
     this.shuffleRoless.emit();
+  }
+
+  checkVictory(): void{
+    if (this.game.remainingQuestions.length == 1 && this.game.remainingCriterions.length > 0){
+      const answer = confirm('DEFEAT! \n Do you want to play again ?');
+      if (answer === true){
+        this.reloadGame.emit();
+      } else {
+        console.log('return to menu');
+      }
+    }
+    else if (this.game.remainingQuestions.length > 0 && this.game.remainingCriterions.length == 0){
+      const answer = confirm('VICTORY ! \n Do you want to play again ?');
+      if (answer === true){
+        this.reloadGame.emit();
+      } else {
+        console.log('return to menu');
+      }
+    }
   }
 }
