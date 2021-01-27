@@ -11,7 +11,15 @@ import { Game } from '../game/game.component';
       </app-player>
     </div>
   `,
-  styles: []
+  styles: [`
+    :host {
+      display: block-inline;
+      grid-column-start: 1;
+    grid-column-end: 11;
+    grid-row-start: 7;
+    grid-row-end: 9;
+    }
+    `]
 })
 export class PlayersComponent implements OnInit {
   @Input() game!: Game;

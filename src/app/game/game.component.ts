@@ -62,8 +62,27 @@ const EXAMPLE_GAME: Game = {
     <app-game-status [game]=game (shuffleRoless)="changePlayerRoles()" (reloadGame)="reloadGame()"></app-game-status>
     <app-board [game]=game (reloadGame)="reloadGame()"></app-board>
     <app-players [game]=game></app-players>
-  `
+  `,
+  styles: [`
+  :host {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100vh;
+  }
+  app-game-status {
+    flex: 1;
+  }
+  app-board {
+    flex: 5;
+  }
+  app-players {
+    flex: 1;
+  }
+
+  `]
 })
+
 
 
 export class GameComponent implements OnInit{
