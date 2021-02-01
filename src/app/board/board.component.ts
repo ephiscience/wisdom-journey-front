@@ -32,17 +32,24 @@ export interface Criterion {
   :host {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center; 
   }
   
-  div question {
-    flex: 1 ;
+  div.question {
     flex-basis: 130px ;
+    margin-bottom:50px;
   }
 
-  div criterions {
-    flex: 2 ;
+  div.criterions {
+    flex-basis: 162;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; 
+  }
+  app-criterion-card{
+    flex-basis: 162px;
   }
 
     `]

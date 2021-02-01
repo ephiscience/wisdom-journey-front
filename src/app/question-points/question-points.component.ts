@@ -19,13 +19,13 @@ import { Game } from '../game/game.component';
     border: 1px solid #404040;
     border-radius: 12px;
     opacity: 1;
+    
     display: inline-flex;
     flex-direction: row; 
     justify-content: flex-end;
     align-items: center;
 }
 div.image {
-    /*flex-basis: 0;*/
     width: 33px;
     height: 47px;
     background: transparent url('../assets/images/Inverse_question@2x.png') 0% 0% no-repeat padding-box;

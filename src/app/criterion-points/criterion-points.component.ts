@@ -47,12 +47,12 @@ import { Component, Input, OnInit } from '@angular/core';
   }
   div.text {
     text-align: center;
-font: normal normal normal 25px/30px Chela One;
-letter-spacing: 0px;
-color: #000000;
-z-index:10;
-position:absolute;
-margin-left:75px;
+    font: normal normal normal 25px/30px Chela One;
+    letter-spacing: 0px;
+    color: #000000;
+    z-index:10;
+    position:absolute;
+    margin-left:75px;
   }
   div.bar{
     top: -2px;
