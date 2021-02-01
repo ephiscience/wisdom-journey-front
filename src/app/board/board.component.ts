@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Game } from '../game/game.component';
 
 export interface Question {
@@ -34,12 +34,33 @@ export interface Criterion {
   styles: []
 })
 
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit{
   @Input() game!: Game;
+  @Output() reloadGame = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  checkVictory(): void {
+    console.log('check victory conditions');
+    if (this.game.remainingQuestions.length === 1 && this.game.remainingCriterions.length > 0){
+      const answer = confirm('DEFEAT! \n Do you want to play again ?');
+      if (answer === true){
+        this.reloadGame.emit();
+      } else {
+        console.log('return to menu');
+      }
+    }
+    else if (this.game.remainingQuestions.length > 0 && this.game.remainingCriterions.length === 0){
+      const answer = confirm('VICTORY ! \n Do you want to play again ?');
+      if (answer === true){
+        this.reloadGame.emit();
+      } else {
+        console.log('return to menu');
+      }
+    }
+  }
 
   // removes criterion from game.remainingCriterion and adds criterion to game.validatedCriterion
   onCriterionValidated(c: Criterion, i: number): void {
@@ -49,15 +70,15 @@ export class BoardComponent implements OnInit {
       this.game.validatedCriterions.push(c);
       this.game.remainingCriterions.splice(i, 1);
     }
+    this.checkVictory();
   }
 
   loadQuestion(): void {
-    setTimeout(() => {
+    this.checkVictory();
       if (this.game == null) {
         return;
       } else {
         this.game.remainingQuestions.shift();
       }
-    }, 1000);
   }
 }
