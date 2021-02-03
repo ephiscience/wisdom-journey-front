@@ -16,13 +16,13 @@ import { Game } from '../game/game.component';
    :host {
     background: #404040 0% 0% no-repeat padding-box;
     box-shadow: 3px 6px 6px #0000005A;
-    opacity: 1; 
+    opacity: 1;
 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
    }
-   
+
    app-criterion-points{
     flex-basis: 275px ;
    }

@@ -7,7 +7,7 @@ import { Question } from '../board/board.component';
     <div class="outer" *ngIf="question">
       <div class="inner">
         <div class="image"> </div>
-        <div class="texts"> 
+        <div class="texts">
           <div class="upper-text"> {{ question.text }} </div>
           <div class="lower-text"> {{ question.text }} </div>
         </div>
@@ -39,7 +39,7 @@ import { Question } from '../board/board.component';
     margin-left: 14px;
     position: absolute;
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
     justify-content: center;
     align-items: center;
   }

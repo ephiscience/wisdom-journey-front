@@ -22,7 +22,7 @@ import { Component, Input, OnInit } from '@angular/core';
     border-radius: 15px;
     opacity: 1;
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     }
@@ -59,7 +59,8 @@ import { Component, Input, OnInit } from '@angular/core';
     left:-2px;
     height: 30px;
     width: 0%;
-    background: transparent radial-gradient(closest-side at 51% 32%, #E4F4B2 0%, #D3F074 2%, #ACC655 46%, #9DB749 100%) 0% 0% no-repeat padding-box;
+    background: transparent radial-gradient(closest-side at 51% 32%,
+      #E4F4B2 0%, #D3F074 2%, #ACC655 46%, #9DB749 100%) 0% 0% no-repeat padding-box;
     border: 2px solid #707070;
     border-radius: 21px;
     opacity: 1;

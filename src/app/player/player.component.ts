@@ -68,28 +68,28 @@ export class PlayerComponent implements OnInit {
   ngOnInit(): void {}
 
   getBackgroundColor(): string {
-    if (this.orateur == true) {
-      return "#FFFFFF 0% 0% no-repeat padding-box"
+    if (this.orateur === true) {
+      return '#FFFFFF 0% 0% no-repeat padding-box';
     }
     else {
-      return "#707070 0% 0% no-repeat padding-box"
+      return '#707070 0% 0% no-repeat padding-box';
     }
   }
 
   getIcon(): string {
-    if (this.orateur == true) {
-      return "transparent url('../assets/images/dogBlack@2x.png') 0% 0% no-repeat padding-box"
+    if (this.orateur === true) {
+      return 'transparent url("../assets/images/dogBlack@2x.png") 0% 0% no-repeat padding-box';
     }
     else {
-      return "transparent url('../assets/images/dog@2x.png') 0% 0% no-repeat padding-box"
+      return 'transparent url("../assets/images/dog@2x.png") 0% 0% no-repeat padding-box';
     }
   }
   getRole(): string {
-    if (this.orateur == true) {
-      return "transparent url('../assets/images/talk@2x.png') 50% 50% no-repeat padding-box"
+    if (this.orateur === true) {
+      return 'transparent url("../assets/images/talk@2x.png") 50% 50% no-repeat padding-box';
     }
     else {
-      return "transparent url('../assets/images/tap@2x.png') 0% 0% no-repeat padding-box"
+      return 'transparent url("../assets/images/tap@2x.png") 0% 0% no-repeat padding-box';
     }
   }
 }

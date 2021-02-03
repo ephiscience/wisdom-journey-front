@@ -17,7 +17,6 @@ export interface Criterion {
           <app-question [question]="game.remainingQuestions[0]" (click)="loadQuestion()"></app-question>
         </div>
         <ng-template #noQuestion>Il n'y a plus de Questions</ng-template>
-      
 
         <div class="criterions" *ngIf="game.remainingCriterions.length; else noCriterion">
           <app-criterion-card
@@ -33,9 +32,9 @@ export interface Criterion {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
   }
-  
+
   div.question {
     flex-basis: 130px ;
     margin-bottom:50px;
@@ -46,7 +45,7 @@ export interface Criterion {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
   }
   app-criterion-card{
     flex-basis: 162px;

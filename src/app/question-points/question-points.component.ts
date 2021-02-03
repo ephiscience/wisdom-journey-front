@@ -14,14 +14,12 @@ import { Game } from '../game/game.component';
     place-self: center;
     margin-right: 30px;
     padding-right:5px;
-
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #404040;
     border-radius: 12px;
     opacity: 1;
-    
     display: inline-flex;
-    flex-direction: row; 
+    flex-direction: row;
     justify-content: flex-end;
     align-items: center;
 }

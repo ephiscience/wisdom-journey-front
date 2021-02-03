@@ -47,7 +47,7 @@ import { Criterion } from '../board/board.component';
     border-radius: 14px;
     position: absolute;
     display: flex;
-    flex-direction: column ; 
+    flex-direction: column ;
     justify-content: center;
     align-items: center;
   }
