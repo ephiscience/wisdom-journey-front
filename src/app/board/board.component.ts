@@ -13,14 +13,12 @@ export interface Criterion {
 @Component({
   selector: 'app-board',
   template: `
-    <div>
-      <div>
-        <div *ngIf="game.remainingQuestions.length; else noQuestion">
-          <app-question [question]="game.remainingQuestions[0]" (click)="loadQuestion()"></app-question>
+        <div class="question" *ngIf="game.remainingQuestions.length; else noQuestion">
+          <app-question [question]="game.remainingQuestions[0]" (next)="loadQuestion()"></app-question>
         </div>
         <ng-template #noQuestion>Il n'y a plus de Questions</ng-template>
 
-        <div *ngIf="game.remainingCriterions.length; else noCriterion">
+        <div class="criterions" *ngIf="game.remainingCriterions.length; else noCriterion">
           <app-criterion-card
             *ngFor="let c of game.remainingCriterions.slice(0, 3);index as i"
             [criterion]="c"
@@ -28,10 +26,32 @@ export interface Criterion {
           </app-criterion-card>
         </div>
         <ng-template #noCriterion>Tous les critères ont été validés, bravo!</ng-template>
-      </div>
-    </div>
   `,
-  styles: []
+  styles: [`
+  :host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  div.question {
+    flex-basis: 130px ;
+    margin-bottom:50px;
+  }
+
+  div.criterions {
+    flex-basis: 162;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  app-criterion-card{
+    flex-basis: 162px;
+  }
+
+    `]
 })
 
 export class BoardComponent implements OnInit{

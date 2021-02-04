@@ -1,18 +1,38 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges} from '@angular/core';
 
-const maximumTime = 10000;
+const maximumTime = 60000;
+
 
 
 @Component({
   selector: 'app-timer',
   template: `
     <p>
-    <button (click)="pause()"> Time {{millisToMinutesAndSeconds()}} </button>
+      <button (click)="pause()">{{millisToMinutesAndSeconds()}} </button>
     </p>
   `,
-  styles: [
-  ]
+
+  styles: [`
+
+  :host {
+    place-self: center;
+  }
+
+  button {
+    width: 161px;
+    height: 64px;
+    background: #FFBB60 0% 0% no-repeat padding-box;
+    border: 4px solid #FFFFFF;
+    border-radius: 40px;
+    opacity: 1;
+    text-align: center;
+    font: normal normal normal 53px/53px Chela One;
+    letter-spacing: 0px;
+    color: #000000;
+  }
+  `]
 })
+
 export class TimerComponent implements OnInit {
   @Output() additionalCriteria = new EventEmitter<boolean>();
   @Output() nextQuestion = new EventEmitter();
