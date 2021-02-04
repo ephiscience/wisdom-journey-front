@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+    background: transparent radial-gradient(closest-side at 50% 50%, #B1E2FF 0%, #65C5FD 140%, #7ACEFF 140%) 0% 0% no-repeat padding-box;
+    opacity: 1; 
+    height: 100%;
+}
+body {
+    margin: 0px;
+    height: 100vh;
+}
+

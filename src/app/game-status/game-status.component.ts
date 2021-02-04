@@ -4,17 +4,37 @@ import { Game } from '../game/game.component';
 @Component({
   selector: 'app-game-status',
   template: `
-    <div>
       <app-criterion-points [numCriterions]=game.validatedCriterions.length></app-criterion-points>
       <app-timer (additionalCriteria)="removeAdditionalCriterion()"
                  (nextQuestion)="displayNextQuestion()"
                  (shuffleRoles)="emitShuffleRoles()"
                  (checkVictory)="checkVictory()">
       </app-timer>
-      <app-question-points [numQuestions]=game.remainingQuestions.length></app-question-points>
-    </div>
+      <app-question-points [game]=game></app-question-points>
   `,
-  styles: []
+  styles: [`
+   :host {
+    background: #404040 0% 0% no-repeat padding-box;
+    box-shadow: 3px 6px 6px #0000005A;
+    opacity: 1;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+   }
+
+   app-criterion-points{
+    flex-basis: 275px ;
+   }
+
+   timer {
+    flex-basis: 100px ;
+   }
+
+   app-question-points{
+    flex-basis: 333px ;
+   }
+  `]
 })
 export class GameStatusComponent implements OnInit {
   @Input() game!: Game;
@@ -48,7 +68,7 @@ export class GameStatusComponent implements OnInit {
   }
 
   checkVictory(): void{
-    if (this.game.remainingQuestions.length == 1 && this.game.remainingCriterions.length > 0){
+    if (this.game.remainingQuestions.length === 1 && this.game.remainingCriterions.length > 0){
       const answer = confirm('DEFEAT! \n Do you want to play again ?');
       if (answer === true){
         this.reloadGame.emit();
@@ -56,7 +76,7 @@ export class GameStatusComponent implements OnInit {
         console.log('return to menu');
       }
     }
-    else if (this.game.remainingQuestions.length > 0 && this.game.remainingCriterions.length == 0){
+    else if (this.game.remainingQuestions.length > 0 && this.game.remainingCriterions.length === 0){
       const answer = confirm('VICTORY ! \n Do you want to play again ?');
       if (answer === true){
         this.reloadGame.emit();

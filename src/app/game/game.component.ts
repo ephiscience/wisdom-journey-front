@@ -36,7 +36,12 @@ export interface Game {
 
 // TODO: build an exmaple game her
 const EXAMPLE_GAME: Game = {
-  players: [{name: 'player 1', speaking: true}, {name: 'player 2', speaking: true}, {name: 'player 3', speaking: false}, {name: 'player 4', speaking: false}],
+  players: [
+    {name: 'player 1', speaking: true},
+    {name: 'player 2', speaking: true},
+    {name: 'player 3', speaking: false},
+    {name: 'player 4', speaking: false}
+  ],
   remainingCriterions: [
     {text: 'criterion 1'},
     {text: 'criterion 2'},
@@ -57,9 +62,26 @@ const EXAMPLE_GAME: Game = {
     <app-game-status [game]=game (shuffleRoless)="changePlayerRoles()" (reloadGame)="reloadGame()"></app-game-status>
     <app-board [game]=game (reloadGame)="reloadGame()"></app-board>
     <app-players [game]=game></app-players>
-  `
-})
+  `,
+  styles: [`
+  :host {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100vh;
+  }
+  app-game-status {
+    flex: 1;
+  }
+  app-board {
+    flex: 5;
+  }
+  app-players {
+    flex: 1;
+  }
 
+  `]
+})
 
 export class GameComponent implements OnInit{
   @Input() game: Game;
@@ -74,15 +96,15 @@ export class GameComponent implements OnInit{
   }
 
   changePlayerRoles(): void {
-    let playerRoles: boolean[] = []
-    for (let i = 0; i < this.game.players.length; i ++){
-      playerRoles.push(this.game.players[i].speaking)
+    let playerRoles: boolean[] = [];
+    for (const player of this.game.players){
+      playerRoles.push(player.speaking);
     }
     //console.log(playerRoles);
     playerRoles = shuffle(playerRoles);
     //console.log(playerRoles);
     for (let i = 0; i < this.game.players.length; i ++){
-      this.game.players[i].speaking = playerRoles[i]
+      this.game.players[i].speaking = playerRoles[i];
     }
   }
   reloadGame(): void {
