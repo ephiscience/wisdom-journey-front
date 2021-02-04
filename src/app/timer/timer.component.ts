@@ -3,17 +3,21 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges} from '@angul
 const maximumTime = 60000;
 
 
+
 @Component({
   selector: 'app-timer',
   template: `
     <p>
-    <button (click)="pause()">{{millisToMinutesAndSeconds()}} </button>
+      <button (click)="pause()">{{millisToMinutesAndSeconds()}} </button>
     </p>
   `,
+
   styles: [`
+
   :host {
     place-self: center;
   }
+
   button {
     width: 161px;
     height: 64px;
@@ -21,15 +25,14 @@ const maximumTime = 60000;
     border: 4px solid #FFFFFF;
     border-radius: 40px;
     opacity: 1;
-
-  text-align: center;
-  font: normal normal normal 53px/53px Chela One;
-  letter-spacing: 0px;
-  color: #000000;
+    text-align: center;
+    font: normal normal normal 53px/53px Chela One;
+    letter-spacing: 0px;
+    color: #000000;
   }
-  `
-  ]
+  `]
 })
+
 export class TimerComponent implements OnInit {
   @Output() additionalCriteria = new EventEmitter<boolean>();
   @Output() nextQuestion = new EventEmitter();

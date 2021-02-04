@@ -83,8 +83,6 @@ const EXAMPLE_GAME: Game = {
   `]
 })
 
-
-
 export class GameComponent implements OnInit{
   @Input() game: Game;
 
