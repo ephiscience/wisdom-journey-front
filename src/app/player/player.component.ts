@@ -5,8 +5,8 @@ import { Player} from '../game/game.component';
   selector: 'app-player',
   template: `
     <div class="outer" [style.background]="getBackgroundColor()">
-      <div class="icon" [style.background]="getIcon()" [ngStyle]="{'background-size': contain}"></div>
-      <div class="role" [style.background]="getRole()" [ngStyle]="{'background-size': contain}"></div>
+      <img class="icon" src="{{'../assets/images/' + this.getIcon() }}" alt="player icon">
+      <img class="role" src="{{'../assets/images/' + this.getRole() }}" alt="player role" >
     </div>
     <div class="name"> {{ player.name }} </div>
   `,
@@ -32,25 +32,21 @@ import { Player} from '../game/game.component';
     letter-spacing: 0px;
     color: #000000;
   }
-  div.icon {
+  img.icon {
     top: 17px;
     left: 38px;
     width: 38px;
     height: 46px;
-    background: transparent url('../assets/images/dog@2x.png') 0% 0% no-repeat padding-box;
-    background-size: contain;
     opacity: 1;
     z-index: 10;
     position: absolute;
 
   }
-  div.role {
+  img.role {
     top:-10px;
     left: 65px;
     width: 42px;
     height: 39px;
-    background: transparent url('../assets/images/talk@2x.png') 0% 0% no-repeat padding-box;
-    background-size: contain;
     opacity: 1;
     z-index: 10;
     position: absolute;
@@ -78,18 +74,18 @@ export class PlayerComponent implements OnInit {
 
   getIcon(): string {
     if (this.orateur === true) {
-      return 'transparent url("../assets/images/dogBlack@2x.png") 0% 0% no-repeat padding-box';
+      return 'dogBlack@2x.png';
     }
     else {
-      return 'transparent url("../assets/images/dog@2x.png") 0% 0% no-repeat padding-box';
+      return 'dog@2x.png';
     }
   }
   getRole(): string {
     if (this.orateur === true) {
-      return 'transparent url("../assets/images/talk@2x.png") 50% 50% no-repeat padding-box';
+      return 'talk@2x.png';
     }
     else {
-      return 'transparent url("../assets/images/tap@2x.png") 0% 0% no-repeat padding-box';
+      return 'tap@2x.png';
     }
   }
 }

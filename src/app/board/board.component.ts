@@ -14,7 +14,7 @@ export interface Criterion {
   selector: 'app-board',
   template: `
         <div class="question" *ngIf="game.remainingQuestions.length; else noQuestion">
-          <app-question [question]="game.remainingQuestions[0]" (click)="loadQuestion()"></app-question>
+          <app-question [question]="game.remainingQuestions[0]" (next)="loadQuestion()"></app-question>
         </div>
         <ng-template #noQuestion>Il n'y a plus de Questions</ng-template>
 
