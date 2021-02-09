@@ -62,6 +62,7 @@ const EXAMPLE_GAME: Game = {
     <app-game-status [game]=game (shuffleRoless)="changePlayerRoles()" (reloadGame)="reloadGame()"></app-game-status>
     <app-board [game]=game (reloadGame)="reloadGame()"></app-board>
     <app-players [game]=game></app-players>
+    <button (click)="loadHome()"></button>
   `,
   styles: [`
   :host {
@@ -79,12 +80,23 @@ const EXAMPLE_GAME: Game = {
   app-players {
     flex: 1;
   }
+  button {
+    position:fixed;
+    bottom:1%;
+    right:1%;
+    width: 56px;
+    height: 56px;
+    background: transparent url('../assets/images/home@2x.png') 0% 0% no-repeat padding-box;
+    background-size:contain;
+    border: 0px;
+  }
 
   `]
 })
 
 export class GameComponent implements OnInit{
   @Input() game: Game;
+  @Output() returnHome = new EventEmitter();
 
   constructor() {
     this.game = EXAMPLE_GAME;
@@ -111,6 +123,10 @@ export class GameComponent implements OnInit{
     console.log('reload game data');
     //refetch data from server or shuffle ?
     //reset timer
+  }
+
+  loadHome(): void {
+    this.returnHome.emit();
   }
 
   private assertInputsProvided(): void {
