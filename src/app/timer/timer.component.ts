@@ -4,7 +4,6 @@ const maximumTime = 60000;
 
 
 
-
 @Component({
   selector: 'app-timer',
   template: `
