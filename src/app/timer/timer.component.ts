@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges} from '@angular/core';
 
-const maximumTime = 60000;
+const maximumTime = 10000;
 
 
 
@@ -33,15 +33,12 @@ const maximumTime = 60000;
   `]
 })
 
-export class TimerComponent implements OnInit {
-  @Output() additionalCriteria = new EventEmitter<boolean>();
-  @Output() nextQuestion = new EventEmitter();
-  @Output() shuffleRoles = new EventEmitter();
-  @Output() checkVictory = new EventEmitter();
+export class TimerComponent implements OnInit, OnChanges {
+  @Output() endTimer = new EventEmitter();
   time: number;
   timerID!: any; // Fix error with NodeJS.Timeout at some point
   paused = false;
-  //@Input() EndOfGame: boolean; ?
+  @Input() endOfGame!: boolean; 
 
   constructor() { this.time = maximumTime;  }
 
@@ -53,28 +50,26 @@ export class TimerComponent implements OnInit {
     this.timerID = setInterval( () => this.countdown(), 1000);
   }
 
-  countdown(): void{
+  ngOnChanges(): void {
+    console.log(this.endOfGame);
+    this.time = maximumTime + 1000;
+  }
+
+  countdown(): void {
+    console.log(this.time);
     this.time = this.time - 1000;
-    if (this.time === -1000){
-      //console.log(this.time);
-      window.clearTimeout(this.timerID);
-      this.time = maximumTime;
-      const answer = confirm('do you validate them criterias ?');
-      //console.log(answer);
-      if (answer === true) {
-        this.additionalCriteria.emit(answer);
-        this.checkVictory.emit();
-      }
-      this.nextQuestion.emit();
-      this.shuffleRoles.emit();
+    if (this.time === -1000) {
+      window.clearInterval(this.timerID);
+      this.time = maximumTime + 1000;
       this.startTimer();
+      this.endTimer.emit();
     }
   }
 
   pause(): void {
     if (this.paused === false) {
       this.paused = !this.paused;
-      window.clearTimeout(this.timerID);
+      window.clearInterval(this.timerID);
     } else {
       this.paused = !this.paused;
       this.startTimer();

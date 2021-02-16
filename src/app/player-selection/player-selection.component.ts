@@ -6,7 +6,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
     <div class="texte"> 1 - Sélectionnez le nombre de joueurs </div>
     <div class="container">
       <button *ngFor="let item of this.maxNumPlayers, index as i"  [style.border]="selected(i)"
-      (click)="this.clickedButton = i; playerSelection(this.maxNumPlayers[i])"> {{this.maxNumPlayers[i]}}< /button>
+      (click)="this.clickedButton = i; playerSelection(this.maxNumPlayers[i])"> {{this.maxNumPlayers[i]}} </button>
     </div>
 
   `,
