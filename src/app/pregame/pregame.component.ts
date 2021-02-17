@@ -38,7 +38,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   `]
 })
 export class PregameComponent implements OnInit {
-  @Output() startGame = new EventEmitter<number>();
+  @Output() startGame = new EventEmitter<number[]>();
   @Output() returnHome = new EventEmitter();
   numPlayers = 0;
   maxQuestions = 0;
@@ -65,7 +65,7 @@ export class PregameComponent implements OnInit {
       alert('Please select a level');
     }
     if (this.numPlayers !== 0 && this.maxQuestions !== 0) {
-      this.startGame.emit();
+      this.startGame.emit([this.numPlayers, this.maxQuestions,]);
     }
   }
 

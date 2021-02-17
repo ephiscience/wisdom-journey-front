@@ -40,12 +40,6 @@ export class Game {
      this.changePlayerRoles();
   }  
 
-  display(): void { 
-     console.log("Players are: " + this.players);
-     console.log("Criterions are: " + this.players);
-     console.log("Questions are: " + this.players);
-  } 
-
   removeCriterion(c: Criterion, i: number): void {
     if (this.remainingCriterions == null) {
       return; /*useful ??*/
@@ -82,28 +76,38 @@ export class Game {
       this.players[i].speaking = playerRoles[i];
     }
   }
-
-  /* TO DO Make an observable for the win state */
-
 };
 
-var exampleGame = new Game(
-  [
-    {name: 'player 1', speaking: true},
-    {name: 'player 2', speaking: true},
-    {name: 'player 3', speaking: false},
-    {name: 'player 4', speaking: false}
-  ],
-  [
-    {text: 'criterion 1'},
-    {text: 'criterion 2'},
-    {text: 'criterion 1'},
-    {text: 'criterion 3'},
-    {text: 'criterion 3'},
-    {text: 'criterion 2'}
-  ],
-  [{text: 'question1'}, {text: 'question2'}, {text: 'question3'}, {text: 'question4'}, {text: 'question5'}],
-  );
+
+const examplePlayers: Player[] = [
+  {name: 'player 1', speaking: true},
+  {name: 'player 2', speaking: true},
+  {name: 'player 3', speaking: false},
+  {name: 'player 4', speaking: false},
+  {name: 'player 5', speaking: false},
+  {name: 'player 6', speaking: false}
+];
+
+const exampleCriterions: Criterion[] = [
+  {text: 'criterion 1'},
+  {text: 'criterion 2'},
+  {text: 'criterion 1'},
+  {text: 'criterion 3'},
+  {text: 'criterion 3'},
+  {text: 'criterion 2'}
+]
+
+const exampleQuestions: Question[] = [
+  {text: 'question1'},
+  {text: 'question2'},
+  {text: 'question3'},
+  {text: 'question4'},
+  {text: 'question5'},
+  {text: 'question6'},
+  {text: 'question7'},
+  {text: 'question8'},
+  {text: 'question9'}
+]
 
 @Component({
   selector: 'app-game',
@@ -145,37 +149,40 @@ var exampleGame = new Game(
 
 export class GameComponent implements OnInit {
   @Input() game: Game;
+  @Input() theQuestions!: number;
+  @Input() thePlayers!: number
   @Output() returnHome = new EventEmitter();
   resetTimer = false;
 
-  constructor() {
-    this.game = exampleGame;
+  constructor() { 
+    this.game = new Game( [], [], []);
   }
 
   ngOnInit(): void {
     this.assertInputsProvided();
+    this.reloadGame();
   }
 
   reloadGame(): void {
     this.resetTimer = !this.resetTimer;
-    console.log('reload game data');
-    this.game = new Game(
-      [
-        {name: 'player 1', speaking: true},
-        {name: 'player 2', speaking: true},
-        {name: 'player 3', speaking: false},
-        {name: 'player 4', speaking: false}
-      ],
-      [
-        {text: 'criterion 1'},
-        {text: 'criterion 2'},
-        {text: 'criterion 1'},
-        {text: 'criterion 3'},
-        {text: 'criterion 3'},
-        {text: 'criterion 2'}
-      ],
-      [{text: 'question1'}, {text: 'question2'}, {text: 'question3'}, {text: 'question4'}, {text: 'question5'}],
-      );
+    let newExamplePlayers = [{name: 'player 1', speaking: true},{name: 'player 2', speaking: true},{name: 'player 3', speaking: false} ];
+    for (let i=3; i < this.thePlayers; i ++) {
+      newExamplePlayers.push({name: 'player' + (i+1), speaking: false});
+    }
+    let newExampleQuestions: Question[] = [];
+    for (let i=1; i <= this.theQuestions; i ++) {
+      newExampleQuestions.push({text: 'question' + i});
+    }
+    let newExampleCriterions: Criterion[] = [
+      {text: 'criterion 1'},
+      {text: 'criterion 2'},
+      {text: 'criterion 1'},
+      {text: 'criterion 3'},
+      {text: 'criterion 3'},
+      {text: 'criterion 2'}
+    ]
+    this.game = new Game( newExamplePlayers, newExampleCriterions, newExampleQuestions);
+
     //refetch data from server or shuffle ?
   }
 

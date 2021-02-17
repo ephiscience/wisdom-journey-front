@@ -51,12 +51,10 @@ export class TimerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    console.log(this.endOfGame);
     this.time = maximumTime + 1000;
   }
 
   countdown(): void {
-    console.log(this.time);
     this.time = this.time - 1000;
     if (this.time === -1000) {
       window.clearInterval(this.timerID);
