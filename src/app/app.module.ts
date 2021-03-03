@@ -13,6 +13,11 @@ import { PlayersComponent } from './players/players.component';
 import { CriterionPointsComponent } from './criterion-points/criterion-points.component';
 import { QuestionPointsComponent } from './question-points/question-points.component';
 import { TimerComponent } from './timer/timer.component';
+import { HomeComponent } from './home/home.component';
+import { PregameComponent } from './pregame/pregame.component';
+import { PlayerSelectionComponent } from './player-selection/player-selection.component';
+import { LevelSelectionComponent } from './level-selection/level-selection.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,12 @@ import { TimerComponent } from './timer/timer.component';
     PlayersComponent,
     CriterionPointsComponent,
     QuestionPointsComponent,
-    TimerComponent
+    TimerComponent,
+    HomeComponent,
+    PregameComponent,
+    PlayerSelectionComponent,
+    LevelSelectionComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

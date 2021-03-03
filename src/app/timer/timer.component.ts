@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges} from '@angular/core';
 
-const maximumTime = 60000;
+const maximumTime = 10000;
 
 
 
@@ -29,52 +29,54 @@ const maximumTime = 60000;
     font: normal normal normal 53px/53px Chela One;
     letter-spacing: 0px;
     color: #000000;
+    cursor: pointer;
   }
   `]
 })
 
-export class TimerComponent implements OnInit {
-  @Output() additionalCriteria = new EventEmitter<boolean>();
-  @Output() nextQuestion = new EventEmitter();
-  @Output() shuffleRoles = new EventEmitter();
-  @Output() checkVictory = new EventEmitter();
+export class TimerComponent implements OnInit, OnChanges{
+  @Output() endTimer = new EventEmitter();
   time: number;
   timerID!: any; // Fix error with NodeJS.Timeout at some point
   paused = false;
-  //@Input() EndOfGame: boolean; ?
+  @Input() endOfGame!: boolean;
+  @Input() modalActive!: boolean;
 
   constructor() { this.time = maximumTime;  }
 
   ngOnInit(): void {
-    this.startTimer();
   }
 
   startTimer(): void {
     this.timerID = setInterval( () => this.countdown(), 1000);
   }
 
-  countdown(): void{
-    this.time = this.time - 1000;
-    if (this.time === -1000){
-      //console.log(this.time);
-      window.clearTimeout(this.timerID);
-      this.time = maximumTime;
-      const answer = confirm('do you validate them criterias ?');
-      //console.log(answer);
-      if (answer === true) {
-        this.additionalCriteria.emit(answer);
-        this.checkVictory.emit();
-      }
-      this.nextQuestion.emit();
-      this.shuffleRoles.emit();
+  ngOnChanges(): void {
+    if (this.modalActive == true) {
+      window.clearInterval(this.timerID);
+    }
+    else {
       this.startTimer();
+    }
+    if (this.endOfGame == true) {
+      this.time = maximumTime + 1000;
+    }
+  }
+
+  countdown(): void {
+    this.time = this.time - 1000;
+    if (this.time === -1000) {
+      window.clearInterval(this.timerID);
+      this.time = maximumTime + 1000;
+      this.startTimer();
+      this.endTimer.emit();
     }
   }
 
   pause(): void {
     if (this.paused === false) {
       this.paused = !this.paused;
-      window.clearTimeout(this.timerID);
+      window.clearInterval(this.timerID);
     } else {
       this.paused = !this.paused;
       this.startTimer();
