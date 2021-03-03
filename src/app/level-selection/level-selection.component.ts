@@ -44,7 +44,12 @@ const LEVELS: Level[] = [
   template: `
     <div class="texte">2 - Sélectionnez la difficulté</div>
     <div class="container">
-      <button *ngFor="let item of levels" [style.background]="item.background" [style.border]="selected(item)" (click)="levelSelection(item)">
+      <button
+        *ngFor="let item of levels"
+        [style.background]="item.background"
+        [style.border]="selected(item)"
+        (click)="levelSelection(item)"
+      >
         <div class="upper-text">{{ item.title }}</div>
         <img class="icon" src="../assets/images/{{ item.icon }}" alt="level icon" />
         <div class="lower-text">{{ item.description }}</div>
