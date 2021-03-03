@@ -3,15 +3,11 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-      <app-home *ngIf="home; else elseHome" (pregame)="launchPreGame()"></app-home>
-        <ng-template #elseHome></ng-template>
-      <app-pregame *ngIf="pregame; else elsePreGame" (startGame)="launchGame($event)" (returnHome)="launchHome()"> </app-pregame>
-        <ng-template #elsePreGame></ng-template>
-      <app-game *ngIf="game; else elseGame" (returnHome)="launchHome()" [theQuestions]="this.maxQuestions" [thePlayers]="this.numPlayers"> </app-game>
-        <ng-template #elseGame></ng-template>
+      <app-home *ngIf="home" (pregame)="launchPreGame()"></app-home>
+      <app-pregame *ngIf="pregame" (startGame)="launchGame($event)" (returnHome)="launchHome()"> </app-pregame>
+      <app-game *ngIf="game" (returnHome)="launchHome()" [theQuestions]="this.maxQuestions" [thePlayers]="this.numPlayers"> </app-game>
   `,
-  styles: [`
-  `]
+  styles: []
 })
 export class AppComponent {
   home = true;

@@ -1,12 +1,18 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
+const AVAILABLE_PLAYERS_CHOICES = [3,4,5,6]
+
 @Component({
   selector: 'app-player-selection',
   template: `
     <div class="texte"> 1 - Sélectionnez le nombre de joueurs </div>
     <div class="container">
-      <button *ngFor="let item of this.maxNumPlayers, index as i"  [style.border]="selected(i)"
-      (click)="this.clickedButton = i; playerSelection(this.maxNumPlayers[i])"> {{this.maxNumPlayers[i]}} </button>
+      <button
+        *ngFor="let item of maxNumPlayers"
+        [style.border]="selected(item)"
+        (click)="playerSelection(item)">
+        {{ item }}
+      </button>
     </div>
 
   `,
@@ -48,17 +54,15 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
     }
     `]
 })
-export class PlayerSelectionComponent implements OnInit {
+export class PlayerSelectionComponent {
+  maxNumPlayers = AVAILABLE_PLAYERS_CHOICES
+
   @Output() numPlayers = new EventEmitter<number>();
-  maxNumPlayers: number[] = [3,4,5,6];
-  clickedButton = -1;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  clickedButton = 0;
 
   playerSelection(num: number): void {
+    this.clickedButton = num;
     this.numPlayers.emit(num);
   }
 
@@ -69,6 +73,4 @@ export class PlayerSelectionComponent implements OnInit {
       return '2px solid #050505';
     }
   }
-
-
 }
