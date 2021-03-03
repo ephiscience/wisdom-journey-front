@@ -4,12 +4,12 @@ import { Question } from '../board/board.component';
 @Component({
   selector: 'app-question',
   template: `
-    <div class="outer" *ngIf="question">
+    <div class="outer" >
       <div class="inner">
         <div class="image"> </div>
         <div class="texts">
-          <div class="upper-text"> {{ question.text }} </div>
-          <div class="lower-text"> {{ question.text }} </div>
+          <div *ngIf="question" [ngClass]="{'upper-short':(question.text.length <= 48), 'upper-long': (question.text.length > 48)}" > {{ question.text }} </div>
+          <div *ngIf="question" [ngClass]="{'lower-short':(question.text.length <= 48), 'lower-long': (question.text.length > 48)}" > {{ question.text }} </div>
         </div>
         <button (click)="nextQuestion()">
           <div class="pause"></div>
@@ -59,22 +59,39 @@ import { Question } from '../board/board.component';
     padding-bottom:25px;
     padding-right:30px;
   }
-  div.upper-text {
+
+  div.upper-short {
     text-align: center;
     font: normal normal bold 27px/32px Roboto;
     letter-spacing: 0px;
     color: #000000;
-    opacity: 1;
   }
-  div.lower-text {
+  div.upper-long {
+    text-align: center;
+    font: normal normal bold 20px/27px Roboto;
+    overflow-wrap: break-word;
+    letter-spacing: 0px;
+    color: #000000;
+  }
+  div.lower-short {
     height: 36px;
     transform: matrix(-1, 0, 0, -1, 0, 0);
     text-align: center;
     font: italic normal bold 24px/28px Roboto;
     letter-spacing: 0px;
+    overflow-wrap: break-word;
     color: #000000;
     opacity: 0.58;
-
+  }
+  div.lower-long {
+      height: 36px;
+      transform: matrix(-1, 0, 0, -1, 0, 0);
+      text-align: center;
+      font: italic normal bold 18px/24px Roboto;
+      letter-spacing: 0px;
+      overflow-wrap: break-word;
+      color: #000000;
+      opacity: 0.58;
   }
   button {
     top:23px;
@@ -90,6 +107,7 @@ import { Question } from '../board/board.component';
     margin-left:0px;
     position:absolute;
     padding-left:15px;
+    cursor: pointer;
   }
   div.pause {
     width: 30px;

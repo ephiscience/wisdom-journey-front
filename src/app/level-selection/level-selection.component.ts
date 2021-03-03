@@ -44,6 +44,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
     margin-left: 15px;
     margin-right: 15px;
     position: relative;
+    cursor: pointer;
   }
   div.upper-text {
     top: 10px;

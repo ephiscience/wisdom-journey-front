@@ -27,6 +27,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   letter-spacing: 0px;
   color: #000000;
   opacity: 1;
+  cursor: pointer;
 }
 img {
   height: 202px;

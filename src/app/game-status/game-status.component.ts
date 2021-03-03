@@ -5,7 +5,7 @@ import { Game } from '../game/game.component';
   selector: 'app-game-status',
   template: `
       <app-criterion-points [numCriterions]=game.validatedCriterions.length></app-criterion-points>
-      <app-timer (endTimer)="emitEndOfGameTurn()" [endOfGame]=this.reloadTimer></app-timer> 
+      <app-timer (endTimer)="emitEndOfGameTurn()" [endOfGame]=this.reloadTimer [modalActive]=this.pauseTimer></app-timer>
       <app-question-points [game]=game></app-question-points>
   `,
   styles: [`
@@ -34,6 +34,7 @@ import { Game } from '../game/game.component';
 })
 export class GameStatusComponent implements OnInit {
   @Input() game!: Game;
+  @Input() pauseTimer!: boolean;
   @Output() endOfGameTurn = new EventEmitter();
   @Input() reloadTimer!: boolean;
 

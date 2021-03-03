@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Criterion } from '../board/board.component';
 
-/* {{criterion.text}}*/
+/* [ngStyle]="{'background': check1 ? '#1B8CD0 0% 0% no-repeat padding-box' : '#FFA935 0% 0% no-repeat padding-box'}"*/
+
 @Component({
   selector: 'app-criterion-card',
   template: `
@@ -14,11 +15,11 @@ import { Criterion } from '../board/board.component';
         <div class="image">
          <div class="icon"></div>
         </div>
-        <button class="upper" (click)="check1 = true" (click)="buttonClicked()">
+        <button class="upper" (click)="check1 = !check1" (click)="buttonClicked()" [ngStyle]="{'background': check1 ? '#FFA935 0% 0% no-repeat padding-box' : '#1B8CD0 0% 0% no-repeat padding-box'}">
           <div class="inner-button"></div>
           <div class="check"></div>
         </button>
-        <button class="lower" (click)="check2 = true" (click)="buttonClicked()">
+        <button class="lower" (click)="check2 = !check2" (click)="buttonClicked()" [ngStyle]="{'background': check2 ? '#FFA935 0% 0% no-repeat padding-box' : '#1B8CD0 0% 0% no-repeat padding-box'}">
           <div class="inner-button"></div>
           <div class="check"></div>
         </button>
@@ -59,6 +60,7 @@ import { Criterion } from '../board/board.component';
     border: 2px solid #000000;
     border-radius: 40px;
     position: absolute;
+    cursor: pointer;
   }
   button.upper {
     top:-23px;
@@ -173,9 +175,15 @@ export class CriterionCardComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  buttonClicked(): void {
+  async buttonClicked(): Promise<void>  {
+    await delay(350);
     if (this.check1 && this.check2) {
       this.validated.emit(this.check1 && this.check2);
     }
   }
 }
+
+function delay(ms: number) {
+  return new Promise( resolve => setTimeout(resolve, ms) );
+}
+

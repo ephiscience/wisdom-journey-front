@@ -13,10 +13,9 @@ export interface Criterion {
 @Component({
   selector: 'app-board',
   template: `
-        <div class="question" *ngIf="game.remainingQuestions.length; else noQuestion">
+        <div class="question">
           <app-question [question]="game.remainingQuestions[0]" (next)="game.removeQuestion(); emitCheckGameState()"></app-question>
         </div>
-        <ng-template #noQuestion>Il n'y a plus de Questions</ng-template>
 
         <div class="criterions" *ngIf="game.remainingCriterions.length; else noCriterion">
           <app-criterion-card
@@ -25,7 +24,7 @@ export interface Criterion {
             (validated)="game.removeCriterion(c, i); emitCheckGameState()">
           </app-criterion-card>
         </div>
-        <ng-template #noCriterion>Tous les critères ont été validés, bravo!</ng-template>
+        <ng-template #noCriterion></ng-template>
   `,
   styles: [`
   :host {

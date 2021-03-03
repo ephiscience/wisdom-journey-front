@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { PregameComponent } from './pregame/pregame.component';
 import { PlayerSelectionComponent } from './player-selection/player-selection.component';
 import { LevelSelectionComponent } from './level-selection/level-selection.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LevelSelectionComponent } from './level-selection/level-selection.compo
     HomeComponent,
     PregameComponent,
     PlayerSelectionComponent,
-    LevelSelectionComponent
+    LevelSelectionComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

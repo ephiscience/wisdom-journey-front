@@ -29,21 +29,22 @@ const maximumTime = 10000;
     font: normal normal normal 53px/53px Chela One;
     letter-spacing: 0px;
     color: #000000;
+    cursor: pointer;
   }
   `]
 })
 
-export class TimerComponent implements OnInit, OnChanges {
+export class TimerComponent implements OnInit, OnChanges{
   @Output() endTimer = new EventEmitter();
   time: number;
   timerID!: any; // Fix error with NodeJS.Timeout at some point
   paused = false;
-  @Input() endOfGame!: boolean; 
+  @Input() endOfGame!: boolean;
+  @Input() modalActive!: boolean;
 
   constructor() { this.time = maximumTime;  }
 
   ngOnInit(): void {
-    this.startTimer();
   }
 
   startTimer(): void {
@@ -51,7 +52,15 @@ export class TimerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.time = maximumTime + 1000;
+    if (this.modalActive == true) {
+      window.clearInterval(this.timerID);
+    }
+    else {
+      this.startTimer();
+    }
+    if (this.endOfGame == true) {
+      this.time = maximumTime + 1000;
+    }
   }
 
   countdown(): void {

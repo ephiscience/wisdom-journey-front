@@ -5,7 +5,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   template: `
     <app-player-selection (numPlayers)="numPlayersSelection($event)"></app-player-selection>
     <app-level-selection (maxQuestions)="maxQuestionsSelection($event)"></app-level-selection>
-    <button class="play" (click)="launchGame()"> Allez let's go </button>
+    <button class="play" (click)="launchGame()"> Créer la partie </button>
     <button class="home" (click)="loadHome()"></button>
 
   `,
@@ -24,6 +24,10 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
     box-shadow: 3px 3px 3px #0000005F;
     border: 3px solid #707070;
     border-radius: 74px;
+    text-align: center;
+    font: normal normal normal 70px/82px Chela One;
+    letter-spacing: 0px;
+    cursor: pointer;
   }
   button.home {
     position:fixed;
@@ -34,6 +38,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
     background: transparent url('../assets/images/home@2x.png') 0% 0% no-repeat padding-box;
     background-size:contain;
     border: 0px;
+    cursor: pointer;
   }
   `]
 })

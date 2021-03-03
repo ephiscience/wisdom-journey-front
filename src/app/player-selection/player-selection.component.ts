@@ -43,6 +43,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
       padding-bottom: 22px;
       text-align: center;
       font: normal normal normal 100px/100px Chela One;
+      cursor: pointer;
 
     }
     `]
