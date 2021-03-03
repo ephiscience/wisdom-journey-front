@@ -1,64 +1,84 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
 
 const maximumTime = 10000;
-
-
 
 @Component({
   selector: 'app-timer',
   template: `
     <p>
-      <button (click)="pause()">{{millisToMinutesAndSeconds()}} </button>
+      <button (click)="pause()">{{ millisToMinutesAndSeconds() }}</button>
     </p>
   `,
 
-  styles: [`
+  styles: [
+    `
+      :host {
+        place-self: center;
+      }
 
-  :host {
-    place-self: center;
-  }
-
-  button {
-    width: 161px;
-    height: 64px;
-    background: #FFBB60 0% 0% no-repeat padding-box;
-    border: 4px solid #FFFFFF;
-    border-radius: 40px;
-    opacity: 1;
-    text-align: center;
-    font: normal normal normal 53px/53px Chela One;
-    letter-spacing: 0px;
-    color: #000000;
-    cursor: pointer;
-  }
-  `]
+      button {
+        width: 161px;
+        height: 64px;
+        background: #ffbb60 0% 0% no-repeat padding-box;
+        border: 4px solid #ffffff;
+        border-radius: 40px;
+        opacity: 1;
+        text-align: center;
+        font: normal normal normal 53px/53px Chela One;
+        letter-spacing: 0px;
+        color: #000000;
+        cursor: pointer;
+      }
+    `,
+  ],
 })
-
-export class TimerComponent implements OnInit, OnChanges{
-  @Output() endTimer = new EventEmitter();
-  time: number;
-  timerID!: any; // Fix error with NodeJS.Timeout at some point
-  paused = false;
+export class TimerComponent implements OnInit, OnChanges, OnDestroy {
   @Input() endOfGame!: boolean;
   @Input() modalActive!: boolean;
+  @Output() endTimer = new EventEmitter();
 
-  constructor() { this.time = maximumTime;  }
+  time: number;
+  timerID: number | null = null;
+  paused = false;
 
-  ngOnInit(): void {
+  constructor() {
+    this.time = maximumTime;
   }
 
-  startTimer(): void {
-    this.timerID = setInterval( () => this.countdown(), 1000);
+  ngOnDestroy(): void {
+    this.stop();
+  }
+
+  ngOnInit(): void {}
+
+  start(): void {
+    if (this.timerID === null) {
+      this.timerID = window.setInterval(() => this.countdown(), 1000);
+      this.paused = false;
+    }
+  }
+
+  reset() {
+    this.stop();
+    this.time = maximumTime + 1000;
+    this.start();
+  }
+
+  stop() {
+    if (this.timerID !== null) {
+      window.clearInterval(this.timerID);
+      this.timerID = null;
+    }
   }
 
   ngOnChanges(): void {
-    if (this.modalActive == true) {
-      window.clearInterval(this.timerID);
+    if (this.modalActive) {
+      this.stop();
+    } else {
+      this.start();
     }
-    else {
-      this.startTimer();
-    }
-    if (this.endOfGame == true) {
+
+    if (this.endOfGame) {
       this.time = maximumTime + 1000;
     }
   }
@@ -66,27 +86,24 @@ export class TimerComponent implements OnInit, OnChanges{
   countdown(): void {
     this.time = this.time - 1000;
     if (this.time === -1000) {
-      window.clearInterval(this.timerID);
-      this.time = maximumTime + 1000;
-      this.startTimer();
+      this.reset();
+
       this.endTimer.emit();
     }
   }
 
   pause(): void {
     if (this.paused === false) {
-      this.paused = !this.paused;
-      window.clearInterval(this.timerID);
+      this.paused = true;
+      this.stop();
     } else {
-      this.paused = !this.paused;
-      this.startTimer();
+      this.start();
     }
   }
 
   millisToMinutesAndSeconds(): string {
     const minutes = Math.floor(this.time / 60000);
     const seconds = Math.floor((this.time % 60000) / 1000);
-    return (seconds === 60 ? (minutes + 1) + ':00' : minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
+    return seconds === 60 ? minutes + 1 + ':00' : minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
-
 }
