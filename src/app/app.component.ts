@@ -2,12 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: `
-      <app-home *ngIf="home" (pregame)="launchPreGame()"></app-home>
-      <app-pregame *ngIf="pregame" (startGame)="launchGame($event)" (returnHome)="launchHome()"> </app-pregame>
-      <app-game *ngIf="game" (returnHome)="launchHome()" [theQuestions]="this.maxQuestions" [thePlayers]="this.numPlayers"> </app-game>
-  `,
-  styles: []
+  template: ` <router-outlet></router-outlet> `,
+  styles: [],
 })
 export class AppComponent {
   home = true;
@@ -37,5 +33,4 @@ export class AppComponent {
     this.pregame = false;
     this.game = false;
   }
-
 }
