@@ -1,3 +1,4 @@
+import { Observable, Subject } from 'rxjs';
 import { Criterion, Question } from '../board/board.component';
 
 function shuffle(array: any[]): Array<any> {
@@ -24,18 +25,36 @@ export interface Player {
   speaking: boolean;
 }
 
-export class Game {
-  players: Player[];
-  remainingCriterions: Criterion[];
-  remainingQuestions: Question[];
-  validatedCriterions: Criterion[];
+export function asJSON(game: Game): string {
+  return JSON.stringify({
+    players: game.players,
+    remainingCriterions: game.remainingCriterions,
+    remainingQuestions: game.remainingQuestions,
+    validatedCriterions: game.validatedCriterions,
+  });
+}
 
-  constructor(players: Player[], remainingCriterions: Criterion[], remainingQuestions: Question[]) {
-    this.players = players;
-    this.remainingCriterions = remainingCriterions;
-    this.remainingQuestions = remainingQuestions;
-    this.validatedCriterions = [];
+export function fromJSON(json: string): Game {
+  const values = JSON.parse(json);
+  const game = new Game(values.players, values.remainingCriterions, values.remainingQuestions, values.validatedCriterions);
+
+  return game;
+}
+
+export class Game {
+  changes$ = new Subject<void>();
+
+  constructor(
+    public players: Player[],
+    public remainingCriterions: Criterion[],
+    public remainingQuestions: Question[],
+    public validatedCriterions: Criterion[]
+  ) {
     this.changePlayerRoles();
+  }
+
+  changes(): Observable<void> {
+    return this.changes$.asObservable();
   }
 
   removeCriterion(c: Criterion, i: number): void {
@@ -44,6 +63,7 @@ export class Game {
     } else {
       this.validatedCriterions.push(c);
       this.remainingCriterions.splice(i, 1);
+      this.notifyChange();
     }
   }
 
@@ -54,6 +74,7 @@ export class Game {
       const removedCriterionText = this.remainingCriterions[this.remainingCriterions.length - 1].text;
       this.remainingCriterions.splice(-1, 1);
       this.validatedCriterions.push({ text: removedCriterionText });
+      this.notifyChange();
     }
   }
 
@@ -62,8 +83,10 @@ export class Game {
       return;
     } else {
       this.remainingQuestions.shift();
+      this.notifyChange();
     }
   }
+
   changePlayerRoles(): void {
     let playerRoles: boolean[] = [];
     for (const player of this.players) {
@@ -73,5 +96,11 @@ export class Game {
     for (let i = 0; i < this.players.length; i++) {
       this.players[i].speaking = playerRoles[i];
     }
+
+    this.notifyChange();
+  }
+
+  private notifyChange() {
+    this.changes$.next();
   }
 }

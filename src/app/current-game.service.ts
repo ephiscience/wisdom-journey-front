@@ -1,7 +1,26 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { Criterion, Question } from './board/board.component';
-import { Game } from './game/game.model';
+import { asJSON, fromJSON, Game } from './game/game.model';
+
+const SAVE_GAME_KEY = 'game';
+
+function loadGameFromLocalStorage(): Game | null {
+  const value = localStorage.getItem(SAVE_GAME_KEY);
+
+  if (value) {
+    return fromJSON(value);
+  } else {
+    return null;
+  }
+}
+
+function saveGameToLocalStorage(game: Game | null) {
+  if (game) {
+    localStorage.setItem(SAVE_GAME_KEY, asJSON(game));
+  }
+}
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +29,24 @@ export class CurrentGameService {
   game$ = new BehaviorSubject<Game | null>(null);
 
   lastGameState?: { numQuestions: number; numPlayers: number };
+
+  constructor() {
+    this.game$.next(loadGameFromLocalStorage());
+
+    this.game$
+      .pipe(
+        switchMap((game) => {
+          if (game) {
+            return game.changes().pipe(map(() => game));
+          } else {
+            return EMPTY;
+          }
+        })
+      )
+      .subscribe((game) => {
+        saveGameToLocalStorage(game);
+      });
+  }
 
   currentGame(): Observable<Game | null> {
     return this.game$.asObservable();
@@ -34,7 +71,7 @@ export class CurrentGameService {
       { text: 'criterion 2' },
     ];
 
-    this.game$.next(new Game(newExamplePlayers, newExampleCriterions, newExampleQuestions));
+    this.game$.next(new Game(newExamplePlayers, newExampleCriterions, newExampleQuestions, []));
   }
 
   reloadGame(): boolean {
