@@ -72,8 +72,11 @@ export class Game {
       return; /*useful ??*/
     } else {
       const removedCriterionText = this.remainingCriterions[this.remainingCriterions.length - 1].text;
+      const removedCriterionDescription = this.remainingCriterions[this.remainingCriterions.length - 1].description;
+      const removedCriterionIcon = this.remainingCriterions[this.remainingCriterions.length - 1].icon;
+      console.log(removedCriterionText, removedCriterionDescription, removedCriterionIcon);
       this.remainingCriterions.splice(-1, 1);
-      this.validatedCriterions.push({ text: removedCriterionText });
+      this.validatedCriterions.push({ text: removedCriterionText, description: removedCriterionDescription, icon: removedCriterionIcon });
       this.notifyChange();
     }
   }

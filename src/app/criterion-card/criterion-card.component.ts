@@ -8,12 +8,40 @@ import { Criterion } from '../board/board.component';
   template: `
     <div class="outer" *ngIf="criterion">
       <div class="inner">
-        <div class="text-upper">{{ criterion.text }}</div>
-        <div class="text-left">Par Exemple ?</div>
-        <div class="text-right">Par exemple ?</div>
-        <div class="text-lower">{{ criterion.text }}</div>
+        <div
+          [ngClass]="{
+            'text-upper-short': criterion.text.length < 10,
+            'text-upper-long': criterion.text.length >= 10
+          }"
+        >
+          {{ criterion.text }}
+        </div>
+        <div
+          [ngClass]="{
+            'text-left-short': criterion.description.length <= 22,
+            'text-left-long': criterion.description.length > 22
+          }"
+        >
+          {{ criterion.description }}
+        </div>
+        <div
+          [ngClass]="{
+            'text-right-short': criterion.description.length <= 22,
+            'text-right-long': criterion.description.length > 22
+          }"
+        >
+          {{ criterion.description }}
+        </div>
+        <div
+          [ngClass]="{
+            'text-lower-short': criterion.text.length < 10,
+            'text-lower-long': criterion.text.length >= 10
+          }"
+        >
+          {{ criterion.text }}
+        </div>
         <div class="image">
-          <div class="icon"></div>
+          <img class="icon" src="{{ '../assets/images/' + criterion.icon }}" alt="criterion icon" />
         </div>
         <button
           class="upper"
@@ -90,7 +118,7 @@ import { Criterion } from '../board/board.component';
         background: transparent url('../assets/images/etoileCritere@2x.png') 0% 0% no-repeat padding-box;
         opacity: 1;
       }
-      div.text-upper {
+      div.text-upper-short {
         top: 5px;
         left: 0px;
         width: 144px;
@@ -99,9 +127,22 @@ import { Criterion } from '../board/board.component';
         letter-spacing: 0px;
         color: #000000;
         opacity: 1;
+        overflow-wrap: break-word;
         position: absolute;
       }
-      div.text-lower {
+      div.text-upper-long {
+        top: 5px;
+        left: 0px;
+        width: 144px;
+        text-align: center;
+        font: normal normal normal 24px/27px Chela One;
+        letter-spacing: 0px;
+        color: #000000;
+        opacity: 1;
+        overflow-wrap: break-word;
+        position: absolute;
+      }
+      div.text-lower-short {
         top: 182px;
         left: 0px;
         width: 144px;
@@ -111,9 +152,24 @@ import { Criterion } from '../board/board.component';
         letter-spacing: 0px;
         color: #000000;
         opacity: 1;
+        overflow-wrap: break-word;
         position: absolute;
       }
-      div.text-left {
+      div.text-lower-long {
+        bottom: 2px;
+        left: 0px;
+        width: 144px;
+        transform: matrix(-1, 0, 0, -1, 0, 0);
+        text-align: center;
+        font: normal normal normal 24px/27px Chela One;
+        letter-spacing: 0px;
+        color: #000000;
+        opacity: 1;
+        overflow-wrap: break-word;
+        position: absolute;
+      }
+
+      div.text-left-short {
         top: 92px;
         left: -90px;
         width: 217px;
@@ -126,7 +182,21 @@ import { Criterion } from '../board/board.component';
         position: absolute;
         z-index: 2;
       }
-      div.text-right {
+      div.text-left-long {
+        top: 92px;
+        left: -82px;
+        width: 180px;
+        height: 30px;
+        transform: matrix(0, -1, 1, 0, 0, 0);
+        text-align: center;
+        font: normal normal normal 15px/15px Roboto;
+        letter-spacing: 0px;
+        padding-left: 20px;
+        color: #000000;
+        position: absolute;
+        z-index: 2;
+      }
+      div.text-right-short {
         top: 92px;
         left: 17px;
         width: 217px;
@@ -140,13 +210,26 @@ import { Criterion } from '../board/board.component';
         position: absolute;
         z-index: 2;
       }
-      div.icon {
-        top: 18px;
-        left: 20px;
-        width: 75px;
-        height: 75px;
-        background: transparent url('../assets/images/verify@2x.png') 0% 0% no-repeat padding-box;
-        background-size: contain;
+      div.text-right-long {
+        top: 92px;
+        left: 27px;
+        width: 180px;
+        height: 30px;
+        transform: matrix(0, 1, -1, 0, 0, 0);
+        /* UI Properties */
+        text-align: center;
+        font: normal normal normal 15px/15px Roboto;
+        letter-spacing: 0px;
+        padding-left: 20px;
+        color: #000000;
+        position: absolute;
+        z-index: 2;
+      }
+      img.icon {
+        top: 10px;
+        left: 8px;
+        max-width: 89px;
+        max-height: 85px;
         z-index: 2;
         position: absolute;
       }
@@ -182,6 +265,11 @@ export class CriterionCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  getIcon(path: string): string {
+    const thePath = "transparent url('../assets/images/" + path + "') 0% 0% no-repeat padding-box";
+    return thePath;
+  }
 
   async buttonClicked(): Promise<void> {
     await delay(350);

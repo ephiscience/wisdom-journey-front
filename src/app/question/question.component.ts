@@ -8,10 +8,24 @@ import { Question } from '../board/board.component';
       <div class="inner">
         <div class="image"></div>
         <div class="texts">
-          <div *ngIf="question" [ngClass]="{ 'upper-short': question.text.length <= 48, 'upper-long': question.text.length > 48 }">
+          <div
+            *ngIf="question"
+            [ngClass]="{
+              'upper-short': question.text.length <= 58,
+              'upper-long': question.text.length > 58 && question.text.length < 75,
+              'upper-extralong': question.text.length >= 75
+            }"
+          >
             {{ question.text }}
           </div>
-          <div *ngIf="question" [ngClass]="{ 'lower-short': question.text.length <= 48, 'lower-long': question.text.length > 48 }">
+          <div
+            *ngIf="question"
+            [ngClass]="{
+              'lower-short': question.text.length <= 58,
+              'lower-long': question.text.length > 58 && question.text.length < 75,
+              'lower-extralong': question.text.length >= 75
+            }"
+          >
             {{ question.text }}
           </div>
         </div>
@@ -60,9 +74,13 @@ import { Question } from '../board/board.component';
       div.texts {
         flex-basis: 720px;
         width: 720px;
-        height: 36px;
-        padding-bottom: 25px;
-        padding-right: 30px;
+        height: 105px;
+        padding-bottom: 0px;
+        padding-right: 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
       }
 
       div.upper-short {
@@ -78,6 +96,13 @@ import { Question } from '../board/board.component';
         letter-spacing: 0px;
         color: #000000;
       }
+      div.upper-extralong {
+        text-align: center;
+        font: normal normal bold 18px/20px Roboto;
+        overflow-wrap: break-word;
+        letter-spacing: 0px;
+        color: #000000;
+      }
       div.lower-short {
         height: 36px;
         transform: matrix(-1, 0, 0, -1, 0, 0);
@@ -89,10 +114,20 @@ import { Question } from '../board/board.component';
         opacity: 0.58;
       }
       div.lower-long {
-        height: 36px;
+        height: 26px;
         transform: matrix(-1, 0, 0, -1, 0, 0);
         text-align: center;
         font: italic normal bold 18px/24px Roboto;
+        letter-spacing: 0px;
+        overflow-wrap: break-word;
+        color: #000000;
+        opacity: 0.58;
+      }
+      div.lower-extralong {
+        height: 26px;
+        transform: matrix(-1, 0, 0, -1, 0, 0);
+        text-align: center;
+        font: italic normal bold 16px/18px Roboto;
         letter-spacing: 0px;
         overflow-wrap: break-word;
         color: #000000;
