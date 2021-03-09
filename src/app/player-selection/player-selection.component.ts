@@ -2,16 +2,18 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from '../current-game.service';
 
-const AVAILABLE_PLAYERS_CHOICES = [3, 4, 5, 6];
+const AVAILABLE_PLAYERS_CHOICES = [1, 2, 3];
 
 @Component({
   selector: 'app-player-selection',
   template: `
     <div class="texte">1/1 - Sélectionnez le nombre de joueurs</div>
     <div class="container">
-      <button class="player" *ngFor="let item of maxNumPlayers" [style.border]="selected(item)" (click)="playerSelection(item)">
+      <div class="player" *ngFor="let item of maxNumPlayers">
         {{ item }}
-      </button>
+        <button class="cross" *ngIf="item > 3" (click)="removePlayer()"></button>
+      </div>
+      <button class="add-player" *ngIf="this.maxNumPlayers.length < 6" (click)="addPlayer()"></button>
     </div>
     <button class="play" (click)="loadLevelSelection()">Continuer -></button>
   `,
@@ -38,19 +40,24 @@ const AVAILABLE_PLAYERS_CHOICES = [3, 4, 5, 6];
         justify-content: space-evenly;
         align-items: center;
       }
-      button.player {
-        width: 133px;
-        height: 133px;
-        background: #fddcbb 0% 0% no-repeat padding-box;
-        box-shadow: 0px 3px 6px #00000057;
+      div.player {
+        width: 140px;
+        height: 190px;
+        background: #ffc892 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
         border: 2px solid #050505;
-        border-radius: 100px;
+        border-radius: 15px;
         margin-left: 20px;
         margin-right: 20px;
-        padding-bottom: 22px;
         text-align: center;
         font: normal normal normal 100px/100px Chela One;
+        position: relative;
+      }
+      button.cross {
         cursor: pointer;
+        width: 11px;
+        height: 10px;
+        position: absolute;
       }
       button.play {
         width: 567px;
@@ -64,15 +71,15 @@ const AVAILABLE_PLAYERS_CHOICES = [3, 4, 5, 6];
         letter-spacing: 0px;
         cursor: pointer;
       }
-      button.home {
-        position: fixed;
-        bottom: 1%;
-        right: 1%;
-        width: 56px;
-        height: 56px;
-        background: transparent url('../assets/images/home@2x.png') 0% 0% no-repeat padding-box;
-        background-size: contain;
-        border: 0px;
+      button.add-player {
+        width: 142px;
+        height: 194px;
+        background: #ffc892 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+        border: 2px solid #050505;
+        border-radius: 15px;
+        margin-left: 20px;
+        margin-right: 20px;
         cursor: pointer;
       }
     `,
@@ -83,25 +90,21 @@ export class PlayerSelectionComponent {
 
   maxNumPlayers = AVAILABLE_PLAYERS_CHOICES;
 
-  clickedButton = 0;
-
-  playerSelection(num: number): void {
-    this.clickedButton = num;
+  addPlayer(): void {
+    if (this.maxNumPlayers.length + 1 <= 6) {
+      this.maxNumPlayers.push(this.maxNumPlayers.length + 1);
+    }
   }
 
-  selected(num: number) {
-    if (num === this.clickedButton) {
-      return '6px solid #050505';
-    } else {
-      return '2px solid #050505';
+  removePlayer(): void {
+    if (this.maxNumPlayers.length - 1 >= 1) {
+      this.maxNumPlayers.splice(this.maxNumPlayers.length - 1, 1);
     }
   }
 
   loadLevelSelection(): void {
-    if (this.clickedButton === 0) {
-      alert('Please select a number of players');
-    } else {
-      this.numPlayers.emit(this.clickedButton);
-    }
+    // alert if there is a player with no name
+    console.log(this.maxNumPlayers.length);
+    this.numPlayers.emit(this.maxNumPlayers.length);
   }
 }

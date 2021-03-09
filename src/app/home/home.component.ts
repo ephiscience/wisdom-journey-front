@@ -4,7 +4,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   selector: 'app-home',
   template: `
     <img src="../assets/images/logo@2x.png" alt="ephiscience logo" />
-    <button routerLink="/new">Jouer</button>
+    <button routerLink="/new">Créer une partie</button>
   `,
   styles: [
     `

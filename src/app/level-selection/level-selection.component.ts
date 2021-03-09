@@ -58,7 +58,7 @@ const LEVELS: Level[] = [
         <div class="lower-text">{{ item.description }}</div>
       </button>
     </div>
-    <button class="play" (click)="loadGame()">Créer la partie</button>
+    <button class="play" (click)="loadGame()">Jouer</button>
   `,
   styles: [
     `
