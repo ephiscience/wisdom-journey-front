@@ -38,13 +38,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   ],
 })
 export class HomeComponent implements OnInit {
-  @Output() pregame = new EventEmitter();
-
   constructor() {}
 
   ngOnInit(): void {}
-
-  preGame(): void {
-    this.pregame.emit();
-  }
 }

@@ -26,7 +26,7 @@ function shuffle(array: any[]): Array<any> {
 const baseQuestions = [
   { text: 'À quoi ressemblerait ton école idéale ? Explique.' },
   { text: 'Est-ce que tu pourrais vivre sans les autres ? Explique.' },
-  { text: "Existe-t-il différentes sortes d' amour ? Explique." },
+  { text: "Existe-t-il différentes sortes d'amour ? Explique." },
   { text: 'Est-ce que les autres peuvent avoir des droits sur ton corps ? Explique.' },
   { text: 'À quoi ressemblerait une ville en harmonie avec la nature ?' },
   { text: "À quelle condition une vie sans bonheur peut quand même valoir la peine d'être vécue ? Explique." },
@@ -96,7 +96,6 @@ export class CurrentGameService {
     for (let i = 1; i <= numQuestions; i++) {
       newExampleQuestions.push(baseQuestions[i]);
     }
-    console.log('llululululul');
     const newExampleCriterions: Criterion[] = [
       { text: 'Exemple', description: 'Par exemple ?', icon: 'exemple8@2x.png' },
       { text: 'Source', description: 'Où as-tu appris ça ?', icon: 'source@2x.png' },
