@@ -141,6 +141,7 @@ const LEVELS: Level[] = [
 })
 export class LevelSelectionComponent {
   @Input() playerNames!: string[];
+
   maxQuestions = 0;
   levels = LEVELS;
 

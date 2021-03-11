@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from '../current-game.service';
+import { Player } from '../player-selection/player-selection.component';
 
 @Component({
   selector: 'app-pregame',
@@ -50,8 +51,8 @@ export class PregameComponent {
 
   constructor(private cg: CurrentGameService, private router: Router) {}
 
-  loadLevelSelection(names: string[]): void {
-    this.playerNames = names;
+  loadLevelSelection(players: Player[]): void {
+    this.playerNames = players.map((p) => p.name);
     this.level = true;
   }
 }

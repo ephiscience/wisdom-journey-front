@@ -267,7 +267,7 @@ export class CriterionCardComponent implements OnInit {
   ngOnInit(): void {}
 
   getIcon(path: string): string {
-    const thePath = "transparent url('../assets/images/" + path + "') 0% 0% no-repeat padding-box";
+    const thePath = `transparent url('../assets/images/${path}') 0% 0% no-repeat padding-box`;
     return thePath;
   }
 

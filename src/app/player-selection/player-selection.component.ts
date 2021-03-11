@@ -2,19 +2,24 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 const AVAILABLE_PLAYERS_CHOICES = [1, 2, 3];
 
-const PLAYER_ICONS = ['dogBlack@2x.png', 'squirrelBlack.png', 'dolphinBlack.png', 'lionBlack.png', 'monkeyBlack.png', 'sheepBlack.png'];
+const PLAYER_ICONS = ['dogBlack.png', 'squirrelBlack.png', 'dolphinBlack.png', 'lionBlack.png', 'monkeyBlack.png', 'sheepBlack.png'];
+
+export interface Player {
+  icon: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-player-selection',
   template: `
     <div class="texte">1/1 - Sélectionnez le nombre de joueurs</div>
     <div class="container">
-      <div class="player" *ngFor="let item of maxNumPlayers">
-        <img class="player" src="{{ '../assets/images/' + this.getIcon(item - 1) }}" alt="player icon" />
-        <input class="input" #box (keyup)="onKey(box.value, item)" />
-        <button class="cross" *ngIf="item > 3" (click)="removePlayer(item)"></button>
+      <div class="player" *ngFor="let player of players">
+        <img class="player" src="../assets/images/{{ player.icon }}" alt="player icon" />
+        <input class="input" [(ngModel)]="player.name" />
+        <button class="cross" *ngIf="players.length > 3" (click)="removePlayer(player)"></button>
       </div>
-      <button class="add-player" *ngIf="this.maxNumPlayers.length < 6" (click)="addPlayer()">
+      <button class="add-player" *ngIf="players.length < 6" (click)="addPlayer()">
         <img class="cross" src="../assets/images/plus@2x.png" alt="add player button" />
       </button>
     </div>
@@ -105,29 +110,36 @@ const PLAYER_ICONS = ['dogBlack@2x.png', 'squirrelBlack.png', 'dolphinBlack.png'
     `,
   ],
 })
-export class PlayerSelectionComponent {
-  @Output() numPlayers = new EventEmitter<string[]>();
+export class PlayerSelectionComponent implements OnInit {
+  @Output() numPlayers = new EventEmitter<Player[]>();
 
-  maxNumPlayers = AVAILABLE_PLAYERS_CHOICES;
-  playerNames = ['', '', ''];
+  players: Player[] = [];
 
-  addPlayer(): void {
-    if (this.maxNumPlayers.length + 1 <= 6) {
-      this.maxNumPlayers.push(this.maxNumPlayers.length + 1);
+  ngOnInit(): void {
+    for (let i = 0; i < 3; i++) {
+      this.addPlayer();
     }
   }
 
-  removePlayer(item: number): void {
+  addPlayer(): void {
+    if (this.players.length < 6) {
+      this.players.push({
+        icon: this.nextIcon(),
+        name: '',
+      });
+    }
+  }
+  nextIcon(): string {
+    return PLAYER_ICONS.filter((e) => !this.players.map((p) => p.icon).includes(e))[0];
+  }
+
+  removePlayer(item: Player): void {
+    this.players = this.players.filter((e) => e !== item);
     // TO DO better
-    console.log(this.maxNumPlayers);
-    console.log(this.playerNames);
     console.log(item);
 
     //console.log(this.maxNumPlayers[item - 1], this.maxNumPlayers[item]);
     //console.log(this.playerNames[item - 1], this.playerNames[item]);
-
-    this.maxNumPlayers.splice(item - 1, 1);
-    this.playerNames.splice(item - 1, 1);
 
     /* if (this.maxNumPlayers.length - item === 0) {
       console.log('zero');
@@ -148,28 +160,24 @@ export class PlayerSelectionComponent {
       this.playerNames.splice(item + 1, 1);
     }*/
 
-    for (let i = 0; i < this.maxNumPlayers.length; i++) {
-      this.maxNumPlayers[i] = i + 1;
-    }
-    console.log(this.maxNumPlayers);
-    console.log(this.playerNames);
+    // for (let i = 0; i < this.maxNumPlayers.length; i++) {
+    //   this.maxNumPlayers[i] = i + 1;
+    // }
+    // console.log(this.maxNumPlayers);
+    // console.log(this.playerNames);
   }
 
-  onKey(value: string, item: number) {
-    this.playerNames[item - 1] = value;
-  }
+  // onKey(value: string, item: number) {
+  //   this.playerNames[item - 1] = value;
+  // }
 
   loadLevelSelection(): void {
-    let noname = false;
-    for (const index of this.playerNames) {
-      if (index === '') {
-        noname = true;
-      }
-    }
+    const noname = this.players.filter((p) => p.name === '').length > 0;
+
     if (noname) {
       alert('Please enter a name for each player');
     } else {
-      this.numPlayers.emit(this.playerNames);
+      this.numPlayers.emit(this.players);
     }
   }
 
