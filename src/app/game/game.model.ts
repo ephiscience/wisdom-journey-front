@@ -33,12 +33,19 @@ export function asJSON(game: Game): string {
     remainingCriterions: game.remainingCriterions,
     remainingQuestions: game.remainingQuestions,
     validatedCriterions: game.validatedCriterions,
+    validatedQuestions: game.validatedQuestions,
   });
 }
 
 export function fromJSON(json: string): Game {
   const values = JSON.parse(json);
-  const game = new Game(values.players, values.remainingCriterions, values.remainingQuestions, values.validatedCriterions);
+  const game = new Game(
+    values.players,
+    values.remainingCriterions,
+    values.remainingQuestions,
+    values.validatedCriterions,
+    values.validatedQuestions
+  );
 
   return game;
 }
@@ -50,7 +57,8 @@ export class Game {
     public players: Player[],
     public remainingCriterions: Criterion[],
     public remainingQuestions: Question[],
-    public validatedCriterions: Criterion[]
+    public validatedCriterions: Criterion[],
+    public validatedQuestions: Question[]
   ) {
     this.changePlayerRoles();
   }
@@ -87,7 +95,12 @@ export class Game {
     if (this.remainingCriterions == null) {
       return;
     } else {
-      this.remainingQuestions.shift();
+      const question = this.remainingQuestions.shift();
+
+      if (question) {
+        this.validatedQuestions.push(question);
+      }
+
       this.notifyChange();
     }
   }

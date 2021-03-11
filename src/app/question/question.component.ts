@@ -76,7 +76,7 @@ import { Question } from '../board/board.component';
         width: 720px;
         height: 105px;
         padding-bottom: 0px;
-        padding-right: 0px;
+        padding-right: 20px;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;

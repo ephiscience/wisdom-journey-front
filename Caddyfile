@@ -1,0 +1,9 @@
+:80 {
+  root .
+  encode zstd gzip
+  log {
+    output stdout
+  }
+  try_files {path} {path}/ /
+  file_server
+}
