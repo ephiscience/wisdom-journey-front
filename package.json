@@ -7,7 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "docker:build": "docker build --pull -t registry.gkny.fr/wisdom-journey/front .",
+    "docker:push": "docker build --pull -t registry.gkny.fr/wisdom-journey/front . && docker push registry.gkny.fr/wisdom-journey/front:latest",
+    "docker:run": "docker run --rm -p 0.0.0.0:2015:80 -it registry.gkny.fr/wisdom-journey/front"
   },
   "private": true,
   "dependencies": {
@@ -19,9 +22,12 @@
     "@angular/platform-browser": "~11.0.5",
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
+    "apollo-angular": "^2.4.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "@apollo/client": "^3.0.0",
+    "graphql": "^15.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.5",

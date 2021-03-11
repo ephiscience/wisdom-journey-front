@@ -19,6 +19,8 @@ import { PlayerSelectionComponent } from './player-selection/player-selection.co
 import { LevelSelectionComponent } from './level-selection/level-selection.component';
 import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '@angular/forms';
+import { GraphQLModule } from './graphql.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,7 @@ import { FormsModule } from '@angular/forms';
     LevelSelectionComponent,
     ModalComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, GraphQLModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })
