@@ -8,9 +8,8 @@ describe('LevelSelectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LevelSelectionComponent ]
-    })
-    .compileComponents();
+      declarations: [LevelSelectionComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

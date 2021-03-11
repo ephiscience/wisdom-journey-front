@@ -35,9 +35,8 @@ import { Player } from '../game/game.model';
       }
       img.icon {
         top: 17px;
-        left: 38px;
-        width: 38px;
-        height: 46px;
+        left: 36px;
+        height: 44px;
         opacity: 1;
         z-index: 10;
         position: absolute;
@@ -72,9 +71,9 @@ export class PlayerComponent implements OnInit {
 
   getIcon(): string {
     if (this.orateur === true) {
-      return 'dogBlack@2x.png';
+      return this.player.blackIcon;
     } else {
-      return 'dog@2x.png';
+      return this.player.whiteIcon;
     }
   }
   getRole(): string {

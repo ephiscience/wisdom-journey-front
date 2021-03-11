@@ -7,6 +7,8 @@ export interface Question {
 
 export interface Criterion {
   text: string;
+  description: string;
+  icon: string;
 }
 
 @Component({
@@ -22,6 +24,7 @@ export interface Criterion {
         [criterion]="c"
         (validated)="game.removeCriterion(c, i); emitCheckGameState()"
       >
+        {{ c.text }}
       </app-criterion-card>
     </div>
     <ng-template #noCriterion></ng-template>

@@ -18,6 +18,7 @@ import { PregameComponent } from './pregame/pregame.component';
 import { PlayerSelectionComponent } from './player-selection/player-selection.component';
 import { LevelSelectionComponent } from './level-selection/level-selection.component';
 import { ModalComponent } from './modal/modal.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,13 +37,10 @@ import { ModalComponent } from './modal/modal.component';
     PregameComponent,
     PlayerSelectionComponent,
     LevelSelectionComponent,
-    ModalComponent
+    ModalComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
