@@ -140,7 +140,7 @@ const LEVELS: Level[] = [
   ],
 })
 export class LevelSelectionComponent {
-  @Input() numPlayers!: number;
+  @Input() playerNames!: string[];
   maxQuestions = 0;
   levels = LEVELS;
 
@@ -165,14 +165,13 @@ export class LevelSelectionComponent {
   }
 
   loadGame(): void {
-    console.log(this.numPlayers);
+    console.log(this.playerNames);
     console.log(this.maxQuestions);
 
     if (this.maxQuestions === 0) {
       alert('Please select a level');
-    }
-    if (this.numPlayers !== 0 && this.maxQuestions !== 0) {
-      this.cg.createGame(this.maxQuestions, this.numPlayers);
+    } else {
+      this.cg.createGame(this.maxQuestions, this.playerNames);
       this.router.navigate(['game']);
     }
   }

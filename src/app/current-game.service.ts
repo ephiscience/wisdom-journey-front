@@ -22,6 +22,8 @@ function shuffle(array: any[]): Array<any> {
   }
   return array;
 }
+const WHITE_PLAYER_ICONS = ['dogWhite.png', 'squirrelWhite.png', 'dolphinWhite.png', 'lionWhite.png', 'monkeyWhite.png', 'sheepWhite.png'];
+const BLACK_PLAYER_ICONS = ['dogBlack.png', 'squirrelBlack.png', 'dolphinBlack.png', 'lionBlack.png', 'monkeyBlack.png', 'sheepBlack.png'];
 
 const baseQuestions = [
   { text: 'À quoi ressemblerait ton école idéale ? Explique.' },
@@ -60,7 +62,7 @@ function saveGameToLocalStorage(game: Game | null) {
 export class CurrentGameService {
   game$ = new BehaviorSubject<Game | null>(null);
 
-  lastGameState?: { numQuestions: number; numPlayers: number };
+  lastGameState?: { numQuestions: number; playerNames: string[] };
 
   constructor() {
     this.game$.next(loadGameFromLocalStorage());
@@ -84,12 +86,15 @@ export class CurrentGameService {
     return this.game$.asObservable();
   }
 
-  createGame(numQuestions: number, numPlayers: number) {
-    this.lastGameState = { numQuestions, numPlayers };
+  createGame(numQuestions: number, playerNames: string[]) {
+    this.lastGameState = { numQuestions, playerNames };
     const newExamplePlayers = [];
-    newExamplePlayers.push({ name: 'player 1', speaking: true }, { name: 'player 2', speaking: true });
-    for (let i = 2; i < numPlayers; i++) {
-      newExamplePlayers.push({ name: 'player' + (i + 1), speaking: false });
+    newExamplePlayers.push(
+      { name: playerNames[0], blackIcon: BLACK_PLAYER_ICONS[0], whiteIcon: WHITE_PLAYER_ICONS[0], speaking: true },
+      { name: playerNames[1], blackIcon: BLACK_PLAYER_ICONS[1], whiteIcon: WHITE_PLAYER_ICONS[1], speaking: true }
+    );
+    for (let i = 2; i < playerNames.length; i++) {
+      newExamplePlayers.push({ name: playerNames[i], blackIcon: BLACK_PLAYER_ICONS[i], whiteIcon: WHITE_PLAYER_ICONS[i], speaking: false });
     }
     shuffle(baseQuestions);
     const newExampleQuestions: Question[] = [];
@@ -115,7 +120,7 @@ export class CurrentGameService {
 
   reloadGame(): boolean {
     if (this.lastGameState) {
-      this.createGame(this.lastGameState?.numQuestions, this.lastGameState?.numPlayers);
+      this.createGame(this.lastGameState?.numQuestions, this.lastGameState?.playerNames);
 
       return true;
     } else {

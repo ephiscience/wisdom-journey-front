@@ -22,6 +22,8 @@ function shuffle(array: any[]): Array<any> {
 
 export interface Player {
   name: string;
+  blackIcon: string;
+  whiteIcon: string;
   speaking: boolean;
 }
 

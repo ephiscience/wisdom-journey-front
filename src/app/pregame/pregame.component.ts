@@ -5,8 +5,8 @@ import { CurrentGameService } from '../current-game.service';
 @Component({
   selector: 'app-pregame',
   template: `
-    <app-player-selection *ngIf="!this.level" (numPlayers)="numPlayersSelection($event)"></app-player-selection>
-    <app-level-selection *ngIf="this.level" [numPlayers]="this.numPlayers"></app-level-selection>
+    <app-player-selection *ngIf="!this.level" (numPlayers)="loadLevelSelection($event)"></app-player-selection>
+    <app-level-selection *ngIf="this.level" [playerNames]="this.playerNames"></app-level-selection>
     <button class="home" routerLink=""></button>
   `,
   styles: [
@@ -46,12 +46,12 @@ import { CurrentGameService } from '../current-game.service';
 })
 export class PregameComponent {
   level = false;
-  numPlayers = 0;
+  playerNames!: string[];
 
   constructor(private cg: CurrentGameService, private router: Router) {}
 
-  numPlayersSelection(num: number): void {
-    this.numPlayers = num;
+  loadLevelSelection(names: string[]): void {
+    this.playerNames = names;
     this.level = true;
   }
 }
