@@ -97,7 +97,6 @@ export class ModalComponent implements OnInit {
   ngOnInit(): void {}
 
   emitNo(): void {
-    console.log('appuie no');
     this.answer.emit(false);
   }
 

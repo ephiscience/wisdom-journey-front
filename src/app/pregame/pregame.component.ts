@@ -62,7 +62,7 @@ export class PregameComponent {
   }
   closeModal(answerFromModal: boolean): void {
     this.home = false;
-    if (answerFromModal == true) {
+    if (answerFromModal === true) {
       this.router.navigate(['']);
     }
   }

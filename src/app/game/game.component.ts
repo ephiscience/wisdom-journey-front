@@ -120,9 +120,9 @@ export class GameComponent implements OnInit {
   closeModal(answerFromModal: boolean): void {
     this.answer = answerFromModal;
     //if it's the end of the game
-    if (this.home == true) {
+    if (this.home === true) {
       console.log('modal close');
-      if (answerFromModal == true) {
+      if (answerFromModal === true) {
         this.router.navigate(['']);
       }
       this.home = false;
