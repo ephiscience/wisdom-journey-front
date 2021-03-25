@@ -12,18 +12,18 @@ export interface Player {
 @Component({
   selector: 'app-player-selection',
   template: `
-    <div class="texte">1/2 - Sélectionnez le nombre de joueurs</div>
+    <div class="texte">1/2 - Seleccione el número de jugadores</div>
     <div class="container">
       <div class="player" *ngFor="let player of players">
         <img class="player" src="../assets/images/{{ player.icon }}" alt="player icon" />
-        <input class="input" placeholder="Entrez votre nom ici" [(ngModel)]="player.name" />
+        <input class="input" placeholder="Introduce tu nombre aquí" [(ngModel)]="player.name" />
         <button class="cross" *ngIf="players.length > 3" (click)="removePlayer(player)"></button>
       </div>
       <button class="add-player" *ngIf="players.length < 6" (click)="addPlayer()">
         <img class="cross" src="../assets/images/plus@2x.png" alt="add player button" />
       </button>
     </div>
-    <button class="play" (click)="loadLevelSelection()">Continuer</button>
+    <button class="play" (click)="loadLevelSelection()">Continuar</button>
   `,
   styles: [
     `
@@ -85,8 +85,11 @@ export interface Player {
         cursor: pointer;
       }
       input {
-        width: 135px;
+        top: 170px;
+        left: -13px;
+        width: 155px;
         height: 20px;
+        position: absolute;
       }
       button.add-player {
         width: 140px;
@@ -146,7 +149,7 @@ export class PlayerSelectionComponent implements OnInit {
     const noname = this.players.filter((p) => p.name === '').length > 0;
 
     if (noname) {
-      alert('Please enter a name for each player');
+      alert('Por favor, introduzca un nombre para cada jugador');
     } else {
       this.numPlayers.emit(this.players);
     }

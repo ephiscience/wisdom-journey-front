@@ -8,8 +8,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
         <p class="title">{{ title }}</p>
         <p class="content">{{ content }}</p>
         <div class="buttons">
-          <button class="no" (click)="emitNo()">Non</button>
-          <button class="yes" (click)="emitYes()">Oui</button>
+          <button class="no" (click)="emitNo()">No</button>
+          <button class="yes" (click)="emitYes()">Sí</button>
         </div>
       </div>
     </div>

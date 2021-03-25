@@ -52,8 +52,8 @@ export class PregameComponent {
   level = false;
   playerNames!: string[];
   home = false;
-  title = 'Quitter';
-  content = 'Etes vous surs de vouloir quitter la partie en cours ?';
+  title = 'Dejar';
+  content = '¿Estás seguro de que quieres dejar el juego?';
 
   constructor(private cg: CurrentGameService, private router: Router) {}
 

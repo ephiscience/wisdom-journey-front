@@ -12,29 +12,29 @@ interface Level {
 
 const LEVELS: Level[] = [
   {
-    title: 'Débutant',
-    description: '8 questions',
+    title: 'Principiante',
+    description: '8 preguntas',
     icon: 'debutant.png',
     background: '#E4F4B2 0% 0% no-repeat padding-box',
     cardCount: 8,
   },
   {
-    title: 'Intermédiaire',
-    description: '6 questions',
+    title: 'Intermedio',
+    description: '6 preguntas',
     icon: 'intermediaire.png',
     background: '#FFF0BF 0% 0% no-repeat padding-box',
     cardCount: 6,
   },
   {
-    title: 'Avancé',
-    description: '4 questions',
+    title: 'Avanzado',
+    description: '4 preguntas',
     icon: 'avance.png',
     background: '#FFD4BC 0% 0% no-repeat padding-box',
     cardCount: 4,
   },
   {
-    title: 'Expert',
-    description: '3 questions',
+    title: 'Experto',
+    description: '3 preguntas',
     icon: 'expert.png',
     background: '#FFC5BC 0% 0% no-repeat padding-box',
     cardCount: 3,
@@ -44,7 +44,7 @@ const LEVELS: Level[] = [
 @Component({
   selector: 'app-level-selection',
   template: `
-    <div class="texte">2/2 - Sélectionnez la difficulté</div>
+    <div class="texte">2/2 - Seleccione la dificultad</div>
     <div class="container">
       <button
         class="level"
@@ -58,7 +58,7 @@ const LEVELS: Level[] = [
         <div class="lower-text">{{ item.description }}</div>
       </button>
     </div>
-    <button class="play" (click)="loadGame()">Jouer</button>
+    <button class="play" (click)="loadGame()">Jugar</button>
   `,
   styles: [
     `
@@ -171,7 +171,7 @@ export class LevelSelectionComponent {
     console.log(this.maxQuestions);
 
     if (this.maxQuestions === 0) {
-      alert('Please select a level');
+      alert('Por favor, seleccione un nivel');
     } else {
       this.cg.createGame(this.maxQuestions, this.playerNames);
       this.router.navigate(['game']);

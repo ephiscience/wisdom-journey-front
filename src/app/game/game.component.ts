@@ -82,8 +82,8 @@ export class GameComponent implements OnInit {
     this.game.removeQuestion();
     this.game.changePlayerRoles();
     this.pauseTime = true;
-    this.modalTitle = 'Fin du Tour';
-    this.modalContent = 'Auditeurs, est ce que les réponses à la question étaient pertinentes ?';
+    this.modalTitle = 'Fin de la ronda';
+    this.modalContent = 'Oyentes, ¿han sido relevantes las respuestas a la pregunta?';
     this.modal = true;
   }
 
@@ -93,21 +93,21 @@ export class GameComponent implements OnInit {
     if (this.game.remainingQuestions.length === 0 && this.game.remainingCriterions.length > 0) {
       this.endOfGame = true;
       this.pauseTime = true;
-      this.modalTitle = 'Défaite';
-      this.modalContent = 'Voulez vous rejouer ?';
+      this.modalTitle = 'Derrota';
+      this.modalContent = '¿Quieres volver a jugar?';
       this.modal = true;
     } else if (this.game.remainingQuestions.length > 0 && this.game.remainingCriterions.length === 0) {
       this.endOfGame = true;
       this.pauseTime = true;
-      this.modalTitle = 'Victoire !';
-      this.modalContent = 'Voulez vous rejouer ?';
+      this.modalTitle = 'Victoria !';
+      this.modalContent = '¿Quieres volver a jugar?';
       this.modal = true;
     }
   }
 
   openModal(): void {
-    this.modalTitle = 'Quitter';
-    this.modalContent = 'Etes vous surs de vouloir quitter la partie ?';
+    this.modalTitle = 'Dejar';
+    this.modalContent = '¿Estás seguro de que quieres dejar el juego?';
     this.modal = true;
     this.home = true;
   }
