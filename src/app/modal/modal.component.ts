@@ -1,13 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
-/**
- <div class="background">
-    <div class="body">
-        <button></button>
-    </div>
-  </div>
- */
-
 @Component({
   selector: 'app-modal',
   template: `
@@ -105,6 +97,7 @@ export class ModalComponent implements OnInit {
   ngOnInit(): void {}
 
   emitNo(): void {
+    console.log('appuie no');
     this.answer.emit(false);
   }
 

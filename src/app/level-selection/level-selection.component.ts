@@ -162,6 +162,7 @@ export class LevelSelectionComponent {
     }
   }
   levelSelection(level: Level) {
+    this.clickedButton = level;
     this.maxQuestions = level.cardCount;
   }
 

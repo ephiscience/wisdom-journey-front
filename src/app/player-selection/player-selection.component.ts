@@ -12,18 +12,18 @@ export interface Player {
 @Component({
   selector: 'app-player-selection',
   template: `
-    <div class="texte">1/1 - Sélectionnez le nombre de joueurs</div>
+    <div class="texte">1/2 - Sélectionnez le nombre de joueurs</div>
     <div class="container">
       <div class="player" *ngFor="let player of players">
         <img class="player" src="../assets/images/{{ player.icon }}" alt="player icon" />
-        <input class="input" [(ngModel)]="player.name" />
+        <input class="input" placeholder="Entrez votre nom ici" [(ngModel)]="player.name" />
         <button class="cross" *ngIf="players.length > 3" (click)="removePlayer(player)"></button>
       </div>
       <button class="add-player" *ngIf="players.length < 6" (click)="addPlayer()">
         <img class="cross" src="../assets/images/plus@2x.png" alt="add player button" />
       </button>
     </div>
-    <button class="play" (click)="loadLevelSelection()">Continuer -></button>
+    <button class="play" (click)="loadLevelSelection()">Continuer</button>
   `,
   styles: [
     `
@@ -135,36 +135,7 @@ export class PlayerSelectionComponent implements OnInit {
 
   removePlayer(item: Player): void {
     this.players = this.players.filter((e) => e !== item);
-    // TO DO better
-    console.log(item);
-
-    //console.log(this.maxNumPlayers[item - 1], this.maxNumPlayers[item]);
-    //console.log(this.playerNames[item - 1], this.playerNames[item]);
-
-    /* if (this.maxNumPlayers.length - item === 0) {
-      console.log('zero');
-      this.maxNumPlayers.splice(item - 1, 1);
-      this.playerNames.splice(item - 1, 1);
-    } else if (this.maxNumPlayers.length - item === 1) {
-      console.log('zero');
-      this.maxNumPlayers.splice(item - 1, 1, this.maxNumPlayers[item - 1]);
-      this.playerNames.splice(item - 1, 1, this.playerNames[item]);
-      this.maxNumPlayers.splice(item, 1);
-      this.playerNames.splice(item, 1);
-    } else if (this.maxNumPlayers.length - item === 2) {
-      this.maxNumPlayers.splice(item - 1, 1, this.maxNumPlayers[item - 1]);
-      this.playerNames.splice(item - 1, 1, this.playerNames[item]);
-      this.maxNumPlayers.splice(item, 1, this.maxNumPlayers[item]);
-      this.playerNames.splice(item, 1, this.playerNames[item + 1]);
-      this.maxNumPlayers.splice(item + 1, 1);
-      this.playerNames.splice(item + 1, 1);
-    }*/
-
-    // for (let i = 0; i < this.maxNumPlayers.length; i++) {
-    //   this.maxNumPlayers[i] = i + 1;
-    // }
-    // console.log(this.maxNumPlayers);
-    // console.log(this.playerNames);
+    //console.log(item);
   }
 
   // onKey(value: string, item: number) {
