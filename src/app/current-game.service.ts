@@ -112,11 +112,17 @@ export class CurrentGameService {
     this.lastGameState = { numQuestions, playerNames };
     const newExamplePlayers: Player[] = [];
     newExamplePlayers.push(
-      { name: playerNames[0], blackIcon: BLACK_PLAYER_ICONS[0], whiteIcon: WHITE_PLAYER_ICONS[0], speaking: true },
-      { name: playerNames[1], blackIcon: BLACK_PLAYER_ICONS[1], whiteIcon: WHITE_PLAYER_ICONS[1], speaking: true }
+      { name: playerNames[0], blackIcon: BLACK_PLAYER_ICONS[0], whiteIcon: WHITE_PLAYER_ICONS[0], speaking: true, turnsTalking: 0 },
+      { name: playerNames[1], blackIcon: BLACK_PLAYER_ICONS[1], whiteIcon: WHITE_PLAYER_ICONS[1], speaking: true, turnsTalking: 0 }
     );
     for (let i = 2; i < playerNames.length; i++) {
-      newExamplePlayers.push({ name: playerNames[i], blackIcon: BLACK_PLAYER_ICONS[i], whiteIcon: WHITE_PLAYER_ICONS[i], speaking: false });
+      newExamplePlayers.push({
+        name: playerNames[i],
+        blackIcon: BLACK_PLAYER_ICONS[i],
+        whiteIcon: WHITE_PLAYER_ICONS[i],
+        speaking: false,
+        turnsTalking: 0,
+      });
     }
 
     this.fetchQuestions().subscribe((q) => {
