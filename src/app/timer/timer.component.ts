@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
 
-const maximumTime = 5000; //3 * 60 * 1000;
+const maximumTime = 3 * 60 * 1000;
 
 @Component({
   selector: 'app-timer',

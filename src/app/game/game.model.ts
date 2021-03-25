@@ -118,10 +118,8 @@ export class Game {
       playerTurnsTalking.push(player.turnsTalking);
       otherPlayerTurnsTalking.push(player.turnsTalking);
     }
-    console.log(previousPlayerRoles, playerTurnsTalking);
-    console.log(Math.max(...playerTurnsTalking), Math.min(...playerTurnsTalking));
+    //manual shuflle
     if (Math.max(...playerTurnsTalking) - Math.min(...playerTurnsTalking) >= 2) {
-      console.log('manual shuffle');
       otherPlayerTurnsTalking = otherPlayerTurnsTalking.sort();
       //console.log(otherPlayerTurnsTalking);
       const firstIndex = playerTurnsTalking.indexOf(otherPlayerTurnsTalking[0]);
@@ -144,7 +142,7 @@ export class Game {
       }
       return;
     }
-    console.log('automatic shuffle');
+    //automatic shuffle
     nextPlayerRoles = shuffle(nextPlayerRoles);
     while (this.checkEqualArrays(nextPlayerRoles, previousPlayerRoles)) {
       nextPlayerRoles = shuffle(nextPlayerRoles);

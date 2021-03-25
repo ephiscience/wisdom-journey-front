@@ -5,7 +5,7 @@ import { TimerComponent } from '../timer/timer.component';
 @Component({
   selector: 'app-game-status',
   template: `
-    <app-criterion-points [numCriterions]="10 - game.remainingCriterions.length"></app-criterion-points>
+    <app-criterion-points [numCriterions]="20 - game.remainingCriterions.length"></app-criterion-points>
     <app-timer (endTimer)="emitEndOfGameTurn()" [endOfGame]="this.reloadTimer" [modalActive]="this.pauseTimer"></app-timer>
     <app-question-points [game]="game"></app-question-points>
   `,

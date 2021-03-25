@@ -135,7 +135,17 @@ export class CurrentGameService {
         newExampleQuestions.push(questions[i]);
       }
 
-      const newExampleCriterions: Criterion[] = [
+      let newExampleCriterions: Criterion[] = [
+        { text: 'Exemple', description: 'Par exemple ?', icon: 'exemple8@2x.png' },
+        { text: 'Source', description: 'Où as-tu appris ça ?', icon: 'source@2x.png' },
+        { text: 'Donner ses raisons', description: 'Pourquoi ça ?', icon: 'raisons@2x.png' },
+        { text: 'Définir', description: 'Que veut dire ce mot?', icon: 'definir@2x.png' },
+        { text: 'Nuance', description: 'Est-ce toujours le cas ?', icon: 'nuance@2x.png' },
+        { text: 'Comparer', description: ' Quelle est la différence?', icon: 'comparer@2x.png' },
+        { text: 'Reformuler', description: "En d'autres termes ?", icon: 'reformuler@2x.png' },
+        { text: 'Collaborer', description: 'Que puis-je ?', icon: 'collaborer@2x.png' },
+        { text: 'Contexte', description: ' Dans quel contexte est-ce valable ?', icon: 'contexte@2x.png' },
+        { text: 'Présupposé', description: ' Que sous-entend la question ?', icon: 'presuppose@2x.png' },
         { text: 'Exemple', description: 'Par exemple ?', icon: 'exemple8@2x.png' },
         { text: 'Source', description: 'Où as-tu appris ça ?', icon: 'source@2x.png' },
         { text: 'Donner ses raisons', description: 'Pourquoi ça ?', icon: 'raisons@2x.png' },
@@ -147,6 +157,7 @@ export class CurrentGameService {
         { text: 'Contexte', description: ' Dans quel contexte est-ce valable ?', icon: 'contexte@2x.png' },
         { text: 'Présupposé', description: ' Que sous-entend la question ?', icon: 'presuppose@2x.png' },
       ];
+      newExampleCriterions = shuffle(newExampleCriterions);
 
       console.log(newExamplePlayers, newExampleCriterions, newExampleQuestions);
 
