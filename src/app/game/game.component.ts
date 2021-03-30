@@ -14,7 +14,7 @@ import { Game } from './game.model';
         [reloadTimer]="this.resetTimer"
         [pauseTimer]="this.pauseTime"
       ></app-game-status>
-      <app-board [game]="game" (reloadGame)="reloadGame()" (checkGameState)="checkGameState()"></app-board>
+      <app-board [game]="game" [endOfTurn]="this.endOfTurn" (checkGameState)="checkGameState()"></app-board>
       <app-players [game]="game"></app-players>
       <button (click)="openModal()"></button>
       <app-modal *ngIf="modal" (answer)="closeModal($event)" [title]="this.modalTitle" [content]="this.modalContent"></app-modal>
@@ -65,6 +65,7 @@ export class GameComponent implements OnInit {
   home = false;
   answer: boolean | null = null;
   endOfGame = false;
+  endOfTurn = false;
 
   constructor(private cg: CurrentGameService, private router: Router) {}
 
@@ -84,6 +85,7 @@ export class GameComponent implements OnInit {
     this.pauseTime = true;
     this.modalTitle = 'Fin du Tour';
     this.modalContent = 'Auditeurs, est ce que les réponses à la question étaient pertinentes ?';
+    this.endOfTurn = true;
     this.modal = true;
   }
 
@@ -146,6 +148,7 @@ export class GameComponent implements OnInit {
       this.modal = false;
       this.checkGameState();
       this.pauseTime = false;
+      this.endOfTurn = false;
     }
     return;
   }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Criterion } from '../board/board.component';
 
 /* [ngStyle]="{'background': check1 ? '#1B8CD0 0% 0% no-repeat padding-box' : '#FFA935 0% 0% no-repeat padding-box'}"*/
@@ -256,15 +256,23 @@ import { Criterion } from '../board/board.component';
     `,
   ],
 })
-export class CriterionCardComponent implements OnInit {
+export class CriterionCardComponent implements OnInit, OnChanges {
   @Input() criterion?: Criterion;
   @Output() validated = new EventEmitter<boolean>();
   check1 = false;
   check2 = false;
+  @Input() endOfTurn!: boolean;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  ngOnChanges(): void {
+    if (this.endOfTurn == true) {
+      this.check1 = false;
+      this.check2 = false;
+    }
+  }
 
   getIcon(path: string): string {
     const thePath = `transparent url('../assets/images/${path}') 0% 0% no-repeat padding-box`;

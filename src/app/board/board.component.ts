@@ -22,6 +22,7 @@ export interface Criterion {
       <app-criterion-card
         *ngFor="let c of game.remainingCriterions.slice(0, 3); index as i"
         [criterion]="c"
+        [endOfTurn]="this.endOfTurn"
         (validated)="game.removeCriterion(c, i); emitCheckGameState()"
       >
         {{ c.text }}
@@ -58,6 +59,7 @@ export interface Criterion {
 })
 export class BoardComponent implements OnInit {
   @Input() game!: Game;
+  @Input() endOfTurn!: boolean;
   @Output() checkGameState = new EventEmitter();
 
   constructor() {}
