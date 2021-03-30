@@ -48,6 +48,7 @@ import { Game } from './game.model';
         background: transparent url('../assets/images/home@2x.png') 0% 0% no-repeat padding-box;
         background-size: contain;
         border: 0px;
+        z-index: 100;
         cursor: pointer;
       }
       div.pause {
@@ -59,7 +60,7 @@ import { Game } from './game.model';
         /* UI Properties */
         background: #00000080 0% 0% no-repeat padding-box;
         opacity: 1;
-        z-index: 100;
+        z-index: 80;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -73,6 +74,11 @@ export class GameComponent implements OnInit {
   @Input() thePlayers!: number;
   @Output() returnHome = new EventEmitter();
 
+  @ViewChild('board', { read: ElementRef, static: false })
+  boardView!: ElementRef;
+  @ViewChild('players', { read: ElementRef, static: false })
+  playersView!: ElementRef;
+
   game!: Game;
   pauseTime = false;
   resetTimer = false;
@@ -85,10 +91,6 @@ export class GameComponent implements OnInit {
   endOfTurn = false;
   pausedTimer = false;
 
-  @ViewChild('board', { read: ElementRef, static: false })
-  boardView!: ElementRef;
-  @ViewChild('players', { read: ElementRef, static: false })
-  playersView!: ElementRef;
   viewHeight!: number;
 
   constructor(private cg: CurrentGameService, private router: Router) {}
