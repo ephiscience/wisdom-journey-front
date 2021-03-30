@@ -258,17 +258,17 @@ import { Criterion } from '../board/board.component';
 })
 export class CriterionCardComponent implements OnInit, OnChanges {
   @Input() criterion?: Criterion;
+  @Input() endOfTurn!: boolean;
   @Output() validated = new EventEmitter<boolean>();
   check1 = false;
   check2 = false;
-  @Input() endOfTurn!: boolean;
 
   constructor() {}
 
   ngOnInit(): void {}
 
   ngOnChanges(): void {
-    if (this.endOfTurn == true) {
+    if (this.endOfTurn === true) {
       this.check1 = false;
       this.check2 = false;
     }
