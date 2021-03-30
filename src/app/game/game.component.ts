@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from '../current-game.service';
 import { Game } from './game.model';
@@ -11,13 +11,15 @@ import { Game } from './game.model';
         [game]="game"
         (reloadGame)="reloadGame()"
         (endOfGameTurn)="updateGameStatus()"
+        (pausedTimer)="updatePausedTimer($event)"
         [reloadTimer]="this.resetTimer"
         [pauseTimer]="this.pauseTime"
       ></app-game-status>
-      <app-board [game]="game" [endOfTurn]="this.endOfTurn" (checkGameState)="checkGameState()"></app-board>
-      <app-players [game]="game"></app-players>
+      <app-board #board [game]="game" [endOfTurn]="this.endOfTurn" (checkGameState)="checkGameState()"></app-board>
+      <app-players #players [game]="game"></app-players>
       <button (click)="openModal()"></button>
       <app-modal *ngIf="modal" (answer)="closeModal($event)" [title]="this.modalTitle" [content]="this.modalContent"></app-modal>
+      <div class="pause" *ngIf="this.pausedTimer" [style.height.px]="this.viewHeight"></div>
     </ng-container>
   `,
   styles: [
@@ -48,6 +50,21 @@ import { Game } from './game.model';
         border: 0px;
         cursor: pointer;
       }
+      div.pause {
+        position: absolute;
+        bottom: 0px;
+        left: Opx;
+        width: 100%;
+        height: 200px;
+        /* UI Properties */
+        background: #00000080 0% 0% no-repeat padding-box;
+        opacity: 1;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
     `,
   ],
 })
@@ -66,6 +83,13 @@ export class GameComponent implements OnInit {
   answer: boolean | null = null;
   endOfGame = false;
   endOfTurn = false;
+  pausedTimer = false;
+
+  @ViewChild('board', { read: ElementRef, static: false })
+  boardView!: ElementRef;
+  @ViewChild('players', { read: ElementRef, static: false })
+  playersView!: ElementRef;
+  viewHeight!: number;
 
   constructor(private cg: CurrentGameService, private router: Router) {}
 
@@ -116,6 +140,13 @@ export class GameComponent implements OnInit {
 
   reloadGame() {
     this.cg.reloadGame();
+  }
+
+  updatePausedTimer(state: boolean): void {
+    this.viewHeight = this.boardView.nativeElement.offsetHeight + this.playersView.nativeElement.offsetHeight;
+    console.log(this.viewHeight);
+    console.log(state);
+    this.pausedTimer = state;
   }
 
   /* function name not adequate, as the function does several things AND maybe change the order of the end condition ??*/
