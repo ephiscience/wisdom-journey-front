@@ -16,7 +16,7 @@ import { Game } from './game.model';
       ></app-game-status>
       <app-board [game]="game" (reloadGame)="reloadGame()" (checkGameState)="checkGameState()"></app-board>
       <app-players [game]="game"></app-players>
-      <button routerLink=""></button>
+      <button (click)="openModal()"></button>
       <app-modal *ngIf="modal" (answer)="closeModal($event)" [title]="this.modalTitle" [content]="this.modalContent"></app-modal>
     </ng-container>
   `,
@@ -62,6 +62,7 @@ export class GameComponent implements OnInit {
   modalTitle = '';
   modalContent = '';
   modal = false;
+  home = false;
   answer: boolean | null = null;
   endOfGame = false;
 
@@ -105,7 +106,10 @@ export class GameComponent implements OnInit {
   }
 
   openModal(): void {
+    this.modalTitle = 'Quitter';
+    this.modalContent = 'Etes vous surs de vouloir quitter la partie ?';
     this.modal = true;
+    this.home = true;
   }
 
   reloadGame() {
@@ -116,6 +120,16 @@ export class GameComponent implements OnInit {
   closeModal(answerFromModal: boolean): void {
     this.answer = answerFromModal;
     //if it's the end of the game
+    if (this.home === true) {
+      console.log('modal close');
+      if (answerFromModal === true) {
+        this.router.navigate(['']);
+      }
+      this.home = false;
+      this.modal = false;
+      return;
+    }
+    console.log('still in modal');
     if (this.endOfGame === true) {
       this.endOfGame = false;
       this.modal = false;
@@ -134,6 +148,7 @@ export class GameComponent implements OnInit {
       this.checkGameState();
       this.pauseTime = false;
     }
+    return;
   }
 }
 

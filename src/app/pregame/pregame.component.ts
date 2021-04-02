@@ -6,13 +6,16 @@ import { Player } from '../player-selection/player-selection.component';
 @Component({
   selector: 'app-pregame',
   template: `
-    <app-player-selection *ngIf="!this.level" (numPlayers)="loadLevelSelection($event)"></app-player-selection>
-    <app-level-selection *ngIf="this.level" [playerNames]="this.playerNames"></app-level-selection>
-    <button class="home" routerLink=""></button>
+    <app-modal *ngIf="home" (answer)="closeModal($event)" [title]="this.title" [content]="this.content"></app-modal>
+    <div class="container">
+      <app-player-selection *ngIf="!this.level" (numPlayers)="loadLevelSelection($event)"></app-player-selection>
+      <app-level-selection *ngIf="this.level" [playerNames]="this.playerNames"></app-level-selection>
+      <button class="home" (click)="openModal()"></button>
+    </div>
   `,
   styles: [
     `
-      :host {
+      div.container {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -48,8 +51,21 @@ import { Player } from '../player-selection/player-selection.component';
 export class PregameComponent {
   level = false;
   playerNames!: string[];
+  home = false;
+  title = 'Quitter';
+  content = 'Etes vous surs de vouloir quitter la partie en cours ?';
 
   constructor(private cg: CurrentGameService, private router: Router) {}
+
+  openModal(): void {
+    this.home = true;
+  }
+  closeModal(answerFromModal: boolean): void {
+    this.home = false;
+    if (answerFromModal === true) {
+      this.router.navigate(['']);
+    }
+  }
 
   loadLevelSelection(players: Player[]): void {
     this.playerNames = players.map((p) => p.name);

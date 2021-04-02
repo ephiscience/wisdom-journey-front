@@ -1,13 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
-/**
- <div class="background">
-    <div class="body">
-        <button></button>
-    </div>
-  </div>
- */
-
 @Component({
   selector: 'app-modal',
   template: `
