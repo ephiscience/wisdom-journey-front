@@ -25,6 +25,7 @@ export interface Player {
   blackIcon: string;
   whiteIcon: string;
   speaking: boolean;
+  turnsTalking: number;
 }
 
 export function asJSON(game: Game): string {
@@ -106,13 +107,51 @@ export class Game {
   }
 
   changePlayerRoles(): void {
-    let playerRoles: boolean[] = [];
+    const previousPlayerRoles: boolean[] = [];
+    let nextPlayerRoles: boolean[] = [];
+    const playerTurnsTalking: number[] = [];
+    let otherPlayerTurnsTalking: number[] = [];
+
     for (const player of this.players) {
-      playerRoles.push(player.speaking);
+      previousPlayerRoles.push(player.speaking);
+      nextPlayerRoles.push(player.speaking);
+      playerTurnsTalking.push(player.turnsTalking);
+      otherPlayerTurnsTalking.push(player.turnsTalking);
     }
-    playerRoles = shuffle(playerRoles);
+    //manual shuflle
+    if (Math.max(...playerTurnsTalking) - Math.min(...playerTurnsTalking) >= 2) {
+      otherPlayerTurnsTalking = otherPlayerTurnsTalking.sort();
+      //console.log(otherPlayerTurnsTalking);
+      const firstIndex = playerTurnsTalking.indexOf(otherPlayerTurnsTalking[0]);
+      let secondIndex = playerTurnsTalking.indexOf(otherPlayerTurnsTalking[1]);
+      if (firstIndex === secondIndex) {
+        // ça veut dire que y a deux jouerus avec le même turns talking
+        for (let i = 0; i < this.players.length; i++) {
+          if (this.players[i].turnsTalking === otherPlayerTurnsTalking[1] && i !== firstIndex) {
+            secondIndex = i;
+          }
+        }
+      }
+      for (let i = 0; i < this.players.length; i++) {
+        if (i === firstIndex || i === secondIndex) {
+          this.players[i].speaking = true;
+          this.players[i].turnsTalking += 1;
+        } else {
+          this.players[i].speaking = false;
+        }
+      }
+      return;
+    }
+    //automatic shuffle
+    nextPlayerRoles = shuffle(nextPlayerRoles);
+    while (this.checkEqualArrays(nextPlayerRoles, previousPlayerRoles)) {
+      nextPlayerRoles = shuffle(nextPlayerRoles);
+    }
     for (let i = 0; i < this.players.length; i++) {
-      this.players[i].speaking = playerRoles[i];
+      this.players[i].speaking = nextPlayerRoles[i];
+      if (nextPlayerRoles[i] === true) {
+        this.players[i].turnsTalking += 1;
+      }
     }
 
     this.notifyChange();
@@ -120,5 +159,15 @@ export class Game {
 
   private notifyChange() {
     this.changes$.next();
+  }
+  private checkEqualArrays(firstArr: boolean[], secondArr: boolean[]): boolean {
+    let result = true;
+
+    for (let i = 0; i < firstArr.length; i++) {
+      if (firstArr[i] !== secondArr[i]) {
+        result = false;
+      }
+    }
+    return result;
   }
 }

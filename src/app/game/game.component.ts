@@ -88,7 +88,7 @@ export class GameComponent implements OnInit {
   }
 
   async checkGameState(): Promise<void> {
-    console.log('check victory conditions');
+    //console.log('check victory conditions');
     await delay(500);
     if (this.game.remainingQuestions.length === 0 && this.game.remainingCriterions.length > 0) {
       this.endOfGame = true;
@@ -129,7 +129,6 @@ export class GameComponent implements OnInit {
       this.modal = false;
       return;
     }
-    console.log('still in modal');
     if (this.endOfGame === true) {
       this.endOfGame = false;
       this.modal = false;

@@ -112,11 +112,17 @@ export class CurrentGameService {
     this.lastGameState = { numQuestions, playerNames };
     const newExamplePlayers: Player[] = [];
     newExamplePlayers.push(
-      { name: playerNames[0], blackIcon: BLACK_PLAYER_ICONS[0], whiteIcon: WHITE_PLAYER_ICONS[0], speaking: true },
-      { name: playerNames[1], blackIcon: BLACK_PLAYER_ICONS[1], whiteIcon: WHITE_PLAYER_ICONS[1], speaking: true }
+      { name: playerNames[0], blackIcon: BLACK_PLAYER_ICONS[0], whiteIcon: WHITE_PLAYER_ICONS[0], speaking: true, turnsTalking: 0 },
+      { name: playerNames[1], blackIcon: BLACK_PLAYER_ICONS[1], whiteIcon: WHITE_PLAYER_ICONS[1], speaking: true, turnsTalking: 0 }
     );
     for (let i = 2; i < playerNames.length; i++) {
-      newExamplePlayers.push({ name: playerNames[i], blackIcon: BLACK_PLAYER_ICONS[i], whiteIcon: WHITE_PLAYER_ICONS[i], speaking: false });
+      newExamplePlayers.push({
+        name: playerNames[i],
+        blackIcon: BLACK_PLAYER_ICONS[i],
+        whiteIcon: WHITE_PLAYER_ICONS[i],
+        speaking: false,
+        turnsTalking: 0,
+      });
     }
 
     this.fetchQuestions().subscribe((q) => {
@@ -129,7 +135,17 @@ export class CurrentGameService {
         newExampleQuestions.push(questions[i]);
       }
 
-      const newExampleCriterions: Criterion[] = [
+      let newExampleCriterions: Criterion[] = [
+        { text: 'Exemple', description: 'Par exemple ?', icon: 'exemple8@2x.png' },
+        { text: 'Source', description: 'Où as-tu appris ça ?', icon: 'source@2x.png' },
+        { text: 'Donner ses raisons', description: 'Pourquoi ça ?', icon: 'raisons@2x.png' },
+        { text: 'Définir', description: 'Que veut dire ce mot?', icon: 'definir@2x.png' },
+        { text: 'Nuance', description: 'Est-ce toujours le cas ?', icon: 'nuance@2x.png' },
+        { text: 'Comparer', description: ' Quelle est la différence?', icon: 'comparer@2x.png' },
+        { text: 'Reformuler', description: "En d'autres termes ?", icon: 'reformuler@2x.png' },
+        { text: 'Collaborer', description: 'Que puis-je ?', icon: 'collaborer@2x.png' },
+        { text: 'Contexte', description: ' Dans quel contexte est-ce valable ?', icon: 'contexte@2x.png' },
+        { text: 'Présupposé', description: ' Que sous-entend la question ?', icon: 'presuppose@2x.png' },
         { text: 'Exemple', description: 'Par exemple ?', icon: 'exemple8@2x.png' },
         { text: 'Source', description: 'Où as-tu appris ça ?', icon: 'source@2x.png' },
         { text: 'Donner ses raisons', description: 'Pourquoi ça ?', icon: 'raisons@2x.png' },
@@ -141,6 +157,7 @@ export class CurrentGameService {
         { text: 'Contexte', description: ' Dans quel contexte est-ce valable ?', icon: 'contexte@2x.png' },
         { text: 'Présupposé', description: ' Que sous-entend la question ?', icon: 'presuppose@2x.png' },
       ];
+      newExampleCriterions = shuffle(newExampleCriterions);
 
       console.log(newExamplePlayers, newExampleCriterions, newExampleQuestions);
 

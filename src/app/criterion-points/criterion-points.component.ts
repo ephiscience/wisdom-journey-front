@@ -5,8 +5,8 @@ import { Component, Input, OnInit } from '@angular/core';
   template: `
     <div class="image"></div>
     <div class="bar-container">
-      <div class="text">{{ numCriterions + '/10' }}</div>
-      <div class="bar" [ngStyle]="{ width: (numCriterions / 10) * 100 + '%' }" [ngStyle]="{ opacity: 0 }"></div>
+      <div class="text">{{ numCriterions + '/20' }}</div>
+      <div class="bar" [ngStyle]="{ width: (numCriterions / 20) * 100 + '%' }" [ngStyle]="{ opacity: 0 }"></div>
     </div>
   `,
   styles: [
