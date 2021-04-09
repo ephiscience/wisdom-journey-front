@@ -21,6 +21,7 @@ import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '@angular/forms';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { HttpClientModule } from '@angular/common/http';
     LevelSelectionComponent,
     ModalComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, GraphQLModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, GraphQLModule, HttpClientModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

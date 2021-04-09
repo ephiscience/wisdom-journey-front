@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Criterion } from '../board/board.component';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 /* [ngStyle]="{'background': check1 ? '#1B8CD0 0% 0% no-repeat padding-box' : '#FFA935 0% 0% no-repeat padding-box'}"*/
 

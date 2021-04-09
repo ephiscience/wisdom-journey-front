@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
+/// [style.width]="getWidth()"
 
 @Component({
   selector: 'app-criterion-points',
