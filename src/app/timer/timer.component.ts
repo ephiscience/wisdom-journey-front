@@ -1,33 +1,54 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
 
-const maximumTime = 3 * 60 * 1000;
+const maximumTime = 1000; //3 * 60 * 1000;
 
 @Component({
   selector: 'app-timer',
   template: `
-    <p>
-      <button (click)="pause()">{{ millisToMinutesAndSeconds() }}</button>
-    </p>
+    <button (click)="pause()">
+      <img src="{{ this.imgPath }}" alt="play/pause button" />
+    </button>
+    <div class="timer">{{ millisToMinutesAndSeconds() }}</div>
   `,
 
   styles: [
     `
       :host {
+        width: 270px;
         place-self: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        height: 62px;
       }
 
       button {
-        width: 161px;
-        height: 64px;
+        width: 62px;
+        height: 62px;
+        cursor: pointer;
+        border-radius: 40px;
         background: #ffbb60 0% 0% no-repeat padding-box;
         border: 4px solid #ffffff;
-        border-radius: 40px;
+        //box-shadow: 0px 0px 5px #ffffff;
+      }
+
+      div.timer {
+        width: 150px;
+        height: 62px;
+        background: #ffbb60 0% 0% no-repeat padding-box;
+        //border: 2px solid #707070;
+        border-radius: 20px;
         opacity: 1;
         text-align: center;
         font: normal normal normal 53px/53px Chela One;
         letter-spacing: 0px;
         color: #000000;
-        cursor: pointer;
+      }
+      img {
+        padding-top: 3px;
+        height: 38px;
+        width: 33px;
       }
     `,
   ],
@@ -36,6 +57,8 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
   @Input() endOfGame!: boolean;
   @Input() modalActive!: boolean;
   @Output() endTimer = new EventEmitter();
+  @Output() pausedTimer = new EventEmitter();
+  imgPath = '../assets/images/pause.png';
 
   time: number;
   timerID: number | null = null;
@@ -95,9 +118,13 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
   pause(): void {
     if (this.paused === false) {
       this.paused = true;
+      this.pausedTimer.emit(true);
+      this.imgPath = '../assets/images/play.png';
       this.stop();
     } else {
       this.start();
+      this.pausedTimer.emit(false);
+      this.imgPath = '../assets/images/pause.png';
     }
   }
 

@@ -10,3 +10,6 @@ body {
   margin: 0px;
   height: 100vh;
 }
+:focus {
+  outline: 0 !important;
+}

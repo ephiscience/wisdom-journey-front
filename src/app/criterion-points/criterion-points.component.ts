@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
     <div class="image"></div>
     <div class="bar-container">
       <div class="text">{{ numCriterions + '/20' }}</div>
-      <div class="bar" [ngStyle]="{ width: (numCriterions / 20) * 100 + '%' }" [ngStyle]="{ opacity: 0 }"></div>
+      <div class="bar" [style.width]="getWidth()" [style.opacity]="getOpacity()"></div>
     </div>
   `,
   styles: [
@@ -75,4 +75,16 @@ export class CriterionPointsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  getWidth(): string {
+    return (this.numCriterions / 20) * 100 + '%';
+  }
+
+  getOpacity(): string {
+    if (this.numCriterions === 0) {
+      return '0';
+    } else {
+      return '1';
+    }
+  }
 }

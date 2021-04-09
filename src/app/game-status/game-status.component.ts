@@ -6,7 +6,12 @@ import { TimerComponent } from '../timer/timer.component';
   selector: 'app-game-status',
   template: `
     <app-criterion-points [numCriterions]="20 - game.remainingCriterions.length"></app-criterion-points>
-    <app-timer (endTimer)="emitEndOfGameTurn()" [endOfGame]="this.reloadTimer" [modalActive]="this.pauseTimer"></app-timer>
+    <app-timer
+      (endTimer)="emitEndOfGameTurn()"
+      (pausedTimer)="emitPausedTimer($event)"
+      [endOfGame]="this.reloadTimer"
+      [modalActive]="this.pauseTimer"
+    ></app-timer>
     <app-question-points [game]="game"></app-question-points>
   `,
   styles: [
@@ -40,6 +45,7 @@ export class GameStatusComponent implements OnInit, OnChanges {
   @Input() pauseTimer!: boolean;
   @Output() endOfGameTurn = new EventEmitter();
   @Input() reloadTimer!: boolean;
+  @Output() pausedTimer = new EventEmitter();
 
   @ViewChild(TimerComponent) timer!: TimerComponent;
 
@@ -55,5 +61,9 @@ export class GameStatusComponent implements OnInit, OnChanges {
 
   emitEndOfGameTurn(): void {
     this.endOfGameTurn.emit();
+  }
+
+  emitPausedTimer(state: boolean): void {
+    this.pausedTimer.emit(state);
   }
 }

@@ -5,8 +5,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
   template: `
     <div class="background">
       <div class="body">
-        <p class="title">{{ title }}</p>
-        <p class="content">{{ content }}</p>
+        <div class="title">{{ title }}</div>
+        <div class="content">{{ content }}</div>
         <div class="buttons">
           <button class="no" (click)="emitNo()">Non</button>
           <button class="yes" (click)="emitYes()">Oui</button>
@@ -16,7 +16,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
   `,
   styles: [
     `
-      .background {
+      div.background {
         position: absolute;
         top: 0px;
         left: Opx;
@@ -32,7 +32,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
         justify-content: center;
       }
 
-      .body {
+      div.body {
         position: fixed;
         width: 479px;
         height: 331px;
@@ -40,16 +40,20 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
         box-shadow: 0px 0px 10px #000000;
         border: 2px solid #000000;
         border-radius: 56px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
       }
-      .title {
+      div.title {
         text-align: center;
         font: normal normal normal 60px/71px Chela One;
         letter-spacing: 0px;
         color: #000000;
-        margin-top: 20px;
+        margin-top: 10px;
         margin-bottom: 10px;
       }
-      .content {
+      div.content {
         text-align: center;
         font: normal normal normal 33px/39px Roboto;
         color: #000000;
@@ -58,13 +62,16 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
         margin-top: 10px;
         margin-bottom: 20px;
       }
-      .buttons {
+      div.buttons {
+        width: 370px;
+        margin-bottom: 20px;
+
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
       }
-      .no {
+      button.no {
         width: 141px;
         height: 66px;
         background: #ed6760 0% 0% no-repeat padding-box;
@@ -74,7 +81,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
         text-align: center;
         font: normal normal normal 45px/53px Chela One;
       }
-      .yes {
+      button.yes {
         width: 141px;
         height: 66px;
         background: #9db749 0% 0% no-repeat padding-box;
