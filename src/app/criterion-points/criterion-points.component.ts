@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
     <div class="image"></div>
     <div class="bar-container">
       <div class="text">{{ numCriterions + '/20' }}</div>
-      <div class="bar" [style.width]="getWidth()" [style.opacity]="getOpacity()"></div>
+      <div class="bar" [class.transparent]="this.numCriterions === 0" [style.width]="getWidth()"></div>
     </div>
   `,
   styles: [
@@ -66,6 +66,9 @@ import { Component, Input, OnInit } from '@angular/core';
         opacity: 1;
         position: absolute;
       }
+      .bar.transparent {
+        opacity: 0;
+      }
     `,
   ],
 })
@@ -78,13 +81,5 @@ export class CriterionPointsComponent implements OnInit {
 
   getWidth(): string {
     return (this.numCriterions / 20) * 100 + '%';
-  }
-
-  getOpacity(): string {
-    if (this.numCriterions === 0) {
-      return '0';
-    } else {
-      return '1';
-    }
   }
 }

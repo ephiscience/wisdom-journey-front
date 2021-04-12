@@ -1,14 +1,17 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
 
-const maximumTime = 1000; //3 * 60 * 1000;
+const maximumTime = 3 * 60 * 1000;
 
 @Component({
   selector: 'app-timer',
   template: `
     <button (click)="pause()">
-      <img src="{{ this.imgPath }}" alt="play/pause button" />
+      <img *ngIf="paused; else play" src="../assets/images/play.png" alt="play button" />
+      <ng-template #play>
+        <img #play src="../assets/images/pause.png" alt="pause button" />
+      </ng-template>
     </button>
-    <div class="timer">{{ millisToMinutesAndSeconds() }}</div>
+    <div class="timer">{{ this.time | durationFromMilliseconds | durationToFormat: 'mm:ss' }}</div>
   `,
 
   styles: [
@@ -58,7 +61,6 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
   @Input() modalActive!: boolean;
   @Output() endTimer = new EventEmitter();
   @Output() pausedTimer = new EventEmitter();
-  imgPath = '../assets/images/pause.png';
 
   time: number;
   timerID: number | null = null;
@@ -119,18 +121,10 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
     if (this.paused === false) {
       this.paused = true;
       this.pausedTimer.emit(true);
-      this.imgPath = '../assets/images/play.png';
       this.stop();
     } else {
       this.start();
       this.pausedTimer.emit(false);
-      this.imgPath = '../assets/images/pause.png';
     }
-  }
-
-  millisToMinutesAndSeconds(): string {
-    const minutes = Math.floor(this.time / 60000);
-    const seconds = Math.floor((this.time % 60000) / 1000);
-    return seconds === 60 ? minutes + 1 + ':00' : minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
 }

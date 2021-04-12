@@ -10,6 +10,7 @@ interface Level {
   background: string;
 }
 
+// TODO: https://piotrl.medium.com/angular-translate-enums-i18n-ec1bb1462181
 const LEVELS: Level[] = [
   {
     title: 'Débutant',
@@ -50,7 +51,7 @@ const LEVELS: Level[] = [
         class="level"
         *ngFor="let item of levels"
         [style.background]="item.background"
-        [style.border]="selected(item)"
+        [class.selected]="item === clickedButton"
         (click)="levelSelection(item)"
       >
         <div class="upper-text">{{ item.title }}</div>
@@ -94,6 +95,9 @@ const LEVELS: Level[] = [
         margin-right: 15px;
         position: relative;
         cursor: pointer;
+      }
+      .level.selected {
+        border: 6px solid #050505;
       }
       div.upper-text {
         top: 10px;
@@ -154,13 +158,6 @@ export class LevelSelectionComponent {
     this.maxQuestions.emit(level.cardCount);
   }*/
 
-  selected(num: Level) {
-    if (num === this.clickedButton) {
-      return '6px solid #050505';
-    } else {
-      return '2px solid #050505';
-    }
-  }
   levelSelection(level: Level) {
     this.clickedButton = level;
     this.maxQuestions = level.cardCount;

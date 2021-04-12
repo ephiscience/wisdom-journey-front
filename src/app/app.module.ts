@@ -11,7 +11,7 @@ import { GameComponent } from './game/game.component';
 import { GameStatusComponent } from './game-status/game-status.component';
 import { PlayersComponent } from './players/players.component';
 import { CriterionPointsComponent } from './criterion-points/criterion-points.component';
-import { QuestionPointsComponent } from './question-points/question-points.component';
+import { QuestionPointsComponent, TimesPipe } from './question-points/question-points.component';
 import { TimerComponent } from './timer/timer.component';
 import { HomeComponent } from './home/home.component';
 import { PregameComponent } from './pregame/pregame.component';
@@ -21,6 +21,7 @@ import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '@angular/forms';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import { LuxonModule } from 'luxon-angular';
 
 @NgModule({
   declarations: [
@@ -40,8 +41,9 @@ import { HttpClientModule } from '@angular/common/http';
     PlayerSelectionComponent,
     LevelSelectionComponent,
     ModalComponent,
+    TimesPipe,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, GraphQLModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, GraphQLModule, HttpClientModule, LuxonModule],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -9,7 +9,6 @@ import { Game } from './game.model';
     <ng-container *ngIf="game">
       <app-game-status
         [game]="game"
-        (reloadGame)="reloadGame()"
         (endOfGameTurn)="updateGameStatus()"
         (pausedTimer)="updatePausedTimer($event)"
         [reloadTimer]="this.resetTimer"
@@ -45,20 +44,20 @@ import { Game } from './game.model';
         right: 1%;
         width: 56px;
         height: 56px;
-        background: transparent url('../assets/images/home@2x.png') 0% 0% no-repeat padding-box;
+        background: transparent url('../assets/images/home@2x.png') 0 0 no-repeat padding-box;
         background-size: contain;
-        border: 0px;
+        border: 0;
         z-index: 100;
         cursor: pointer;
       }
       div.pause {
         position: absolute;
-        bottom: 0px;
-        left: Opx;
+        bottom: 0;
+        left: 0;
         width: 100%;
         height: 200px;
         /* UI Properties */
-        background: #00000080 0% 0% no-repeat padding-box;
+        background: #00000080 0 0 no-repeat padding-box;
         opacity: 1;
         z-index: 80;
         display: flex;
