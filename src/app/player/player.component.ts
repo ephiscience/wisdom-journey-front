@@ -4,10 +4,16 @@ import { Player } from '../game/game.model';
 @Component({
   selector: 'app-player',
   template: `
-    <div class="outer" [style.background]="getBackgroundColor()">
-      <img class="icon" src="{{ '../assets/images/' + this.getIcon() }}" alt="player icon" />
-      <img class="role" src="{{ '../assets/images/' + this.getRole() }}" alt="player role" />
+    <div *ngIf="orateur; else listener" class="outer speaker">
+      <img class="icon" src="{{ '../assets/images/' + player.blackIcon }}" alt="player icon" />
+      <img class="role" src="../assets/images/talk@2x.png" alt="player role" />
     </div>
+    <ng-template #listener>
+      <div class="outer listener">
+        <img class="icon" src="{{ '../assets/images/' + player.whiteIcon }}" alt="player icon" />
+        <img class="role" src="../assets/images/tap@2x.png" alt="player role" />
+      </div>
+    </ng-template>
     <div class="name">{{ player.name }}</div>
   `,
   styles: [
@@ -20,10 +26,15 @@ import { Player } from '../game/game.model';
         height: 70px;
         margin-left: 20px;
         margin-right: 20px;
-        background: #707070 0% 0% no-repeat padding-box;
         border: 2px solid #000000;
         opacity: 1;
         border-radius: 40px;
+      }
+      .outer.speaker {
+        background: #ffffff 0% 0% no-repeat padding-box;
+      }
+      .outer.listener {
+        background: #707070 0% 0% no-repeat padding-box;
       }
       div.name {
         width: 110px;
@@ -53,34 +64,9 @@ import { Player } from '../game/game.model';
     `,
   ],
 })
-export class PlayerComponent implements OnInit {
+export class PlayerComponent {
   @Input() player!: Player;
-  @Input() orateur!: boolean;
+  @Input() orateur!: boolean; // TODO ???
 
   constructor() {}
-
-  ngOnInit(): void {}
-
-  getBackgroundColor(): string {
-    if (this.orateur === true) {
-      return '#FFFFFF 0% 0% no-repeat padding-box';
-    } else {
-      return '#707070 0% 0% no-repeat padding-box';
-    }
-  }
-
-  getIcon(): string {
-    if (this.orateur === true) {
-      return this.player.blackIcon;
-    } else {
-      return this.player.whiteIcon;
-    }
-  }
-  getRole(): string {
-    if (this.orateur === true) {
-      return 'talk@2x.png';
-    } else {
-      return 'tap@2x.png';
-    }
-  }
 }

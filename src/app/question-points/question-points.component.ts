@@ -1,9 +1,25 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Game } from '../game/game.model';
 
+import { PipeTransform, Pipe } from '@angular/core';
+
+@Pipe({ name: 'times' })
+export class TimesPipe implements PipeTransform {
+  transform(value: number): Iterable<number> {
+    return {
+      *[Symbol.iterator]() {
+        let n = 0;
+        while (n < value) {
+          yield ++n;
+        }
+      },
+    };
+  }
+}
+
 @Component({
   selector: 'app-question-points',
-  template: ` <div class="image" *ngFor="let item of game.remainingQuestions"></div> `,
+  template: ` <div class="image" *ngFor="let item of questionCount | times"></div> `,
   styles: [
     `
       :host {
@@ -33,7 +49,7 @@ import { Game } from '../game/game.model';
   ],
 })
 export class QuestionPointsComponent implements OnInit {
-  @Input() game!: Game;
+  @Input() questionCount!: number;
 
   constructor() {}
 

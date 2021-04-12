@@ -12,7 +12,7 @@ import { TimerComponent } from '../timer/timer.component';
       [endOfGame]="this.reloadTimer"
       [modalActive]="this.pauseTimer"
     ></app-timer>
-    <app-question-points [game]="game"></app-question-points>
+    <app-question-points [questionCount]="game.remainingQuestions.length"></app-question-points>
   `,
   styles: [
     `
