@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { GameComponent } from './game/game.component';
+import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { PregameComponent } from './pregame/pregame.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'new', component: PregameComponent },
-  { path: 'game', component: GameComponent },
+  { path: 'new', loadChildren: () => import('./modules/pregame/pregame.module').then((m) => m.PregameModule) },
+  { path: 'game', loadChildren: () => import('./modules/game/game.module').then((m) => m.GameModule) },
 ];
 
 @NgModule({
