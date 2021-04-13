@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from '../current-game.service';
-import { Player } from '../player-selection/player-selection.component';
+import { Player } from './player-selection/player-selection.component';
 
 @Component({
   selector: 'app-pregame',

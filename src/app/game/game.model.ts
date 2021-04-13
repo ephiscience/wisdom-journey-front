@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import { Criterion, Question } from '../board/board.component';
+import { Criterion, Question } from './board/board.component';
 
 function shuffle(array: any[]): Array<any> {
   let currentIndex = array.length;

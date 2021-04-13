@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { BehaviorSubject, concat, EMPTY, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Criterion } from './board/board.component';
+import { Criterion } from './game/board/board.component';
 import { asJSON, fromJSON, Game, Player } from './game/game.model';
 
 function shuffle(array: any[]): Array<any> {
