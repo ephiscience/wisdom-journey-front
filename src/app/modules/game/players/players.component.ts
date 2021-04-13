@@ -3,7 +3,9 @@ import { Game } from 'src/app/model/game.model';
 
 @Component({
   selector: 'app-players',
-  template: ` <app-player *ngFor="let p of game.players" [player]="p" [orateur]="p.speaking"> </app-player> `,
+  template: ` <ng-container *ngIf="game">
+    <app-player *ngFor="let p of game.players" [player]="p" [orateur]="p.speaking"></app-player>
+  </ng-container>`,
   styles: [
     `
       :host {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Game } from 'src/app/model/game.model';
 
 export interface Question {
@@ -14,21 +14,22 @@ export interface Criterion {
 @Component({
   selector: 'app-board',
   template: `
-    <div class="question">
-      <app-question [question]="game.remainingQuestions[0]" (next)="game.removeQuestion(); emitCheckGameState()"></app-question>
-    </div>
+    <ng-container *ngIf="game">
+      <div class="question">
+        <app-question [question]="game.remainingQuestions[0]" (next)="game.removeQuestion(); emitCheckGameState()"></app-question>
+      </div>
 
-    <div class="criterions" *ngIf="game.remainingCriterions.length; else noCriterion">
-      <app-criterion-card
-        *ngFor="let c of game.remainingCriterions.slice(0, 3); index as i"
-        [criterion]="c"
-        [endOfTurn]="this.endOfTurn"
-        (validated)="game.removeCriterion(c, i); emitCheckGameState()"
-      >
-        {{ c.text }}
-      </app-criterion-card>
-    </div>
-    <ng-template #noCriterion></ng-template>
+      <div class="criterions" *ngIf="game.remainingCriterions.length">
+        <app-criterion-card
+          *ngFor="let c of game.remainingCriterions.slice(0, 3); index as i"
+          [criterion]="c"
+          [endOfTurn]="this.endOfTurn"
+          (validated)="game.removeCriterion(c, i); emitCheckGameState()"
+        >
+          {{ c.text }}
+        </app-criterion-card>
+      </div>
+    </ng-container>
   `,
   styles: [
     `
@@ -45,12 +46,13 @@ export interface Criterion {
       }
 
       div.criterions {
-        flex-basis: 162;
+        flex-basis: 162px;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
       }
+
       app-criterion-card {
         flex-basis: 162px;
       }
