@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
-import { Game } from 'src/app/model/game.model';
+import { Game } from 'src/app/model/game';
 
 @Component({
   selector: 'app-game',
