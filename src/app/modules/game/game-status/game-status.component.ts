@@ -5,14 +5,16 @@ import { TimerComponent } from 'src/app/modules/game/timer/timer.component';
 @Component({
   selector: 'app-game-status',
   template: `
-    <app-criterion-points [numCriterions]="20 - game.remainingCriterions.length"></app-criterion-points>
-    <app-timer
-      (endTimer)="emitEndOfGameTurn()"
-      (pausedTimer)="emitPausedTimer($event)"
-      [endOfGame]="this.reloadTimer"
-      [modalActive]="this.pauseTimer"
-    ></app-timer>
-    <app-question-points [questionCount]="game.remainingQuestions.length"></app-question-points>
+    <ng-container *ngIf="game">
+      <app-criterion-points [numCriterions]="20 - game.remainingCriterions.length"></app-criterion-points>
+      <app-timer
+        (endTimer)="emitEndOfGameTurn()"
+        (pausedTimer)="emitPausedTimer($event)"
+        [endOfGame]="this.reloadTimer"
+        [modalActive]="this.pauseTimer"
+      ></app-timer>
+      <app-question-points [questionCount]="game.remainingQuestions.length"></app-question-points>
+    </ng-container>
   `,
   styles: [
     `

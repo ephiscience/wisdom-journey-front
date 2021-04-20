@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LuxonModule } from 'luxon-angular';
 
 import { TimerComponent } from 'src/app/modules/game/timer/timer.component';
 
@@ -9,6 +10,7 @@ describe('TimerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TimerComponent],
+      imports: [LuxonModule],
     }).compileComponents();
   });
 
