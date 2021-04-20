@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { Game } from 'src/app/model/game.model';
+import { Game } from 'src/app/model/game';
 import { TimerComponent } from 'src/app/modules/game/timer/timer.component';
 
 @Component({
