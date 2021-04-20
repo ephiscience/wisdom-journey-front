@@ -1,7 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
 import { Player } from 'src/app/modules/pregame/player-selection/player-selection.component';
+import { ModalConfig } from 'src/app/modules/shared/mymodal/mymodal.config';
+import { NgbActiveModal, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MymodalComponent } from 'src/app/modules/shared/mymodal/mymodal.component';
 
 @Component({
   selector: 'app-pregame',
@@ -13,6 +16,7 @@ import { Player } from 'src/app/modules/pregame/player-selection/player-selectio
       content="Etes vous surs de vouloir quitter la partie en cours ?"
     ></app-modal>
     <div class="container">
+      <app-mymodal #modal [modalConfig]="modalConfig"> It works! </app-mymodal>
       <app-player-selection *ngIf="!this.level" (numPlayers)="loadLevelSelection($event)"></app-player-selection>
       <app-level-selection *ngIf="this.level" [playerNames]="this.playerNames"></app-level-selection>
       <button class="home" (click)="openModal()"></button>
@@ -60,7 +64,7 @@ export class PregameComponent {
   playerNames!: string[];
   home = false;
 
-  constructor(private cg: CurrentGameService, private router: Router) {}
+  constructor(private cg: CurrentGameService, private router: Router, private modalService: NgbModal) {}
 
   openModal(): void {
     this.home = true;
@@ -76,5 +80,23 @@ export class PregameComponent {
   loadLevelSelection(players: Player[]): void {
     this.playerNames = players.map((p) => p.name);
     this.level = true;
+  }
+
+  @ViewChild('modal') private modal!: MymodalComponent;
+
+  public modalConfig: ModalConfig = {
+    modalTitle: 'Title',
+    onDismiss: () => {
+      return true;
+    },
+    dismissButtonLabel: 'Dismiss',
+    onClose: () => {
+      return true;
+    },
+    closeButtonLabel: 'Close',
+  };
+
+  async openModalTwo() {
+    return await this.modal.open();
   }
 }
