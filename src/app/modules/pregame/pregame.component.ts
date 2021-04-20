@@ -9,6 +9,10 @@ import { MymodalComponent } from 'src/app/modules/shared/mymodal/mymodal.compone
 @Component({
   selector: 'app-pregame',
   template: `
+    <div>
+      <button type="button" id="button" class="btn btn-outline-dark" style="margin: auto" (click)="openModalTwo()">Click me</button>
+    </div>
+    <app-mymodal #modal [modalConfig]="modalConfig"> It works! </app-mymodal>
     <app-modal
       *ngIf="home"
       (answer)="closeModal($event)"
