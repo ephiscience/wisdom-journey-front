@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MissingLevelSelectionModalComponent } from 'src/app/modules/shared/missing-level-selection-modal/missing-level-selection-modal.component';
 
 interface Level {
   title: string;
@@ -151,12 +153,7 @@ export class LevelSelectionComponent {
 
   clickedButton?: Level;
 
-  constructor(private cg: CurrentGameService, private router: Router) {}
-
-  /*levelSelection(level: Level): void {
-    this.clickedButton = level;
-    this.maxQuestions.emit(level.cardCount);
-  }*/
+  constructor(private cg: CurrentGameService, private router: Router, private modalService: NgbModal) {}
 
   levelSelection(level: Level) {
     this.clickedButton = level;
@@ -168,10 +165,21 @@ export class LevelSelectionComponent {
     console.log(this.maxQuestions);
 
     if (this.maxQuestions === 0) {
-      alert('Please select a level');
+      this.openMissingLevelSelectionModal();
     } else {
       this.cg.createGame(this.maxQuestions, this.playerNames);
       this.router.navigate(['game']);
     }
+  }
+
+  openMissingLevelSelectionModal(): void {
+    this.handleMissingLevelSelectionModalResult(this.modalService.open(MissingLevelSelectionModalComponent, { backdrop: 'static' }).result);
+  }
+
+  handleMissingLevelSelectionModalResult(p: Promise<unknown>) {
+    p.then(
+      () => {},
+      () => {}
+    );
   }
 }

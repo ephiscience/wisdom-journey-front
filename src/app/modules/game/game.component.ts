@@ -89,13 +89,7 @@ export class GameComponent implements OnInit {
 
   game!: Game;
   pauseTime = false;
-  resetTimer = false;
-  modalTitle = '';
-  modalContent = '';
-  modal = false;
-  home = false;
-  answer: boolean | null = null;
-  endOfGame = false;
+  resetTimer = false; //is this useful ???
   endOfTurn = false;
   pausedTimer = false;
 
@@ -116,36 +110,17 @@ export class GameComponent implements OnInit {
   updateGameStatus(): void {
     this.game.removeQuestion();
     this.game.changePlayerRoles();
-    //this.pauseTime = true; ?????
+    this.endOfTurn = true;
     this.openEndOfTurnModal();
   }
 
-  async checkGameState(): Promise<void> {
-    //console.log('check victory conditions');
-    await delay(500);
+  checkGameState(): void {
     if (this.game.remainingQuestions.length === 0 && this.game.remainingCriterions.length > 0) {
-      //this.endOfGame = true;
-      //this.pauseTime = true;
-      //this.modalTitle = 'Défaite';
-      //this.modalContent = 'Voulez vous rejouer ?';
       this.openDefeatModal();
-      //this.modal = true;
     } else if (this.game.remainingQuestions.length > 0 && this.game.remainingCriterions.length === 0) {
-      //this.endOfGame = true;
-      //this.pauseTime = true;
-      //this.modalTitle = 'Victoire !';
-      //this.modalContent = 'Voulez vous rejouer ?';
-      //this.modal = true;
       this.openVictoryModal();
     }
   }
-
-  /*openModal(): void {
-    this.modalTitle = 'Quitter';
-    this.modalContent = 'Etes vous surs de vouloir quitter la partie ?';
-    this.modal = true;
-    this.home = true;
-  }*/
 
   openQuitGameModal(): void {
     this.pauseTime = true;
@@ -174,10 +149,12 @@ export class GameComponent implements OnInit {
       () => {
         this.game.removeAdditionalCriterion();
         this.checkGameState();
+        this.endOfTurn = false;
         this.pauseTime = false;
       },
       () => {
         this.checkGameState();
+        this.endOfTurn = false;
         this.pauseTime = false;
       }
     );
@@ -227,41 +204,6 @@ export class GameComponent implements OnInit {
     console.log(state);
     this.pausedTimer = state;
   }
-
-  /* function name not adequate, as the function does several things AND maybe change the order of the end condition ??
-  closeModal(answerFromModal: boolean): void {
-    this.answer = answerFromModal;
-    //if it's the end of the game
-    /*if (this.home === true) {
-      console.log('modal close');
-      if (answerFromModal === true) {
-        this.router.navigate(['']);
-      }
-      this.home = false;
-      this.modal = false;
-      return;
-    }*/
-  /*if (this.endOfGame === true) {
-      this.endOfGame = false;
-      this.modal = false;
-      this.pauseTime = false;
-      if (this.answer === true) {
-        this.reloadGame();
-      } else {
-        this.router.navigate(['']);
-      }
-      //if it's end of game turn
-    } /*else {
-      if (this.answer === true) {
-        this.game.removeAdditionalCriterion();
-      }
-      this.modal = false;
-      this.checkGameState();
-      this.pauseTime = false;
-      this.endOfTurn = false;
-    }
-    return;
-  }*/
 }
 
 function delay(ms: number) {

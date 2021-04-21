@@ -6,17 +6,16 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   template: `
     <div class="modal-content">
       <div class="modal-header ">
-        <h4 class="modal-title w-100 text-center">Fin du Tour</h4>
+        <h4 class="modal-title w-100 text-center"></h4>
         <button type="button" class="close" aria-label="Close" (click)="dismiss()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body w-100 text-center">
-        <p>Auditeurs, est ce que les réponses à la question étaient pertinentes ?</p>
+        <p>Veuillez entrer un nom pour chaque joueur</p>
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn-yes" (click)="close()">Oui</button>
-        <button type="button" class="btn-no" (click)="dismiss()">Non</button>
+        <button type="button" class="btn-ok" (click)="dismiss()">Ok</button>
       </div>
     </div>
   `,
@@ -26,7 +25,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
         //opacity: 1;
         z-index: 100;
         width: 479px;
-        height: 381px;
+        height: 301px;
         border-radius: 56px;
 
         box-shadow: 0px 0px 10px #000000;
@@ -49,26 +48,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
       .modal-footer {
         border-top: 0px;
       }
-      .btn-yes {
+      .btn-ok {
         width: 141px;
         height: 66px;
-        background: #9db749 0% 0% no-repeat padding-box;
+        background: #b2b2b2 0% 0% no-repeat padding-box;
         box-shadow: 0px 3px 6px #00000029;
         border: 2px solid #707070;
         border-radius: 33px;
         text-align: center;
-        margin-right: 20px;
-        font: normal normal normal 45px/53px Chela One;
-      }
-      .btn-no {
-        width: 141px;
-        height: 66px;
-        background: #ed6760 0% 0% no-repeat padding-box;
-        box-shadow: 0px 3px 6px #00000029;
-        border: 2px solid #707070;
-        border-radius: 33px;
-        text-align: center;
-        margin-left: 20px;
         font: normal normal normal 45px/53px Chela One;
       }
       .close {

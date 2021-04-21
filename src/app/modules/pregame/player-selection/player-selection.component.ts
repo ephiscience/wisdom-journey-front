@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MissingPlayerNameModalComponent } from 'src/app/modules/shared/missing-player-name-modal/missing-player-name-modal.component';
 
 const AVAILABLE_PLAYERS_CHOICES = [1, 2, 3];
 
@@ -124,6 +126,8 @@ export class PlayerSelectionComponent implements OnInit {
 
   players: Player[] = [];
 
+  constructor(private modalService: NgbModal) {}
+
   ngOnInit(): void {
     for (let i = 0; i < 3; i++) {
       this.addPlayer();
@@ -155,7 +159,7 @@ export class PlayerSelectionComponent implements OnInit {
     const noname = this.players.filter((p) => p.name === '').length > 0;
 
     if (noname) {
-      alert('Please enter a name for each player');
+      this.openMissingPlayerNameModal();
     } else {
       this.numPlayers.emit(this.players);
     }
@@ -163,5 +167,16 @@ export class PlayerSelectionComponent implements OnInit {
 
   getIcon(num: number) {
     return PLAYER_ICONS[num];
+  }
+
+  openMissingPlayerNameModal(): void {
+    this.handleMissingPlayerNameModalResult(this.modalService.open(MissingPlayerNameModalComponent, { backdrop: 'static' }).result);
+  }
+
+  handleMissingPlayerNameModalResult(p: Promise<unknown>) {
+    p.then(
+      () => {},
+      () => {}
+    );
   }
 }
