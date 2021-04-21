@@ -20,7 +20,6 @@ import { MymodalComponent } from 'src/app/modules/shared/mymodal/mymodal.compone
       content="Etes vous surs de vouloir quitter la partie en cours ?"
     ></app-modal>
     <div class="container">
-      <app-mymodal #modal [modalConfig]="modalConfig"> It works! </app-mymodal>
       <app-player-selection *ngIf="!this.level" (numPlayers)="loadLevelSelection($event)"></app-player-selection>
       <app-level-selection *ngIf="this.level" [playerNames]="this.playerNames"></app-level-selection>
       <button class="home" (click)="openModal()"></button>
