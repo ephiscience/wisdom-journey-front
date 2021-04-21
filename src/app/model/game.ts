@@ -1,4 +1,5 @@
 import { Observable, Subject } from 'rxjs';
+import { Player } from 'src/app/model/player';
 import { Criterion, Question } from 'src/app/modules/game/board/board.component';
 
 function shuffle(array: any[]): Array<any> {
@@ -18,14 +19,6 @@ function shuffle(array: any[]): Array<any> {
     array[randomIndex] = temporaryValue;
   }
   return array;
-}
-
-export interface Player {
-  name: string;
-  blackIcon: string;
-  whiteIcon: string;
-  speaking: boolean;
-  turnsTalking: number;
 }
 
 export function asJSON(game: Game): string {
@@ -55,13 +48,13 @@ export class Game {
   changes$ = new Subject<void>();
 
   constructor(
-    public players: Player[],
-    public remainingCriterions: Criterion[],
-    public remainingQuestions: Question[],
-    public validatedCriterions: Criterion[],
-    public validatedQuestions: Question[]
+    public players: Player[] = [],
+    public remainingCriterions: Criterion[] = [],
+    public remainingQuestions: Question[] = [],
+    public validatedCriterions: Criterion[] = [],
+    public validatedQuestions: Question[] = []
   ) {
-    this.changePlayerRoles();
+    // this.changePlayerRoles();
   }
 
   changes(): Observable<void> {

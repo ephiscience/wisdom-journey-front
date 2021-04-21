@@ -8,6 +8,7 @@ import { EndOfTurnModalComponent } from 'src/app/modules/shared/end-of-turn-moda
 import { VictoryModalComponent } from 'src/app/modules/shared/victory-modal/victory-modal.component';
 import { DefeatModalComponent } from 'src/app/modules/shared/defeat-modal/defeat-modal.component';
 
+
 @Component({
   selector: 'app-game',
   template: `

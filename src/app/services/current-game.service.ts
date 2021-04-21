@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { BehaviorSubject, concat, EMPTY, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { Player } from 'src/app/model/player';
 import { Criterion } from 'src/app/modules/game/board/board.component';
-import { asJSON, fromJSON, Game, Player } from 'src/app/model/game.model';
+import { asJSON, fromJSON, Game } from 'src/app/model/game';
 
 function shuffle(array: any[]): Array<any> {
   let currentIndex = array.length;
