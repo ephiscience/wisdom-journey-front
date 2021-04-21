@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { MymodalComponent } from 'src/app/modules/shared/mymodal/mymodal.component';
+import { QuitGameConfirmationModalComponent } from 'src/app/modules/shared/quit-game-confirmation-modal/quit-game-confirmation-modal.component';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
