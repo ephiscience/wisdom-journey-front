@@ -8,9 +8,8 @@ describe('MissingPlayerNameModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MissingPlayerNameModalComponent ]
-    })
-    .compileComponents();
+      declarations: [MissingPlayerNameModalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

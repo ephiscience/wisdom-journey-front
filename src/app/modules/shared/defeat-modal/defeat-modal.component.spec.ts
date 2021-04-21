@@ -8,9 +8,8 @@ describe('DefeatModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DefeatModalComponent ]
-    })
-    .compileComponents();
+      declarations: [DefeatModalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

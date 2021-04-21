@@ -8,9 +8,8 @@ describe('MymodalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ QuitGameConfirmationModalComponent ]
-    })
-    .compileComponents();
+      declarations: [QuitGameConfirmationModalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

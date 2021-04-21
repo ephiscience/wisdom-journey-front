@@ -8,9 +8,8 @@ describe('MissingLevelSelectionModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MissingLevelSelectionModalComponent ]
-    })
-    .compileComponents();
+      declarations: [MissingLevelSelectionModalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -8,9 +8,8 @@ describe('EndOfTurnModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EndOfTurnModalComponent ]
-    })
-    .compileComponents();
+      declarations: [EndOfTurnModalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

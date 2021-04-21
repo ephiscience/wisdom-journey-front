@@ -8,9 +8,8 @@ describe('VictoryModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VictoryModalComponent ]
-    })
-    .compileComponents();
+      declarations: [VictoryModalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
