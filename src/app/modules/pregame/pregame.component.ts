@@ -11,7 +11,7 @@ import { CurrentGameService } from 'src/app/services/current-game.service';
     <div class="container">
       <app-player-selection *ngIf="!this.level" (numPlayers)="loadLevelSelection($event)"></app-player-selection>
       <app-level-selection *ngIf="this.level" [playerNames]="this.playerNames"></app-level-selection>
-      <button class="home" (click)="openModal()"></button>
+      <button class="home" (click)="openQuitGameModal()"></button>
     </div>
   `,
   styles: [
@@ -44,11 +44,11 @@ export class PregameComponent {
 
   constructor(private cg: CurrentGameService, private router: Router, private modalService: NgbModal) {}
 
-  openModal(): void {
-    this.handleModalResult(this.modalService.open(QuitGameConfirmationModalComponent).result);
+  openQuitGameModal(): void {
+    this.handleQuitGameModalResult(this.modalService.open(QuitGameConfirmationModalComponent, { backdrop: 'static' }).result);
   }
 
-  handleModalResult(p: Promise<unknown>) {
+  handleQuitGameModalResult(p: Promise<unknown>) {
     p.then(
       () => this.router.navigate(['/']),
       () => {}
