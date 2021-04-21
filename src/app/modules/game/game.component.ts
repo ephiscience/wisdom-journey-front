@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output, AfterViewInit, ElementR
 import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
 import { Game } from 'src/app/model/game.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { QuitGameConfirmationModalComponent } from 'src/app/modules/shared/quit-game-confirmation-modal/quit-game-confirmation-modal.component';
+import { EndOfTurnModalComponent } from 'src/app/modules/shared/end-of-turn-modal/end-of-turn-modal.component';
 
 @Component({
   selector: 'app-game',
@@ -16,7 +19,7 @@ import { Game } from 'src/app/model/game.model';
       ></app-game-status>
       <app-board #board [game]="game" [endOfTurn]="this.endOfTurn" (checkGameState)="checkGameState()"></app-board>
       <app-players #players [game]="game"></app-players>
-      <button (click)="openModal()"></button>
+      <button (click)="openQuitGameModal()"></button>
       <app-modal *ngIf="modal" (answer)="closeModal($event)" [title]="this.modalTitle" [content]="this.modalContent"></app-modal>
       <div class="pause" *ngIf="this.pausedTimer" [style.height.px]="this.viewHeight"></div>
     </ng-container>
@@ -97,7 +100,7 @@ export class GameComponent implements OnInit {
 
   viewHeight!: number;
 
-  constructor(private cg: CurrentGameService, private router: Router) {}
+  constructor(private cg: CurrentGameService, private router: Router, private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.cg.currentGame().subscribe((game) => {
@@ -113,10 +116,15 @@ export class GameComponent implements OnInit {
     this.game.removeQuestion();
     this.game.changePlayerRoles();
     this.pauseTime = true;
-    this.modalTitle = 'Fin du Tour';
-    this.modalContent = 'Auditeurs, est ce que les réponses à la question étaient pertinentes ?';
-    this.endOfTurn = true;
-    this.modal = true;
+    this.openEndOfTurnModal();
+    //this.modalTitle = 'Fin du Tour';
+    //this.modalContent = 'Auditeurs, est ce que les réponses à la question étaient pertinentes ?';
+    //this.endOfTurn = true;
+    //this.modal = true;
+    //this.modal = false;
+    //this.checkGameState(); !!!!!!
+    //this.pauseTime = false; !!!!!!!
+    // this.endOfTurn = false;
   }
 
   async checkGameState(): Promise<void> {
@@ -137,11 +145,40 @@ export class GameComponent implements OnInit {
     }
   }
 
-  openModal(): void {
+  /*openModal(): void {
     this.modalTitle = 'Quitter';
     this.modalContent = 'Etes vous surs de vouloir quitter la partie ?';
     this.modal = true;
     this.home = true;
+  }*/
+
+  openQuitGameModal(): void {
+    this.handleQuitGameModalResult(this.modalService.open(QuitGameConfirmationModalComponent, { backdrop: 'static' }).result);
+  }
+
+  handleQuitGameModalResult(p: Promise<unknown>) {
+    p.then(
+      () => this.router.navigate(['/']),
+      () => {}
+    );
+  }
+
+  openEndOfTurnModal(): void {
+    this.handleEndofTurnModalResult(this.modalService.open(EndOfTurnModalComponent, { backdrop: 'static' }).result);
+  }
+
+  handleEndofTurnModalResult(p: Promise<unknown>) {
+    p.then(
+      () => {
+        this.game.removeAdditionalCriterion();
+        this.checkGameState();
+        this.pauseTime = false;
+      },
+      () => {
+        this.checkGameState();
+        this.pauseTime = false;
+      }
+    );
   }
 
   reloadGame() {
@@ -178,7 +215,7 @@ export class GameComponent implements OnInit {
         this.router.navigate(['']);
       }
       //if it's end of game turn
-    } else {
+    } /*else {
       if (this.answer === true) {
         this.game.removeAdditionalCriterion();
       }
@@ -186,7 +223,7 @@ export class GameComponent implements OnInit {
       this.checkGameState();
       this.pauseTime = false;
       this.endOfTurn = false;
-    }
+    }*/
     return;
   }
 }
