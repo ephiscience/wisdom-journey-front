@@ -24,7 +24,7 @@ import { Player } from 'src/app/model/player';
         position: relative;
       }
 
-      div.outer {
+      .outer {
         width: 70px;
         height: 70px;
         margin-left: 20px;
@@ -32,6 +32,7 @@ import { Player } from 'src/app/model/player';
         border: 2px solid #000000;
         opacity: 1;
         border-radius: 40px;
+        text-align: center;
       }
 
       .outer.speaker {
@@ -42,7 +43,7 @@ import { Player } from 'src/app/model/player';
         background: #707070 0% 0% no-repeat padding-box;
       }
 
-      div.name {
+      .name {
         width: 110px;
         height: 43px;
         text-align: center;
@@ -51,16 +52,15 @@ import { Player } from 'src/app/model/player';
         color: #000000;
       }
 
-      img.icon {
-        top: 17px;
-        left: 36px;
+      .icon {
+        top: 13px;
         height: 44px;
         opacity: 1;
         z-index: 10;
-        position: absolute;
+        position: relative;
       }
 
-      img.role {
+      .role {
         top: -10px;
         left: 65px;
         width: 42px;

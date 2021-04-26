@@ -66,7 +66,7 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
   `,
   styles: [
     `
-      div.outer {
+      .outer {
         width: 162px;
         height: 231px;
         background: #9db749 0% 0% no-repeat padding-box;
@@ -78,7 +78,7 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
         margin-right: 20px;
       }
 
-      div.inner {
+      .inner {
         top: 7px;
         left: 8px;
         width: 144px;
@@ -114,7 +114,7 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
         left: -30px;
       }
 
-      div.image {
+      .image {
         position: absolute;
         top: 55px;
         left: 22px;
@@ -124,7 +124,7 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
         opacity: 1;
       }
 
-      div.text-upper-short {
+      .text-upper-short {
         top: 5px;
         left: 0px;
         width: 144px;
@@ -137,7 +137,7 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
         position: absolute;
       }
 
-      div.text-upper-long {
+      .text-upper-long {
         top: 5px;
         left: 0px;
         width: 144px;
@@ -150,7 +150,7 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
         position: absolute;
       }
 
-      div.text-lower-short {
+      .text-lower-short {
         top: 182px;
         left: 0px;
         width: 144px;
@@ -164,7 +164,7 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
         position: absolute;
       }
 
-      div.text-lower-long {
+      .text-lower-long {
         bottom: 2px;
         left: 0px;
         width: 144px;
@@ -178,9 +178,9 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
         position: absolute;
       }
 
-      div.text-left-short {
+      .text-left-short {
         top: 92px;
-        left: -90px;
+        left: -94px;
         width: 217px;
         height: 30px;
         transform: matrix(0, -1, 1, 0, 0, 0);
@@ -192,9 +192,9 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
         z-index: 2;
       }
 
-      div.text-left-long {
-        top: 92px;
-        left: -82px;
+      .text-left-long {
+        top: 98px;
+        left: -73px;
         width: 180px;
         height: 30px;
         transform: matrix(0, -1, 1, 0, 0, 0);
@@ -207,8 +207,8 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
         z-index: 2;
       }
 
-      div.text-right-short {
-        top: 92px;
+      .text-right-short {
+        top: 90px;
         left: 17px;
         width: 217px;
         height: 30px;
@@ -222,9 +222,9 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
         z-index: 2;
       }
 
-      div.text-right-long {
-        top: 92px;
-        left: 27px;
+      .text-right-long {
+        top: 86px;
+        left: 35px;
         width: 180px;
         height: 30px;
         transform: matrix(0, 1, -1, 0, 0, 0);
@@ -238,18 +238,18 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
         z-index: 2;
       }
 
-      img.icon {
+      .icon {
         top: 10px;
-        left: 8px;
+        left: 4px;
         max-width: 89px;
         max-height: 85px;
         z-index: 2;
         position: absolute;
       }
 
-      div.inner-button {
-        top: 4px;
-        left: 4px;
+      .inner-button {
+        top: 5px;
+        left: 5px;
         width: 38px;
         height: 38px;
         background: #ffffff 0% 0% no-repeat padding-box;
@@ -258,7 +258,7 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
         position: absolute;
       }
 
-      div.check {
+      .check {
         top: 15px;
         left: 10px;
         width: 30px;
