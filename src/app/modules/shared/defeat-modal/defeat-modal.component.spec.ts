@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { DefeatModalComponent } from './defeat-modal.component';
 
@@ -9,6 +10,7 @@ describe('DefeatModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DefeatModalComponent],
+      providers: [NgbModal, NgbActiveModal],
     }).compileComponents();
   });
 

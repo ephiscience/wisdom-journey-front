@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { VictoryModalComponent } from './victory-modal.component';
 
@@ -9,6 +10,7 @@ describe('VictoryModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [VictoryModalComponent],
+      providers: [NgbModal, NgbActiveModal],
     }).compileComponents();
   });
 

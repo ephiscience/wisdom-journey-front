@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { MissingLevelSelectionModalComponent } from './missing-level-selection-modal.component';
 
@@ -9,6 +10,7 @@ describe('MissingLevelSelectionModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MissingLevelSelectionModalComponent],
+      providers: [NgbModal, NgbActiveModal],
     }).compileComponents();
   });
 
