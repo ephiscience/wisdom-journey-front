@@ -55,6 +55,46 @@
         <note priority="1" from="description">Go the the next step</note>
         <note priority="1" from="meaning">continue</note>
       </trans-unit>
+      <trans-unit id="0f1316b7c0dbfdae435c5b6b73297925d9c07d85" datatype="html">
+        <source>questions</source>
+        <target state="translated">preguntas</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/pregame/difficulty-card/difficulty-card.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5754117841832798663" datatype="html">
+        <source>Beginner</source>
+        <target state="translated">Principiante</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/pregame/level-selection/level-selection.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1311606986429558406" datatype="html">
+        <source>Intermediate</source>
+        <target state="translated">Intermedio</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/pregame/level-selection/level-selection.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6201638315245239510" datatype="html">
+        <source>Advanced</source>
+        <target state="translated">Avanzado</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/pregame/level-selection/level-selection.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7287607689388981179" datatype="html">
+        <source>Expert</source>
+        <target state="translated">Experto</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/pregame/level-selection/level-selection.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
