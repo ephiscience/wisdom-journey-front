@@ -25,6 +25,8 @@
     "@angular/platform-browser-dynamic": "~11.2.9",
     "@angular/router": "~11.2.9",
     "@apollo/client": "^3.0.0",
+    "@fontsource/chela-one": "^4.2.3",
+    "@fontsource/roboto": "^4.2.3",
     "@ng-bootstrap/ng-bootstrap": "9.1.0",
     "apollo-angular": "^2.4.0",
     "bootstrap": "^4.5.0",
