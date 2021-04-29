@@ -10,6 +10,59 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="5da4d5fea6c5136e967d61d33f03aae993d56131" datatype="html">
+        <source>Create a game</source>
+        <target state="translated">Créer une partie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="24d453e097e263c3e8d6a7d44f673aeed8a8fe85" datatype="html">
+        <source>Select the difficulty</source>
+        <target state="translated">Séléctionnez la difficulté</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/pregame/level-selection/level-selection.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9e38d78b712fc76b3e2b3aca0c3cef726f16f925" datatype="html">
+        <source>Play</source>
+        <target state="translated">Jouer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/pregame/level-selection/level-selection.component.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+        <note priority="1" from="description">Button to launch the game</note>
+        <note priority="1" from="meaning">play button</note>
+      </trans-unit>
+      <trans-unit id="67577e814dd53fd2c109969bbd516b3651659e96" datatype="html">
+        <source>Select the number of players</source>
+        <target state="translated">Séléctionnez le nombre de joueurs</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/pregame/player-selection/player-selection.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b2c1ef6ee4db5a398784072a3e3ed4b158680839" datatype="html">
+        <source>Enter your name here</source>
+        <target state="translated">Entrez votre nom ici</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/pregame/player-selection/player-selection.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <note priority="1" from="description">Player name input placeholder</note>
+      </trans-unit>
+      <trans-unit id="56e8f5b67e76931dd6b4e0f17fc437e1aee13855" datatype="html">
+        <source>Continue</source>
+        <target state="translated">Continuer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/pregame/player-selection/player-selection.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <note priority="1" from="description">Go the the next step</note>
+        <note priority="1" from="meaning">continue</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>

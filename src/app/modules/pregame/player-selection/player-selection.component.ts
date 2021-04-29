@@ -14,18 +14,26 @@ export interface Player {
 @Component({
   selector: 'app-player-selection',
   template: `
-    <div class="texte">1/2 - Sélectionnez le nombre de joueurs</div>
+    <div class="texte">
+      1/2 -
+      <ng-container i18n>Select the number of players</ng-container>
+    </div>
     <div class="container">
       <div class="player" *ngFor="let player of players">
         <img class="player-img" src="../assets/images/{{ player.icon }}" alt="player icon" />
-        <input class="input" placeholder="Entrez votre nom ici" [(ngModel)]="player.name" />
+        <input
+          class="input"
+          i18n-placeholder="Player name input placeholder"
+          placeholder="Enter your name here"
+          [(ngModel)]="player.name"
+        />
         <button class="cross" *ngIf="players.length > 3" (click)="removePlayer(player)"></button>
       </div>
       <button class="add-player" *ngIf="players.length < 6" (click)="addPlayer()">
         <img class="cross-img" src="../../../../assets/images/plus@2x.png" alt="add player button" />
       </button>
     </div>
-    <button class="play" (click)="loadLevelSelection()">Continuer</button>
+    <button class="play" (click)="loadLevelSelection()" i18n="continue|Go the the next step">Continue</button>
   `,
   styles: [
     `
@@ -140,6 +148,7 @@ export class PlayerSelectionComponent implements OnInit {
       });
     }
   }
+
   nextIcon(): string {
     return PLAYER_ICONS.filter((e) => !this.players.map((p) => p.icon).includes(e))[0];
   }

@@ -1,6 +1,8 @@
 {
   "locales": [
-    "fr"
+    "fr",
+    "es",
+    "de"
   ],
   "editor": {
     "messageLocations": [

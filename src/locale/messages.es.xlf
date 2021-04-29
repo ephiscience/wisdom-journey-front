@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en" datatype="plaintext" original="ng2.template">
+  <file source-language="en" target-language="es" datatype="plaintext" original="ng2.template">
     <body>
       <trans-unit id="5da4d5fea6c5136e967d61d33f03aae993d56131" datatype="html">
         <source>Create a game</source>
+        <target state="translated">Crear una partida</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/home/home.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -11,6 +12,7 @@
       </trans-unit>
       <trans-unit id="24d453e097e263c3e8d6a7d44f673aeed8a8fe85" datatype="html">
         <source>Select the difficulty</source>
+        <target state="translated">Seleccione la dificultad</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/pregame/level-selection/level-selection.component.ts</context>
           <context context-type="linenumber">48</context>
@@ -18,6 +20,7 @@
       </trans-unit>
       <trans-unit id="9e38d78b712fc76b3e2b3aca0c3cef726f16f925" datatype="html">
         <source>Play</source>
+        <target state="translated">Jugar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/pregame/level-selection/level-selection.component.ts</context>
           <context context-type="linenumber">62</context>
@@ -27,6 +30,7 @@
       </trans-unit>
       <trans-unit id="67577e814dd53fd2c109969bbd516b3651659e96" datatype="html">
         <source>Select the number of players</source>
+        <target state="translated">Seleccione el número de jugadores</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/pregame/player-selection/player-selection.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -34,6 +38,7 @@
       </trans-unit>
       <trans-unit id="b2c1ef6ee4db5a398784072a3e3ed4b158680839" datatype="html">
         <source>Enter your name here</source>
+        <target state="translated">Introduce tu nombre aquí</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/pregame/player-selection/player-selection.component.ts</context>
           <context context-type="linenumber">25</context>
@@ -42,6 +47,7 @@
       </trans-unit>
       <trans-unit id="56e8f5b67e76931dd6b4e0f17fc437e1aee13855" datatype="html">
         <source>Continue</source>
+        <target state="translated">Continuar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/pregame/player-selection/player-selection.component.ts</context>
           <context context-type="linenumber">34</context>

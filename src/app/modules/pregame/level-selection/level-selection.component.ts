@@ -47,7 +47,7 @@ const LEVELS: Level[] = [
 @Component({
   selector: 'app-level-selection',
   template: `
-    <div class="texte">2/2 - Sélectionnez la difficulté</div>
+    <div class="texte">2/2 - <ng-container i18n>Select the difficulty</ng-container></div>
     <div class="container">
       <button
         class="level"
@@ -61,7 +61,7 @@ const LEVELS: Level[] = [
         <div class="lower-text">{{ item.description }}</div>
       </button>
     </div>
-    <button class="play" (click)="loadGame()">Jouer</button>
+    <button class="play" (click)="loadGame()" i18n="play button|Button to launch the game">Play</button>
   `,
   styles: [
     `
