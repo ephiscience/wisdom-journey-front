@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="270d70f4d3c4b07cc4ba50c216042b236a2dc18b" datatype="html">
+        <source>Create a new game</source>
+        <target state="signed-off">Créer une nouvelle partie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

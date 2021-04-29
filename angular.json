@@ -4,6 +4,12 @@
   "newProjectRoot": "projects",
   "projects": {
     "wisdom-journey-front": {
+      "i18n": {
+        "sourceLocale": "en",
+        "locales": {
+          "fr": "src/locale/messages.fr.xlf"
+        }
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,6 +26,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize": true,
             "outputPath": "dist/wisdom-journey-front",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -31,6 +38,9 @@
             "scripts": []
           },
           "configurations": {
+            "lint-locales": {
+              "i18nMissingTranslation": "error"
+            },
             "production": {
               "fileReplacements": [
                 {
