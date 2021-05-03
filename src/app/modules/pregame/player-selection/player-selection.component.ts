@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MissingPlayerNameModalComponent } from 'src/app/modules/shared/missing-player-name-modal/missing-player-name-modal.component';
+import { MissingPlayerNameModalComponent } from '../missing-player-name-modal/missing-player-name-modal.component';
 
 const AVAILABLE_PLAYERS_CHOICES = [1, 2, 3];
 
@@ -170,13 +170,6 @@ export class PlayerSelectionComponent implements OnInit {
   }
 
   openMissingPlayerNameModal(): void {
-    this.handleMissingPlayerNameModalResult(this.modalService.open(MissingPlayerNameModalComponent, { backdrop: 'static' }).result);
-  }
-
-  handleMissingPlayerNameModalResult(p: Promise<unknown>) {
-    p.then(
-      () => {},
-      () => {}
-    );
+    this.modalService.open(MissingPlayerNameModalComponent, { backdrop: 'static' });
   }
 }

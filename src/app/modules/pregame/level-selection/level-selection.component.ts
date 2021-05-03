@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MissingLevelSelectionModalComponent } from 'src/app/modules/shared/missing-level-selection-modal/missing-level-selection-modal.component';
+import { MissingLevelSelectionModalComponent } from '../missing-level-selection-modal/missing-level-selection-modal.component';
 
 interface Level {
   title: string;
@@ -173,13 +173,6 @@ export class LevelSelectionComponent {
   }
 
   openMissingLevelSelectionModal(): void {
-    this.handleMissingLevelSelectionModalResult(this.modalService.open(MissingLevelSelectionModalComponent, { backdrop: 'static' }).result);
-  }
-
-  handleMissingLevelSelectionModalResult(p: Promise<unknown>) {
-    p.then(
-      () => {},
-      () => {}
-    );
+    this.modalService.open(MissingLevelSelectionModalComponent, { backdrop: 'static' });
   }
 }

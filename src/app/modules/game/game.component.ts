@@ -4,9 +4,9 @@ import { CurrentGameService } from 'src/app/services/current-game.service';
 import { Game } from 'src/app/model/game';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuitGameConfirmationModalComponent } from 'src/app/modules/shared/quit-game-confirmation-modal/quit-game-confirmation-modal.component';
-import { EndOfTurnModalComponent } from 'src/app/modules/shared/end-of-turn-modal/end-of-turn-modal.component';
-import { VictoryModalComponent } from 'src/app/modules/shared/victory-modal/victory-modal.component';
-import { DefeatModalComponent } from 'src/app/modules/shared/defeat-modal/defeat-modal.component';
+import { EndOfTurnModalComponent } from './end-of-turn-modal/end-of-turn-modal.component';
+import { VictoryModalComponent } from './victory-modal/victory-modal.component';
+import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
 
 @Component({
   selector: 'app-game',
