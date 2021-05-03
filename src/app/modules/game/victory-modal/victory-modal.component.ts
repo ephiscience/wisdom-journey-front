@@ -20,62 +20,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
       </div>
     </div>
   `,
-  styles: [
-    `
-      ::ng-deep .modal-content {
-        //opacity: 1;
-        z-index: 100;
-        width: 479px;
-        height: 381px;
-        border-radius: 56px;
-
-        box-shadow: 0px 0px 10px #000000;
-
-        background-color: #ffffff;
-      }
-      .modal-header {
-        border-bottom: 0px;
-      }
-      .modal-title {
-        text-align: center;
-        font: normal normal normal 60px/71px Chela One;
-        color: #000000;
-      }
-      .modal-body {
-        font: normal normal normal 33px/39px Roboto;
-        color: #000000;
-        border-bottom: 0px;
-      }
-      .modal-footer {
-        border-top: 0px;
-      }
-      .btn-yes {
-        width: 141px;
-        height: 66px;
-        background: #9db749 0% 0% no-repeat padding-box;
-        box-shadow: 0px 3px 6px #00000029;
-        border: 2px solid #707070;
-        border-radius: 33px;
-        text-align: center;
-        margin-right: 20px;
-        font: normal normal normal 45px/53px Chela One;
-      }
-      .btn-no {
-        width: 141px;
-        height: 66px;
-        background: #ed6760 0% 0% no-repeat padding-box;
-        box-shadow: 0px 3px 6px #00000029;
-        border: 2px solid #707070;
-        border-radius: 33px;
-        text-align: center;
-        margin-left: 20px;
-        font: normal normal normal 45px/53px Chela One;
-      }
-      .close {
-        font-size: 40px;
-      }
-    `,
-  ],
+  styleUrls: ['../../shared/modals.scss'],
 })
 export class VictoryModalComponent {
   constructor(private modal: NgbActiveModal) {}
