@@ -1,21 +1,17 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { CurrentGameService } from 'src/app/services/current-game.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Player } from 'src/app/modules/pregame/player-selection/player-selection.component';
+import { QuitGameConfirmationModalComponent } from 'src/app/modules/shared/quit-game-confirmation-modal/quit-game-confirmation-modal.component';
+import { CurrentGameService } from 'src/app/services/current-game.service';
 
 @Component({
   selector: 'app-pregame',
   template: `
-    <app-modal
-      *ngIf="home"
-      (answer)="closeModal($event)"
-      title="Quitter"
-      content="Etes vous surs de vouloir quitter la partie en cours ?"
-    ></app-modal>
     <div class="container">
       <app-player-selection *ngIf="!this.level" (numPlayers)="loadLevelSelection($event)"></app-player-selection>
       <app-level-selection *ngIf="this.level" [playerNames]="this.playerNames"></app-level-selection>
-      <button class="home" (click)="openModal()"></button>
+      <button class="home" (click)="openQuitGameModal()"></button>
     </div>
   `,
   styles: [
@@ -28,19 +24,6 @@ import { Player } from 'src/app/modules/pregame/player-selection/player-selectio
         height: 100vh;
       }
 
-      button.play {
-        width: 567px;
-        height: 114px;
-        background: #ffa935 0% 0% no-repeat padding-box;
-        box-shadow: 3px 3px 3px #0000005f;
-        border: 3px solid #707070;
-        border-radius: 74px;
-        text-align: center;
-        font: normal normal normal 70px/82px Chela One;
-        letter-spacing: 0px;
-        cursor: pointer;
-      }
-
       button.home {
         position: fixed;
         bottom: 1%;
@@ -49,7 +32,7 @@ import { Player } from 'src/app/modules/pregame/player-selection/player-selectio
         height: 56px;
         background: transparent url('../../../assets/images/home@2x.png') 0% 0% no-repeat padding-box;
         background-size: contain;
-        border: 0px;
+        border: 0;
         cursor: pointer;
       }
     `,
@@ -58,19 +41,18 @@ import { Player } from 'src/app/modules/pregame/player-selection/player-selectio
 export class PregameComponent {
   level = false;
   playerNames!: string[];
-  home = false;
 
-  constructor(private cg: CurrentGameService, private router: Router) {}
+  constructor(private cg: CurrentGameService, private router: Router, private modalService: NgbModal) {}
 
-  openModal(): void {
-    this.home = true;
+  openQuitGameModal(): void {
+    this.handleQuitGameModalResult(this.modalService.open(QuitGameConfirmationModalComponent, { backdrop: 'static' }).result);
   }
 
-  closeModal(answerFromModal: boolean): void {
-    this.home = false;
-    if (answerFromModal === true) {
-      this.router.navigate(['']);
-    }
+  handleQuitGameModalResult(p: Promise<unknown>) {
+    p.then(
+      () => this.router.navigate(['/']),
+      () => {}
+    );
   }
 
   loadLevelSelection(players: Player[]): void {

@@ -2,6 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output, AfterViewInit, ElementR
 import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
 import { Game } from 'src/app/model/game';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { QuitGameConfirmationModalComponent } from 'src/app/modules/shared/quit-game-confirmation-modal/quit-game-confirmation-modal.component';
+import { EndOfTurnModalComponent } from './end-of-turn-modal/end-of-turn-modal.component';
+import { VictoryModalComponent } from './victory-modal/victory-modal.component';
+import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
 
 @Component({
   selector: 'app-game',
@@ -16,8 +21,7 @@ import { Game } from 'src/app/model/game';
       ></app-game-status>
       <app-board #board [game]="game" [endOfTurn]="this.endOfTurn" (checkGameState)="checkGameState()"></app-board>
       <app-players #players [game]="game"></app-players>
-      <button (click)="openModal()"></button>
-      <app-modal *ngIf="modal" (answer)="closeModal($event)" [title]="this.modalTitle" [content]="this.modalContent"></app-modal>
+      <button (click)="openQuitGameModal()"></button>
       <div class="pause" *ngIf="this.pausedTimer" [style.height.px]="this.viewHeight"></div>
     </ng-container>
   `,
@@ -85,19 +89,13 @@ export class GameComponent implements OnInit {
 
   game!: Game;
   pauseTime = false;
-  resetTimer = false;
-  modalTitle = '';
-  modalContent = '';
-  modal = false;
-  home = false;
-  answer: boolean | null = null;
-  endOfGame = false;
+  resetTimer = false; //is this useful ???
   endOfTurn = false;
   pausedTimer = false;
 
   viewHeight!: number;
 
-  constructor(private cg: CurrentGameService, private router: Router) {}
+  constructor(private cg: CurrentGameService, private router: Router, private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.cg.currentGame().subscribe((game) => {
@@ -112,36 +110,88 @@ export class GameComponent implements OnInit {
   updateGameStatus(): void {
     this.game.removeQuestion();
     this.game.changePlayerRoles();
-    this.pauseTime = true;
-    this.modalTitle = 'Fin du Tour';
-    this.modalContent = 'Auditeurs, est ce que les réponses à la question étaient pertinentes ?';
     this.endOfTurn = true;
-    this.modal = true;
+    this.openEndOfTurnModal();
   }
 
-  async checkGameState(): Promise<void> {
-    //console.log('check victory conditions');
-    await delay(500);
+  checkGameState(): void {
     if (this.game.remainingQuestions.length === 0 && this.game.remainingCriterions.length > 0) {
-      this.endOfGame = true;
-      this.pauseTime = true;
-      this.modalTitle = 'Défaite';
-      this.modalContent = 'Voulez vous rejouer ?';
-      this.modal = true;
+      this.openDefeatModal();
     } else if (this.game.remainingQuestions.length > 0 && this.game.remainingCriterions.length === 0) {
-      this.endOfGame = true;
-      this.pauseTime = true;
-      this.modalTitle = 'Victoire !';
-      this.modalContent = 'Voulez vous rejouer ?';
-      this.modal = true;
+      this.openVictoryModal();
     }
   }
 
-  openModal(): void {
-    this.modalTitle = 'Quitter';
-    this.modalContent = 'Etes vous surs de vouloir quitter la partie ?';
-    this.modal = true;
-    this.home = true;
+  openQuitGameModal(): void {
+    this.pauseTime = true;
+    this.handleQuitGameModalResult(this.modalService.open(QuitGameConfirmationModalComponent, { backdrop: 'static' }).result);
+  }
+
+  handleQuitGameModalResult(p: Promise<unknown>) {
+    p.then(
+      () => {
+        this.pauseTime = false;
+        this.router.navigate(['/']);
+      },
+      () => {
+        this.pauseTime = false;
+      }
+    );
+  }
+
+  openEndOfTurnModal(): void {
+    this.pauseTime = true;
+    this.handleEndofTurnModalResult(this.modalService.open(EndOfTurnModalComponent, { backdrop: 'static' }).result);
+  }
+
+  handleEndofTurnModalResult(p: Promise<unknown>) {
+    p.then(
+      () => {
+        this.game.removeAdditionalCriterion();
+        this.checkGameState();
+        this.endOfTurn = false;
+        this.pauseTime = false;
+      },
+      () => {
+        this.checkGameState();
+        this.endOfTurn = false;
+        this.pauseTime = false;
+      }
+    );
+  }
+
+  openVictoryModal(): void {
+    this.pauseTime = true;
+    this.handleVictoryModalResult(this.modalService.open(VictoryModalComponent, { backdrop: 'static' }).result);
+  }
+  handleVictoryModalResult(p: Promise<unknown>) {
+    p.then(
+      () => {
+        this.reloadGame();
+        //this.pauseTime = false; ????
+      },
+      () => {
+        //this.pauseTime = false; ???
+        this.router.navigate(['']);
+      }
+    );
+  }
+
+  openDefeatModal(): void {
+    this.pauseTime = true;
+    this.handleDefeatModalResult(this.modalService.open(DefeatModalComponent, { backdrop: 'static' }).result);
+  }
+  handleDefeatModalResult(p: Promise<unknown>) {
+    p.then(
+      () => {
+        this.reloadGame();
+        //this.pauseTime = false; ????
+      },
+      () => {
+        //this.pauseTime = false; ???
+        this.router.navigate(['']);
+      }
+    );
   }
 
   reloadGame() {
@@ -153,41 +203,6 @@ export class GameComponent implements OnInit {
     console.log(this.viewHeight);
     console.log(state);
     this.pausedTimer = state;
-  }
-
-  /* function name not adequate, as the function does several things AND maybe change the order of the end condition ??*/
-  closeModal(answerFromModal: boolean): void {
-    this.answer = answerFromModal;
-    //if it's the end of the game
-    if (this.home === true) {
-      console.log('modal close');
-      if (answerFromModal === true) {
-        this.router.navigate(['']);
-      }
-      this.home = false;
-      this.modal = false;
-      return;
-    }
-    if (this.endOfGame === true) {
-      this.endOfGame = false;
-      this.modal = false;
-      this.pauseTime = false;
-      if (this.answer === true) {
-        this.reloadGame();
-      } else {
-        this.router.navigate(['']);
-      }
-      //if it's end of game turn
-    } else {
-      if (this.answer === true) {
-        this.game.removeAdditionalCriterion();
-      }
-      this.modal = false;
-      this.checkGameState();
-      this.pauseTime = false;
-      this.endOfTurn = false;
-    }
-    return;
   }
 }
 
