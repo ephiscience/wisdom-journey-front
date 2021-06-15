@@ -21,7 +21,8 @@ import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
       ></app-game-status>
       <app-board #board [game]="game" [endOfTurn]="this.endOfTurn" (checkGameState)="checkGameState()"></app-board>
       <app-players #players [game]="game"></app-players>
-      <button (click)="openQuitGameModal()"></button>
+      <button class="home" (click)="openQuitGameModal()"></button>
+      <button class="parameters" (click)="openParameters()"></button>
       <div class="pause" *ngIf="this.pausedTimer" [style.height.px]="this.viewHeight"></div>
     </ng-container>
   `,
@@ -46,13 +47,26 @@ import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
         flex: 1;
       }
 
-      button {
+      button.home {
         position: fixed;
         bottom: 1%;
         right: 1%;
         width: 56px;
         height: 56px;
         background: transparent url('../../../assets/images/home@2x.png') 0 0 no-repeat padding-box;
+        background-size: contain;
+        border: 0;
+        z-index: 100;
+        cursor: pointer;
+      }
+
+      button.parameters {
+        position: fixed;
+        bottom: 1%;
+        left: 1%;
+        width: 56px;
+        height: 56px;
+        background: transparent url('../../../assets/images/parameters@2x.png') 0 0 no-repeat padding-box;
         background-size: contain;
         border: 0;
         z-index: 100;
@@ -120,6 +134,10 @@ export class GameComponent implements OnInit {
     } else if (this.game.remainingQuestions.length > 0 && this.game.remainingCriterions.length === 0) {
       this.openVictoryModal();
     }
+  }
+
+  openParameters(): void {
+    //ToDo
   }
 
   openQuitGameModal(): void {

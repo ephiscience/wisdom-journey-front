@@ -4,7 +4,8 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-home',
   template: `
     <img src="../assets/images/logo@2x.png" alt="ephiscience logo" />
-    <button routerLink="/new">Créer une partie</button>
+    <button class="newgame" routerLink="/new">Créer une partie</button>
+    <button class="parameters" (click)="openParameters()"></button>
   `,
   styles: [
     `
@@ -15,7 +16,7 @@ import { Component, OnInit } from '@angular/core';
         align-items: center;
         height: 100vh;
       }
-      button {
+      button.newgame {
         width: 873px;
         height: 191px;
         /* UI Properties */
@@ -30,9 +31,22 @@ import { Component, OnInit } from '@angular/core';
         opacity: 1;
         cursor: pointer;
       }
+
       img {
         height: 202px;
         width: 650px;
+      }
+      button.parameters {
+        position: fixed;
+        bottom: 1%;
+        left: 1%;
+        width: 56px;
+        height: 56px;
+        background: transparent url('../../../assets/images/parameters@2x.png') 0 0 no-repeat padding-box;
+        background-size: contain;
+        border: 0;
+        z-index: 100;
+        cursor: pointer;
       }
     `,
   ],
@@ -41,4 +55,8 @@ export class HomeComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  openParameters(): void {
+    //ToDo
+  }
 }

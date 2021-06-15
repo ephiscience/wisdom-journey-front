@@ -12,6 +12,7 @@ import { CurrentGameService } from 'src/app/services/current-game.service';
       <app-player-selection *ngIf="!this.level" (numPlayers)="loadLevelSelection($event)"></app-player-selection>
       <app-level-selection *ngIf="this.level" [playerNames]="this.playerNames"></app-level-selection>
       <button class="home" (click)="openQuitGameModal()"></button>
+      <button class="parameters" (click)="openParameters()"></button>
     </div>
   `,
   styles: [
@@ -35,6 +36,19 @@ import { CurrentGameService } from 'src/app/services/current-game.service';
         border: 0;
         cursor: pointer;
       }
+
+      button.parameters {
+        position: fixed;
+        bottom: 1%;
+        left: 1%;
+        width: 56px;
+        height: 56px;
+        background: transparent url('../../../assets/images/parameters@2x.png') 0 0 no-repeat padding-box;
+        background-size: contain;
+        border: 0;
+        z-index: 100;
+        cursor: pointer;
+      }
     `,
   ],
 })
@@ -43,6 +57,10 @@ export class PregameComponent {
   playerNames!: string[];
 
   constructor(private cg: CurrentGameService, private router: Router, private modalService: NgbModal) {}
+
+  openParameters(): void {
+    //ToDo
+  }
 
   openQuitGameModal(): void {
     this.handleQuitGameModalResult(this.modalService.open(QuitGameConfirmationModalComponent, { backdrop: 'static' }).result);
