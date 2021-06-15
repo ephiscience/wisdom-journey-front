@@ -1,45 +1,39 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MissingLevelSelectionModalComponent } from '../missing-level-selection-modal/missing-level-selection-modal.component';
 
-interface Level {
-  title: string;
-  description: string;
-  icon: string;
-  cardCount: number;
-  background: string;
+export interface LevelData {
+  readonly backgroundColor: string;
+  readonly cardCount: number;
+  readonly icon: string;
+  readonly title: string;
 }
 
-// TODO: https://piotrl.medium.com/angular-translate-enums-i18n-ec1bb1462181
-const LEVELS: Level[] = [
+const LEVELS: LevelData[] = [
   {
-    title: 'Débutant',
-    description: '8 questions',
+    title: $localize`Beginner`,
     icon: 'debutant.png',
-    background: '#E4F4B2 0% 0% no-repeat padding-box',
+    backgroundColor: '#E4F4B2',
     cardCount: 8,
   },
   {
-    title: 'Intermédiaire',
-    description: '6 questions',
+    title: $localize`Intermediate`,
     icon: 'intermediaire.png',
-    background: '#FFF0BF 0% 0% no-repeat padding-box',
+    backgroundColor: '#FFF0BF',
     cardCount: 6,
   },
   {
-    title: 'Avancé',
-    description: '4 questions',
+    title: $localize`Advanced`,
     icon: 'avance.png',
-    background: '#FFD4BC 0% 0% no-repeat padding-box',
+    backgroundColor: '#FFD4BC',
     cardCount: 4,
   },
   {
-    title: 'Expert',
-    description: '3 questions',
+    title: $localize`Expert`,
     icon: 'expert.png',
-    background: '#FFC5BC 0% 0% no-repeat padding-box',
+    backgroundColor: '#FFC5BC',
     cardCount: 3,
   },
 ];
@@ -47,21 +41,19 @@ const LEVELS: Level[] = [
 @Component({
   selector: 'app-level-selection',
   template: `
-    <div class="texte">2/2 - Sélectionnez la difficulté</div>
-    <div class="container">
-      <button
-        class="level"
-        *ngFor="let item of levels"
-        [style.background]="item.background"
-        [class.selected]="item === clickedButton"
-        (click)="levelSelection(item)"
-      >
-        <div class="upper-text">{{ item.title }}</div>
-        <img class="icon" src="../assets/images/{{ item.icon }}" alt="level icon" />
-        <div class="lower-text">{{ item.description }}</div>
-      </button>
+    <div class="texte">
+      2/2 -
+      <ng-container i18n>Select the difficulty</ng-container>
     </div>
-    <button class="play" (click)="loadGame()">Jouer</button>
+    <div class="container">
+      <app-difficulty-card
+        *ngFor="let item of levels"
+        [item]="item"
+        [selected]="item === clickedButton"
+        (clicked)="levelSelection(item)"
+      ></app-difficulty-card>
+    </div>
+    <button class="play" (click)="loadGame()" i18n="play button|Button to launch the game">Play</button>
   `,
   styles: [
     `
@@ -72,6 +64,7 @@ const LEVELS: Level[] = [
         align-items: center;
         height: 100vh;
       }
+
       div.texte {
         width: 100vw;
         height: 82px;
@@ -80,56 +73,14 @@ const LEVELS: Level[] = [
         letter-spacing: 0px;
         color: #000000;
       }
+
       div.container {
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
       }
-      button.level {
-        width: 176px;
-        height: 189px;
-        background: #e4f4b2 0% 0% no-repeat padding-box;
-        box-shadow: 0px 3px 6px #00000057;
-        border: 2px solid #050505;
-        border-radius: 25px;
-        margin-left: 15px;
-        margin-right: 15px;
-        position: relative;
-        cursor: pointer;
-      }
-      .level.selected {
-        border: 6px solid #050505;
-      }
-      div.upper-text {
-        top: 10px;
-        left: -2px;
-        position: absolute;
-        width: 176px;
-        height: 41px;
-        text-align: center;
-        font: normal normal normal 30px/35px Chela One;
-        letter-spacing: 0px;
-        color: #000000;
-      }
-      img {
-        top: 50px;
-        left: 30px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      div.lower-text {
-        top: 150px;
-        left: -2px;
-        position: absolute;
-        width: 176px;
-        height: 41px;
-        text-align: center;
-        font: normal normal normal 20px/24px Roboto;
-        letter-spacing: 0px;
-        color: #000000;
-      }
+
       button.play {
         width: 567px;
         height: 114px;
@@ -151,11 +102,11 @@ export class LevelSelectionComponent {
   maxQuestions = 0;
   levels = LEVELS;
 
-  clickedButton?: Level;
+  clickedButton?: LevelData;
 
   constructor(private cg: CurrentGameService, private router: Router, private modalService: NgbModal) {}
 
-  levelSelection(level: Level) {
+  levelSelection(level: LevelData) {
     this.clickedButton = level;
     this.maxQuestions = level.cardCount;
   }
