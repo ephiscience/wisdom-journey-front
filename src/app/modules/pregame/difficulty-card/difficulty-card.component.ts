@@ -4,12 +4,11 @@ import { LevelData } from 'src/app/modules/pregame/level-selection/level-selecti
 @Component({
   selector: 'app-difficulty-card',
   template: `
-    <button *ngIf="item" class="level" [style.backgroundColor]="item.backgroundColor" [class.selected]="selected"
-            (click)="clicked.next()">
+    <button *ngIf="item" class="level" [style.backgroundColor]="item.backgroundColor" [class.selected]="selected" (click)="clicked.next()">
       <div class="upper-text">
         {{ item.title }}
       </div>
-      <img class="icon" src="assets/images/{{ item.icon }}" alt="level icon"/>
+      <img class="icon" src="assets/images/{{ item.icon }}" alt="level icon" />
       <div class="lower-text">
         {{ item.cardCount }}
         <ng-container i18n>questions</ng-container>
