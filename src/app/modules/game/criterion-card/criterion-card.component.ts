@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Criterion } from 'src/app/modules/game/board/board.component';
 
-/* [ngStyle]="{'background': check1 ? '#1B8CD0 0% 0% no-repeat padding-box' : '#FFA935 0% 0% no-repeat padding-box'}"*/
+/* [ngStyle]="{'backgroundColor': check1 ? '#1B8CD0 0% 0% no-repeat padding-box' : '#FFA935 0% 0% no-repeat padding-box'}"*/
 
 @Component({
   selector: 'app-criterion-card',

@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-home',
   template: `
-    <img src="../assets/images/logo@2x.png" alt="ephiscience logo" />
-    <button routerLink="/new">Créer une partie</button>
+    <img src="assets/images/logo@2x.png" alt="ephiscience logo" />
+    <button routerLink="/new" i18n>Create a game</button>
   `,
   styles: [
     `
