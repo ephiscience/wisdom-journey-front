@@ -97,16 +97,19 @@ export class CurrentGameService {
 
   fetchQuestions(): Observable<Question[]> {
     return this.apollo
-      .watchQuery<{ questions: Question[] }>({
+      .query<{ questions: Question[] }>({
         query: gql`
-          {
+          query loadQuestions($lang: String!) {
             questions {
-              text
+              text(lang: $lang)
             }
           }
         `,
+        variables: {
+          lang: 'fr',
+        },
       })
-      .valueChanges.pipe(map((r) => r.data.questions));
+      .pipe(map((r) => r.data.questions));
   }
 
   createGame(numQuestions: number, playerNames: string[]) {
