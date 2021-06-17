@@ -1283,6 +1283,13 @@
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.1.0.tgz#0eee6373e11418bfe0b5638f654df7a4ca6a3950"
   integrity sha512-wYn6r8zVZyQJ6rQaALBEln5B1pzxb9shV5Ef97kTvn6yVGrqyXVnDqnU24MXnFubR+rZjBY9NWuxX3FB2sTsjg==
 
+"@hqoss/monads@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@hqoss/monads/-/monads-0.5.0.tgz#0a5a15dc575505c5fdb93657fb90ff70908678e8"
+  integrity sha512-amkY/KAXyongvTLr4bXVMMzVm5m0NnBzBjcUgKTdkP5iup2dHRcbPk3LSANMSLJ1yWnShGdTJdqiWA8RhT8pww==
+  dependencies:
+    tslib "^2.0.0"
+
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.5.0.tgz#1407967d4c6eecd7388f83acf1eaf4d0c6e58ef9"
