@@ -6,9 +6,9 @@ const maximumTime = 3 * 60 * 1000;
   selector: 'app-timer',
   template: `
     <button (click)="pause()">
-      <img *ngIf="paused; else play" src="../../../../assets/images/play.png" alt="play button" />
+      <img *ngIf="paused; else play" src="assets/images/play.png" alt="play button" />
       <ng-template #play>
-        <img #play src="../../../../assets/images/pause.png" alt="pause button" />
+        <img #play src="assets/images/pause.png" alt="pause button" />
       </ng-template>
     </button>
     <div class="timer">{{ this.time | durationFromMilliseconds | durationToFormat: 'mm:ss' }}</div>

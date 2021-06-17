@@ -20,7 +20,7 @@ export interface Player {
     </div>
     <div class="container">
       <div class="player" *ngFor="let player of players">
-        <img class="player-img" src="../assets/images/{{ player.icon }}" alt="player icon" />
+        <img class="player-img" src="assets/images/{{ player.icon }}" alt="player icon" />
         <input
           class="input"
           i18n-placeholder="Player name input placeholder"
@@ -30,7 +30,7 @@ export interface Player {
         <button class="cross" *ngIf="players.length > 3" (click)="removePlayer(player)"></button>
       </div>
       <button class="add-player" *ngIf="players.length < 6" (click)="addPlayer()">
-        <img class="cross-img" src="../../../../assets/images/plus@2x.png" alt="add player button" />
+        <img class="cross-img" src="assets/images/plus@2x.png" alt="add player button" />
       </button>
     </div>
     <button class="play" (click)="loadLevelSelection()" i18n="continue|Go the the next step">Continue</button>
@@ -79,7 +79,7 @@ export interface Player {
         left: 120px;
         width: 18px;
         height: 18px;
-        background: transparent url('../../../../assets/images/Croix@2x.png') 0% 0% no-repeat padding-box;
+        background: transparent url('/assets/images/Croix@2x.png') 0% 0% no-repeat padding-box;
         background-size: contain;
         border: 0px;
         position: absolute;
