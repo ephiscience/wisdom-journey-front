@@ -28,6 +28,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": ["typescript-is"],
             "localize": true,
             "outputPath": "dist/wisdom-journey-front",
             "index": "src/index.html",
@@ -88,6 +89,9 @@
             "proxyConfig": "server-proxy.json"
           },
           "configurations": {
+            "fr": {
+              "browserTarget": "wisdom-journey-front:build:fr"
+            },
             "production": {
               "browserTarget": "wisdom-journey-front:build:production"
             },
