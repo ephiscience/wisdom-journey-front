@@ -6,13 +6,13 @@ import { Player } from 'src/app/model/player';
   template: `
     <ng-container *ngIf="player">
       <div *ngIf="orateur; else listener" class="outer speaker">
-        <img class="icon" src="{{ '../assets/images/' + player.blackIcon }}" alt="player icon" />
-        <img class="role" src="../../../../assets/images/talk@2x.png" alt="player role" />
+        <img class="icon" src="{{ 'assets/images/' + player.blackIcon }}" alt="player icon" />
+        <img class="role" src="assets/images/talk@2x.png" alt="player role" />
       </div>
       <ng-template #listener>
         <div class="outer listener">
-          <img class="icon" src="{{ '../assets/images/' + player.whiteIcon }}" alt="player icon" />
-          <img class="role" src="../../../../assets/images/tap@2x.png" alt="player role" />
+          <img class="icon" src="{{ 'assets/images/' + player.whiteIcon }}" alt="player icon" />
+          <img class="role" src="assets/images/tap@2x.png" alt="player role" />
         </div>
       </ng-template>
       <div class="name">{{ player.name }}</div>
