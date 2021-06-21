@@ -4,7 +4,8 @@ import { BehaviorSubject, concat, EMPTY, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Player } from 'src/app/model/player';
 import { Criterion } from 'src/app/modules/game/board/board.component';
-import { asJSON, fromJSON, Game } from 'src/app/model/game';
+import { asJSON, fromJSON, Game, Question } from 'src/app/model/game';
+import { LOCALE_ID, Inject } from '@angular/core';
 
 function shuffle(array: any[]): Array<any> {
   let currentIndex = array.length;
@@ -27,10 +28,6 @@ function shuffle(array: any[]): Array<any> {
 
 const WHITE_PLAYER_ICONS = ['dogWhite.png', 'squirrelWhite.png', 'dolphinWhite.png', 'lionWhite.png', 'monkeyWhite.png', 'sheepWhite.png'];
 const BLACK_PLAYER_ICONS = ['dogBlack.png', 'squirrelBlack.png', 'dolphinBlack.png', 'lionBlack.png', 'monkeyBlack.png', 'sheepBlack.png'];
-
-interface Question {
-  text: string;
-}
 
 const SAVE_GAME_KEY = 'game';
 
@@ -58,7 +55,7 @@ export class CurrentGameService {
 
   lastGameState?: { numQuestions: number; playerNames: string[] };
 
-  constructor(private apollo: Apollo) {
+  constructor(private apollo: Apollo, @Inject(LOCALE_ID) private locale: string) {
     this.load();
 
     this.game$
@@ -97,19 +94,20 @@ export class CurrentGameService {
 
   fetchQuestions(): Observable<Question[]> {
     return this.apollo
-      .query<{ questions: Question[] }>({
+      .query<{ questions: { id: number; text: string }[] }>({
         query: gql`
           query loadQuestions($lang: String!) {
             questions {
+              id
               text(lang: $lang)
             }
           }
         `,
         variables: {
-          lang: 'fr',
+          lang: this.locale,
         },
       })
-      .pipe(map((r) => r.data.questions));
+      .pipe(map((r) => r.data.questions.map((e) => ({ ...e, lang: this.locale }))));
   }
 
   createGame(numQuestions: number, playerNames: string[]) {

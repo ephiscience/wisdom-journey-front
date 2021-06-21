@@ -1,9 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Game } from 'src/app/model/game';
-
-export interface Question {
-  text: string;
-}
+import { Game, Question } from 'src/app/model/game';
 
 export interface Criterion {
   text: string;

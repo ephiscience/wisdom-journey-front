@@ -1,6 +1,12 @@
 import { Observable, Subject } from 'rxjs';
 import { Player } from 'src/app/model/player';
-import { Criterion, Question } from 'src/app/modules/game/board/board.component';
+import { Criterion } from 'src/app/modules/game/board/board.component';
+
+export interface Question {
+  id: number;
+  text: string;
+  lang: string;
+}
 
 function shuffle(array: any[]): Array<any> {
   let currentIndex = array.length;

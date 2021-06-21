@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-home',
   template: `
     <img src="assets/images/logo@2x.png" alt="ephiscience logo" />
-    <button routerLink="/new" i18n>Create a game</button>
+    <button routerLink="/new" i18n class="newgame">Create a game</button>
     <button class="parameters" (click)="openParameters()"></button>
   `,
   styles: [
