@@ -1,10 +1,18 @@
 import { Observable, Subject } from 'rxjs';
 import { Player } from 'src/app/model/player';
-import { Criterion } from 'src/app/modules/game/board/board.component';
+//import { Criterion } from 'src/app/modules/game/board/board.component';
 
 export interface Question {
   id: number;
   text: string;
+  lang: string;
+}
+
+export interface Criterion {
+  id: number;
+  title: string;
+  subtitle: string;
+  icon: string;
   lang: string;
 }
 
@@ -81,12 +89,20 @@ export class Game {
     if (this.remainingCriterions == null) {
       return; /*useful ??*/
     } else {
-      const removedCriterionText = this.remainingCriterions[this.remainingCriterions.length - 1].text;
-      const removedCriterionDescription = this.remainingCriterions[this.remainingCriterions.length - 1].description;
+      const removedCriterionText = this.remainingCriterions[this.remainingCriterions.length - 1].title;
+      const removedCriterionDescription = this.remainingCriterions[this.remainingCriterions.length - 1].subtitle;
       const removedCriterionIcon = this.remainingCriterions[this.remainingCriterions.length - 1].icon;
+      const removedCriterionId = this.remainingCriterions[this.remainingCriterions.length - 1].id;
+      const removedCriterionLang = this.remainingCriterions[this.remainingCriterions.length - 1].lang;
       console.log(removedCriterionText, removedCriterionDescription, removedCriterionIcon);
       this.remainingCriterions.splice(-1, 1);
-      this.validatedCriterions.push({ text: removedCriterionText, description: removedCriterionDescription, icon: removedCriterionIcon });
+      this.validatedCriterions.push({
+        title: removedCriterionText,
+        subtitle: removedCriterionDescription,
+        icon: removedCriterionIcon,
+        id: removedCriterionId,
+        lang: removedCriterionLang,
+      });
       this.notifyChange();
     }
   }

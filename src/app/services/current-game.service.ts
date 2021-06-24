@@ -3,8 +3,8 @@ import { Apollo, gql } from 'apollo-angular';
 import { BehaviorSubject, concat, EMPTY, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Player } from 'src/app/model/player';
-import { Criterion } from 'src/app/modules/game/board/board.component';
-import { asJSON, fromJSON, Game, Question } from 'src/app/model/game';
+//import { Criterion } from 'src/app/modules/game/board/board.component';
+import { asJSON, fromJSON, Game, Question, Criterion } from 'src/app/model/game';
 import { LOCALE_ID, Inject } from '@angular/core';
 
 function shuffle(array: any[]): Array<any> {
@@ -110,9 +110,31 @@ export class CurrentGameService {
       .pipe(map((r) => r.data.questions.map((e) => ({ ...e, lang: this.locale }))));
   }
 
+  fetchCriterions(): Observable<Criterion[]> {
+    return this.apollo
+      .query<{ criterions: { id: number; title: string; subtitle: string; icon: string }[] }>({
+        query: gql`
+          query loadCriterions($lang: String!) {
+            criterions {
+              id
+              title(lang: $lang)
+              subtitle(lang: $lang)
+              icon
+            }
+          }
+        `,
+        variables: {
+          lang: this.locale,
+        },
+      })
+      .pipe(map((r) => r.data.criterions.map((e) => ({ ...e, lang: this.locale }))));
+  }
+
   createGame(numQuestions: number, playerNames: string[]) {
     this.lastGameState = { numQuestions, playerNames };
     const newExamplePlayers: Player[] = [];
+    const newExampleQuestions: Question[] = [];
+    const newExampleCriterions: Criterion[] = [];
     newExamplePlayers.push(
       { name: playerNames[0], blackIcon: BLACK_PLAYER_ICONS[0], whiteIcon: WHITE_PLAYER_ICONS[0], speaking: true, turnsTalking: 0 },
       { name: playerNames[1], blackIcon: BLACK_PLAYER_ICONS[1], whiteIcon: WHITE_PLAYER_ICONS[1], speaking: true, turnsTalking: 0 }
@@ -136,35 +158,19 @@ export class CurrentGameService {
       for (let i = 1; i <= numQuestions; i++) {
         newExampleQuestions.push(questions[i]);
       }
-
-      let newExampleCriterions: Criterion[] = [
-        { text: 'Exemple', description: 'Par exemple ?', icon: 'exemple8@2x.png' },
-        { text: 'Source', description: 'Où as-tu appris ça ?', icon: 'source@2x.png' },
-        { text: 'Donner ses raisons', description: 'Pourquoi ça ?', icon: 'raisons@2x.png' },
-        { text: 'Définir', description: 'Que veut dire ce mot?', icon: 'definir@2x.png' },
-        { text: 'Nuance', description: 'Est-ce toujours le cas ?', icon: 'nuance@2x.png' },
-        { text: 'Comparer', description: ' Quelle est la différence?', icon: 'comparer@2x.png' },
-        { text: 'Reformuler', description: "En d'autres termes ?", icon: 'reformuler@2x.png' },
-        { text: 'Collaborer', description: 'Que puis-je ?', icon: 'collaborer@2x.png' },
-        { text: 'Contexte', description: ' Dans quel contexte est-ce valable ?', icon: 'contexte@2x.png' },
-        { text: 'Présupposé', description: ' Que sous-entend la question ?', icon: 'presuppose@2x.png' },
-        { text: 'Exemple', description: 'Par exemple ?', icon: 'exemple8@2x.png' },
-        { text: 'Source', description: 'Où as-tu appris ça ?', icon: 'source@2x.png' },
-        { text: 'Donner ses raisons', description: 'Pourquoi ça ?', icon: 'raisons@2x.png' },
-        { text: 'Définir', description: 'Que veut dire ce mot?', icon: 'definir@2x.png' },
-        { text: 'Nuance', description: 'Est-ce toujours le cas ?', icon: 'nuance@2x.png' },
-        { text: 'Comparer', description: ' Quelle est la différence?', icon: 'comparer@2x.png' },
-        { text: 'Reformuler', description: "En d'autres termes ?", icon: 'reformuler@2x.png' },
-        { text: 'Collaborer', description: 'Que puis-je ?', icon: 'collaborer@2x.png' },
-        { text: 'Contexte', description: ' Dans quel contexte est-ce valable ?', icon: 'contexte@2x.png' },
-        { text: 'Présupposé', description: ' Que sous-entend la question ?', icon: 'presuppose@2x.png' },
-      ];
-      newExampleCriterions = shuffle(newExampleCriterions);
-
-      console.log(newExamplePlayers, newExampleCriterions, newExampleQuestions);
-
-      this.game$.next(new Game(newExamplePlayers, newExampleCriterions, newExampleQuestions, [], []));
     });
+
+    this.fetchCriterions().subscribe((c) => {
+      //const newExampleCriterions: Criterion[] = [];
+      const newExampleCriterions = [...c];
+      shuffle(newExampleCriterions);
+    });
+
+    //newExampleCriterions = shuffle(newExampleCriterions);
+
+    console.log(newExamplePlayers, newExampleCriterions, newExampleQuestions);
+
+    this.game$.next(new Game(newExamplePlayers, newExampleCriterions, newExampleQuestions, [], []));
   }
 
   reloadGame(): boolean {

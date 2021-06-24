@@ -1,11 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Game, Question } from 'src/app/model/game';
-
-export interface Criterion {
-  text: string;
-  description: string;
-  icon: string;
-}
+import { Game, Question, Criterion } from 'src/app/model/game';
 
 @Component({
   selector: 'app-board',
@@ -22,7 +16,7 @@ export interface Criterion {
           [endOfTurn]="this.endOfTurn"
           (validated)="game.removeCriterion(c, i); emitCheckGameState()"
         >
-          {{ c.text }}
+          {{ c.title }}
         </app-criterion-card>
       </div>
     </ng-container>
