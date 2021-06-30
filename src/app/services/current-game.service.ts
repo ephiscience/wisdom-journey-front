@@ -6,6 +6,7 @@ import { Player } from 'src/app/model/player';
 //import { Criterion } from 'src/app/modules/game/board/board.component';
 import { asJSON, fromJSON, Game, Question, Criterion } from 'src/app/model/game';
 import { LOCALE_ID, Inject } from '@angular/core';
+import { combineLatest } from 'rxjs';
 
 function shuffle(array: any[]): Array<any> {
   let currentIndex = array.length;
@@ -117,9 +118,9 @@ export class CurrentGameService {
           query loadCriterions($lang: String!) {
             criterions {
               id
+              icon
               title(lang: $lang)
               subtitle(lang: $lang)
-              icon
             }
           }
         `,
@@ -130,11 +131,9 @@ export class CurrentGameService {
       .pipe(map((r) => r.data.criterions.map((e) => ({ ...e, lang: this.locale }))));
   }
 
-  createGame(numQuestions: number, playerNames: string[]) {
+  createGame(numQuestions: number, playerNames: string[]): void {
     this.lastGameState = { numQuestions, playerNames };
     const newExamplePlayers: Player[] = [];
-    const newExampleQuestions: Question[] = [];
-    const newExampleCriterions: Criterion[] = [];
     newExamplePlayers.push(
       { name: playerNames[0], blackIcon: BLACK_PLAYER_ICONS[0], whiteIcon: WHITE_PLAYER_ICONS[0], speaking: true, turnsTalking: 0 },
       { name: playerNames[1], blackIcon: BLACK_PLAYER_ICONS[1], whiteIcon: WHITE_PLAYER_ICONS[1], speaking: true, turnsTalking: 0 }
@@ -148,29 +147,75 @@ export class CurrentGameService {
         turnsTalking: 0,
       });
     }
-
-    this.fetchQuestions().subscribe((q) => {
+    const allObservables = combineLatest(this.fetchQuestions(), this.fetchCriterions(), (q, c) => ({ q, c }));
+    allObservables.subscribe(({ q, c }) => {
       const newExampleQuestions: Question[] = [];
       const questions = [...q];
-
       shuffle(questions);
-
       for (let i = 1; i <= numQuestions; i++) {
         newExampleQuestions.push(questions[i]);
       }
-    });
 
-    this.fetchCriterions().subscribe((c) => {
-      //const newExampleCriterions: Criterion[] = [];
       const newExampleCriterions = [...c];
       shuffle(newExampleCriterions);
+
+      //console.log(newExamplePlayers, newExampleCriterions, newExampleQuestions);
+
+      this.game$.next(new Game(newExamplePlayers, newExampleCriterions, newExampleQuestions, [], [], this.locale));
     });
+  }
 
-    //newExampleCriterions = shuffle(newExampleCriterions);
+  /*fetchCriterionsByLanguage(language: string): Observable<Criterion[]> {
+    return this.apollo
+      .query<{ criterions: { id: number; title: string; subtitle: string; icon: string }[] }>({
+        query: gql`
+          query loadCriterions($lang: String!) {
+            criterions {
+              id
+              title(lang: $lang)
+              subtitle(lang: $lang)
+              icon
+            }
+          }
+        `,
+        variables: {
+          lang: language,
+        },
+      })
+      .pipe(map((r) => r.data.criterions.map((e) => ({ ...e, lang: language }))));
+  }*/
 
-    console.log(newExamplePlayers, newExampleCriterions, newExampleQuestions);
+  fetchQuestionsByLanguage(questionID: Number, language: string): Observable<Question[]> {
+    return this.apollo
+      .query<{ question: { id: number; text: string }[] }>({
+        query: gql`
+          query loadQuestion($lang: String!, $id: Int!) {
+            question(id: $id) {
+              id
+              text(lang: $lang)
+            }
+          }
+        `,
+        variables: {
+          lang: language,
+          id: questionID,
+        },
+      })
+      .pipe(map((r) => r.data.question.map((e) => ({ ...e, lang: language }))));
+  }
 
-    this.game$.next(new Game(newExamplePlayers, newExampleCriterions, newExampleQuestions, [], []));
+  changeGameLanguage(questionIDs: Number[], lang: string): void {
+    console.log(questionIDs, lang);
+    const newExampleQuestions: Question[] = [];
+    for (var id of questionIDs) {
+      this.fetchQuestionsByLanguage(id, lang).subscribe((q) => {
+        newExampleQuestions.push(...q);
+        //console.log(id, q);
+
+        //const questions = [...q];
+      });
+    }
+    console.log(newExampleQuestions);
   }
 
   reloadGame(): boolean {

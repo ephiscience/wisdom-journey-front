@@ -22,7 +22,7 @@ import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
       <app-board #board [game]="game" [endOfTurn]="this.endOfTurn" (checkGameState)="checkGameState()"></app-board>
       <app-players #players [game]="game"></app-players>
       <button class="home" (click)="openQuitGameModal()"></button>
-      <button class="parameters" (click)="openParameters()"></button>
+      <button class="parameters" (click)="openParameters()">{{ this.game.language }}</button>
       <div class="pause" *ngIf="this.pausedTimer" [style.height.px]="this.viewHeight"></div>
     </ng-container>
   `,
@@ -66,7 +66,6 @@ import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
         left: 1%;
         width: 56px;
         height: 56px;
-        background: transparent url('../../../assets/images/parameters@2x.png') 0 0 no-repeat padding-box;
         background-size: contain;
         border: 0;
         z-index: 100;
@@ -137,7 +136,14 @@ export class GameComponent implements OnInit {
   }
 
   openParameters(): void {
-    //ToDo
+    //getting question ids
+    const questionIDs = [];
+    for (var question of this.game.remainingQuestions) {
+      //console.log(question);
+      questionIDs.push(question.id);
+    }
+    //reload questions and criterions with a different language
+    this.cg.changeGameLanguage(questionIDs, 'de');
   }
 
   openQuitGameModal(): void {
@@ -186,10 +192,8 @@ export class GameComponent implements OnInit {
     p.then(
       () => {
         this.reloadGame();
-        //this.pauseTime = false; ????
       },
       () => {
-        //this.pauseTime = false; ???
         this.router.navigate(['']);
       }
     );
@@ -203,10 +207,8 @@ export class GameComponent implements OnInit {
     p.then(
       () => {
         this.reloadGame();
-        //this.pauseTime = false; ????
       },
       () => {
-        //this.pauseTime = false; ???
         this.router.navigate(['']);
       }
     );
@@ -224,6 +226,6 @@ export class GameComponent implements OnInit {
   }
 }
 
-function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+//function delay(ms: number) {
+// return new Promise((resolve) => setTimeout(resolve, ms));
+//}

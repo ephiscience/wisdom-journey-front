@@ -1,6 +1,6 @@
 import { Observable, Subject } from 'rxjs';
 import { Player } from 'src/app/model/player';
-//import { Criterion } from 'src/app/modules/game/board/board.component';
+import { LOCALE_ID, Inject } from '@angular/core';
 
 export interface Question {
   id: number;
@@ -42,6 +42,7 @@ export function asJSON(game: Game): string {
     remainingQuestions: game.remainingQuestions,
     validatedCriterions: game.validatedCriterions,
     validatedQuestions: game.validatedQuestions,
+    language: game.language,
   });
 }
 
@@ -52,7 +53,8 @@ export function fromJSON(json: string): Game {
     values.remainingCriterions,
     values.remainingQuestions,
     values.validatedCriterions,
-    values.validatedQuestions
+    values.validatedQuestions,
+    values.language
   );
 
   return game;
@@ -66,10 +68,9 @@ export class Game {
     public remainingCriterions: Criterion[] = [],
     public remainingQuestions: Question[] = [],
     public validatedCriterions: Criterion[] = [],
-    public validatedQuestions: Question[] = []
-  ) {
-    // this.changePlayerRoles();
-  }
+    public validatedQuestions: Question[] = [],
+    public language: string
+  ) {}
 
   changes(): Observable<void> {
     return this.changes$.asObservable();
