@@ -204,28 +204,48 @@ export class CurrentGameService {
       .pipe(map((r) => ({ ...r.data.question, lang: language })));
   }
 
-  changeGameLanguage(questionIDs: Number[], lang: string): void {
-    //console.log(questionIDs, lang);
-    //let newExampleQuestions: Question[] = [];
+  fetchCriterionsByLanguage(criterionID: Number, language: string): Observable<Criterion> {
+    return this.apollo
+      .query<{ criterion: { id: number; icon: string; title: string; subtitle: string } }>({
+        query: gql`
+          query loadCriterion($lang: String!, $id: Int!) {
+            criterion(id: $id) {
+              id
+              icon
+              title(lang: $lang)
+              subtitle(lang: $lang)
+            }
+          }
+        `,
+        variables: {
+          lang: language,
+          id: criterionID,
+        },
+      })
+      .pipe(map((r) => ({ ...r.data.criterion, lang: language })));
+  }
 
-    from(questionIDs)
-      .pipe(
+  changeGameLanguage(lang: string): void {
+    const questionIDs = this.game$.value?.remainingQuestions.map((question) => question.id);
+    const criterionIDs = this.game$.value?.remainingCriterions.map((criterion) => criterion.id);
+
+    const allObservables = combineLatest(
+      from(questionIDs!).pipe(
         mergeMap((id) => this.fetchQuestionsByLanguage(id, lang)),
         toArray()
-      )
-      .subscribe((newquestions) => {
-        //console.log(newquestions);
-        this.game$.next(
-          new Game(
-            this.game$.value?.players,
-            this.game$.value?.remainingCriterions,
-            newquestions,
-            this.game$.value?.validatedCriterions,
-            this.game$.value?.validatedQuestions,
-            lang
-          )
-        );
-      });
+      ),
+      from(criterionIDs!).pipe(
+        mergeMap((id) => this.fetchCriterionsByLanguage(id, lang)),
+        toArray()
+      ),
+      (q, c) => ({ q, c })
+    );
+    allObservables.subscribe(({ q, c }) => {
+      //console.log(newquestions);
+      this.game$.next(
+        new Game(this.game$.value?.players, c, q, this.game$.value?.validatedCriterions, this.game$.value?.validatedQuestions, lang)
+      );
+    });
     //console.log(this.game$.value?.players);
     //return newExampleQuestions;
   }

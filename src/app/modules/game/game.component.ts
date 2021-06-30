@@ -140,13 +140,8 @@ export class GameComponent implements OnInit {
   openParameters(): void {
     //getting question ids
     const nextLang = this.langs[(this.langs.indexOf(this.game.language) + 1) % this.langs.length];
-    const questionIDs = [];
-    for (var question of this.game.remainingQuestions) {
-      //console.log(question);
-      questionIDs.push(question.id);
-    }
     //reload questions and criterions with a different language
-    this.cg.changeGameLanguage(questionIDs, nextLang);
+    this.cg.changeGameLanguage(nextLang);
   }
 
   openQuitGameModal(): void {
