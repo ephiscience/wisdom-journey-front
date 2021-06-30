@@ -108,6 +108,8 @@ export class GameComponent implements OnInit {
 
   viewHeight!: number;
 
+  langs = ['fr', 'en', 'de', 'es'];
+
   constructor(private cg: CurrentGameService, private router: Router, private modalService: NgbModal) {}
 
   ngOnInit(): void {
@@ -137,13 +139,14 @@ export class GameComponent implements OnInit {
 
   openParameters(): void {
     //getting question ids
+    const nextLang = this.langs[(this.langs.indexOf(this.game.language) + 1) % this.langs.length];
     const questionIDs = [];
     for (var question of this.game.remainingQuestions) {
       //console.log(question);
       questionIDs.push(question.id);
     }
     //reload questions and criterions with a different language
-    this.cg.changeGameLanguage(questionIDs, 'de');
+    this.cg.changeGameLanguage(questionIDs, nextLang);
   }
 
   openQuitGameModal(): void {
@@ -220,8 +223,8 @@ export class GameComponent implements OnInit {
 
   updatePausedTimer(state: boolean): void {
     this.viewHeight = this.boardView.nativeElement.offsetHeight + this.playersView.nativeElement.offsetHeight;
-    console.log(this.viewHeight);
-    console.log(state);
+    //console.log(this.viewHeight);
+    //console.log(state);
     this.pausedTimer = state;
   }
 }

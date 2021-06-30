@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
-import { BehaviorSubject, concat, EMPTY, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, concat, EMPTY, Observable, of, from } from 'rxjs';
+import { map, switchMap, mergeMap, toArray } from 'rxjs/operators';
 import { Player } from 'src/app/model/player';
 //import { Criterion } from 'src/app/modules/game/board/board.component';
 import { asJSON, fromJSON, Game, Question, Criterion } from 'src/app/model/game';
@@ -185,9 +185,9 @@ export class CurrentGameService {
       .pipe(map((r) => r.data.criterions.map((e) => ({ ...e, lang: language }))));
   }*/
 
-  fetchQuestionsByLanguage(questionID: Number, language: string): Observable<Question[]> {
+  fetchQuestionsByLanguage(questionID: Number, language: string): Observable<Question> {
     return this.apollo
-      .query<{ question: { id: number; text: string }[] }>({
+      .query<{ question: { id: number; text: string } }>({
         query: gql`
           query loadQuestion($lang: String!, $id: Int!) {
             question(id: $id) {
@@ -201,21 +201,33 @@ export class CurrentGameService {
           id: questionID,
         },
       })
-      .pipe(map((r) => r.data.question.map((e) => ({ ...e, lang: language }))));
+      .pipe(map((r) => ({ ...r.data.question, lang: language })));
   }
 
   changeGameLanguage(questionIDs: Number[], lang: string): void {
-    console.log(questionIDs, lang);
-    const newExampleQuestions: Question[] = [];
-    for (var id of questionIDs) {
-      this.fetchQuestionsByLanguage(id, lang).subscribe((q) => {
-        newExampleQuestions.push(...q);
-        //console.log(id, q);
+    //console.log(questionIDs, lang);
+    //let newExampleQuestions: Question[] = [];
 
-        //const questions = [...q];
+    from(questionIDs)
+      .pipe(
+        mergeMap((id) => this.fetchQuestionsByLanguage(id, lang)),
+        toArray()
+      )
+      .subscribe((newquestions) => {
+        //console.log(newquestions);
+        this.game$.next(
+          new Game(
+            this.game$.value?.players,
+            this.game$.value?.remainingCriterions,
+            newquestions,
+            this.game$.value?.validatedCriterions,
+            this.game$.value?.validatedQuestions,
+            lang
+          )
+        );
       });
-    }
-    console.log(newExampleQuestions);
+    //console.log(this.game$.value?.players);
+    //return newExampleQuestions;
   }
 
   reloadGame(): boolean {
