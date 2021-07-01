@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Game } from 'src/app/model/game';
 
 import { PipeTransform, Pipe } from '@angular/core';
 
