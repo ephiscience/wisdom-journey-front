@@ -48,6 +48,9 @@
             "lint-locales": {
               "i18nMissingTranslation": "error"
             },
+            "fr": {
+              "localize": ["fr"]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -87,6 +90,9 @@
           "configurations": {
             "production": {
               "browserTarget": "wisdom-journey-front:build:production"
+            },
+            "fr": {
+              "browserTarget": "wisdom-journey-front:build:fr"
             }
           }
         },

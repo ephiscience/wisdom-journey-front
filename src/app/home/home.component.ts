@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-home',
   template: `
     <img src="assets/images/logo@2x.png" alt="ephiscience logo" />
-    <button routerLink="/new" i18n>Create a game</button>
+    <button routerLink="/new" i18n class="newgame">Create a game</button>
   `,
   styles: [
     `
@@ -15,7 +15,7 @@ import { Component, OnInit } from '@angular/core';
         align-items: center;
         height: 100vh;
       }
-      button {
+      button.newgame {
         width: 873px;
         height: 191px;
         /* UI Properties */
@@ -30,6 +30,7 @@ import { Component, OnInit } from '@angular/core';
         opacity: 1;
         cursor: pointer;
       }
+
       img {
         height: 202px;
         width: 650px;

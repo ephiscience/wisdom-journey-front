@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
-import { BehaviorSubject, concat, EMPTY, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, concat, EMPTY, Observable, of, from } from 'rxjs';
+import { map, switchMap, mergeMap, toArray } from 'rxjs/operators';
 import { Player } from 'src/app/model/player';
-import { Criterion } from 'src/app/modules/game/board/board.component';
-import { asJSON, fromJSON, Game } from 'src/app/model/game';
+import { asJSON, fromJSON, Game, Question, Criterion } from 'src/app/model/game';
+import { LOCALE_ID, Inject } from '@angular/core';
+import { combineLatest } from 'rxjs';
 
 function shuffle(array: any[]): Array<any> {
   let currentIndex = array.length;
@@ -28,10 +29,6 @@ function shuffle(array: any[]): Array<any> {
 const WHITE_PLAYER_ICONS = ['dogWhite.png', 'squirrelWhite.png', 'dolphinWhite.png', 'lionWhite.png', 'monkeyWhite.png', 'sheepWhite.png'];
 const BLACK_PLAYER_ICONS = ['dogBlack.png', 'squirrelBlack.png', 'dolphinBlack.png', 'lionBlack.png', 'monkeyBlack.png', 'sheepBlack.png'];
 
-interface Question {
-  text: string;
-}
-
 const SAVE_GAME_KEY = 'game';
 
 function loadGameFromLocalStorage(): Game | null {
@@ -50,6 +47,9 @@ function saveGameToLocalStorage(game: Game | null) {
   }
 }
 
+type QueryCriterion = Pick<Criterion, 'id' | 'title' | 'subtitle' | 'icon'>;
+type Nullable<T> = T | null;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -58,7 +58,7 @@ export class CurrentGameService {
 
   lastGameState?: { numQuestions: number; playerNames: string[] };
 
-  constructor(private apollo: Apollo) {
+  constructor(private apollo: Apollo, @Inject(LOCALE_ID) private locale: string) {
     this.load();
 
     this.game$
@@ -97,19 +97,43 @@ export class CurrentGameService {
 
   fetchQuestions(): Observable<Question[]> {
     return this.apollo
-      .watchQuery<{ questions: Question[] }>({
+      .query<{ questions: { id: number; text: string }[] }>({
         query: gql`
-          {
+          query loadQuestions($lang: String!) {
             questions {
-              text
+              id
+              text(lang: $lang)
             }
           }
         `,
+        variables: {
+          lang: this.locale,
+        },
       })
-      .valueChanges.pipe(map((r) => r.data.questions));
+      .pipe(map((r) => r.data.questions.map((e) => ({ ...e, lang: this.locale }))));
   }
 
-  createGame(numQuestions: number, playerNames: string[]) {
+  fetchCriterions(): Observable<Criterion[]> {
+    return this.apollo
+      .query<{ criterions: QueryCriterion[] }>({
+        query: gql`
+          query loadCriterions($lang: String!) {
+            criterions {
+              id
+              icon
+              title(lang: $lang)
+              subtitle(lang: $lang)
+            }
+          }
+        `,
+        variables: {
+          lang: this.locale,
+        },
+      })
+      .pipe(map((r) => r.data.criterions.map((e) => ({ ...e, lang: this.locale }))));
+  }
+
+  createGame(numQuestions: number, playerNames: string[]): void {
     this.lastGameState = { numQuestions, playerNames };
     const newExamplePlayers: Player[] = [];
     newExamplePlayers.push(
@@ -125,44 +149,100 @@ export class CurrentGameService {
         turnsTalking: 0,
       });
     }
-
-    this.fetchQuestions().subscribe((q) => {
+    const allObservables = combineLatest([this.fetchQuestions(), this.fetchCriterions()]);
+    allObservables.subscribe(([q, c]) => {
       const newExampleQuestions: Question[] = [];
       const questions = [...q];
-
       shuffle(questions);
-
       for (let i = 1; i <= numQuestions; i++) {
         newExampleQuestions.push(questions[i]);
       }
 
-      let newExampleCriterions: Criterion[] = [
-        { text: 'Exemple', description: 'Par exemple ?', icon: 'exemple8@2x.png' },
-        { text: 'Source', description: 'Où as-tu appris ça ?', icon: 'source@2x.png' },
-        { text: 'Donner ses raisons', description: 'Pourquoi ça ?', icon: 'raisons@2x.png' },
-        { text: 'Définir', description: 'Que veut dire ce mot?', icon: 'definir@2x.png' },
-        { text: 'Nuance', description: 'Est-ce toujours le cas ?', icon: 'nuance@2x.png' },
-        { text: 'Comparer', description: ' Quelle est la différence?', icon: 'comparer@2x.png' },
-        { text: 'Reformuler', description: "En d'autres termes ?", icon: 'reformuler@2x.png' },
-        { text: 'Collaborer', description: 'Que puis-je ?', icon: 'collaborer@2x.png' },
-        { text: 'Contexte', description: ' Dans quel contexte est-ce valable ?', icon: 'contexte@2x.png' },
-        { text: 'Présupposé', description: ' Que sous-entend la question ?', icon: 'presuppose@2x.png' },
-        { text: 'Exemple', description: 'Par exemple ?', icon: 'exemple8@2x.png' },
-        { text: 'Source', description: 'Où as-tu appris ça ?', icon: 'source@2x.png' },
-        { text: 'Donner ses raisons', description: 'Pourquoi ça ?', icon: 'raisons@2x.png' },
-        { text: 'Définir', description: 'Que veut dire ce mot?', icon: 'definir@2x.png' },
-        { text: 'Nuance', description: 'Est-ce toujours le cas ?', icon: 'nuance@2x.png' },
-        { text: 'Comparer', description: ' Quelle est la différence?', icon: 'comparer@2x.png' },
-        { text: 'Reformuler', description: "En d'autres termes ?", icon: 'reformuler@2x.png' },
-        { text: 'Collaborer', description: 'Que puis-je ?', icon: 'collaborer@2x.png' },
-        { text: 'Contexte', description: ' Dans quel contexte est-ce valable ?', icon: 'contexte@2x.png' },
-        { text: 'Présupposé', description: ' Que sous-entend la question ?', icon: 'presuppose@2x.png' },
-      ];
-      newExampleCriterions = shuffle(newExampleCriterions);
+      const newExampleCriterions = [...c];
+      shuffle(newExampleCriterions);
 
-      console.log(newExamplePlayers, newExampleCriterions, newExampleQuestions);
+      this.game$.next(new Game(newExamplePlayers, newExampleCriterions, newExampleQuestions, [], [], this.locale));
+    });
+  }
 
-      this.game$.next(new Game(newExamplePlayers, newExampleCriterions, newExampleQuestions, [], []));
+  fetchQuestionsByLanguage(questionID: number, language: string): Observable<Question | null> {
+    return this.apollo
+      .query<{ question: Nullable<{ id: number; text: string }> }>({
+        query: gql`
+          query loadQuestion($lang: String!, $id: Int!) {
+            question(id: $id) {
+              id
+              text(lang: $lang)
+            }
+          }
+        `,
+        variables: {
+          lang: language,
+          id: questionID,
+        },
+      })
+      .pipe(
+        map((r) => {
+          if (r.data.question) {
+            return { ...r.data.question, lang: language };
+          } else {
+            return null;
+          }
+        })
+      );
+  }
+
+  fetchCriterionsByLanguage(criterionID: number, language: string): Observable<Criterion | null> {
+    return this.apollo
+      .query<{ criterion: Nullable<QueryCriterion> }>({
+        query: gql`
+          query loadCriterion($lang: String!, $id: Int!) {
+            criterion(id: $id) {
+              id
+              icon
+              title(lang: $lang)
+              subtitle(lang: $lang)
+            }
+          }
+        `,
+        variables: {
+          lang: language,
+          id: criterionID,
+        },
+      })
+      .pipe(
+        map((r) => {
+          if (r.data.criterion) {
+            return { ...r.data.criterion, lang: language };
+          } else {
+            return null;
+          }
+        })
+      );
+  }
+
+  changeGameLanguage(lang: string): void {
+    const game = this.game$.value;
+
+    if (game === null) return;
+
+    const questionIDs = game.remainingQuestions.map((question) => question.id);
+    const criterionIDs = game.remainingCriterions.map((criterion) => criterion.id);
+
+    const questions$ = from(questionIDs).pipe(
+      mergeMap((id) => this.fetchQuestionsByLanguage(id, lang)),
+      toArray()
+    );
+    const criterions$ = from(criterionIDs).pipe(
+      mergeMap((id) => this.fetchCriterionsByLanguage(id, lang)),
+      toArray()
+    );
+
+    combineLatest([questions$, criterions$]).subscribe(([qs, cs]) => {
+      const questions = qs.flatMap((q) => (q === null ? [] : [q]));
+      const criterions = cs.flatMap((q) => (q === null ? [] : [q]));
+
+      this.game$.next(new Game(game.players, criterions, questions, game.validatedCriterions, game.validatedQuestions, lang));
     });
   }
 

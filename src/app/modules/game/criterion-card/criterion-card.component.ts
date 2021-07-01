@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { Criterion } from 'src/app/modules/game/board/board.component';
+import { Criterion } from 'src/app/model/game';
 
 /* [ngStyle]="{'backgroundColor': check1 ? '#1B8CD0 0% 0% no-repeat padding-box' : '#FFA935 0% 0% no-repeat padding-box'}"*/
 
@@ -10,35 +10,35 @@ import { Criterion } from 'src/app/modules/game/board/board.component';
       <div class="inner">
         <div
           [ngClass]="{
-            'text-upper-short': criterion.text.length < 10,
-            'text-upper-long': criterion.text.length >= 10
+            'text-upper-short': criterion.title.length < 10,
+            'text-upper-long': criterion.title.length >= 10
           }"
         >
-          {{ criterion.text }}
+          {{ criterion.title }}
         </div>
         <div
           [ngClass]="{
-            'text-left-short': criterion.description.length <= 22,
-            'text-left-long': criterion.description.length > 22
+            'text-left-short': criterion.subtitle.length <= 22,
+            'text-left-long': criterion.subtitle.length > 22
           }"
         >
-          {{ criterion.description }}
+          {{ criterion.subtitle }}
         </div>
         <div
           [ngClass]="{
-            'text-right-short': criterion.description.length <= 22,
-            'text-right-long': criterion.description.length > 22
+            'text-right-short': criterion.subtitle.length <= 22,
+            'text-right-long': criterion.subtitle.length > 22
           }"
         >
-          {{ criterion.description }}
+          {{ criterion.subtitle }}
         </div>
         <div
           [ngClass]="{
-            'text-lower-short': criterion.text.length < 10,
-            'text-lower-long': criterion.text.length >= 10
+            'text-lower-short': criterion.title.length < 10,
+            'text-lower-long': criterion.title.length >= 10
           }"
         >
-          {{ criterion.text }}
+          {{ criterion.title }}
         </div>
         <div class="image">
           <img class="icon" src="{{ 'assets/images/' + criterion.icon }}" alt="criterion icon" />

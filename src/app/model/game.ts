@@ -1,6 +1,19 @@
 import { Observable, Subject } from 'rxjs';
 import { Player } from 'src/app/model/player';
-import { Criterion, Question } from 'src/app/modules/game/board/board.component';
+
+export interface Question {
+  id: number;
+  text: string;
+  lang: string;
+}
+
+export interface Criterion {
+  id: number;
+  title: string;
+  subtitle: string;
+  icon: string;
+  lang: string;
+}
 
 function shuffle(array: any[]): Array<any> {
   let currentIndex = array.length;
@@ -28,6 +41,7 @@ export function asJSON(game: Game): string {
     remainingQuestions: game.remainingQuestions,
     validatedCriterions: game.validatedCriterions,
     validatedQuestions: game.validatedQuestions,
+    language: game.language,
   });
 }
 
@@ -38,7 +52,8 @@ export function fromJSON(json: string): Game {
     values.remainingCriterions,
     values.remainingQuestions,
     values.validatedCriterions,
-    values.validatedQuestions
+    values.validatedQuestions,
+    values.language
   );
 
   return game;
@@ -52,10 +67,9 @@ export class Game {
     public remainingCriterions: Criterion[] = [],
     public remainingQuestions: Question[] = [],
     public validatedCriterions: Criterion[] = [],
-    public validatedQuestions: Question[] = []
-  ) {
-    // this.changePlayerRoles();
-  }
+    public validatedQuestions: Question[] = [],
+    public language: string
+  ) {}
 
   changes(): Observable<void> {
     return this.changes$.asObservable();
@@ -72,17 +86,14 @@ export class Game {
   }
 
   removeAdditionalCriterion(): void {
-    if (this.remainingCriterions == null) {
+    if (this.remainingCriterions === null || this.remainingCriterions.length === 0) {
       return; /*useful ??*/
-    } else {
-      const removedCriterionText = this.remainingCriterions[this.remainingCriterions.length - 1].text;
-      const removedCriterionDescription = this.remainingCriterions[this.remainingCriterions.length - 1].description;
-      const removedCriterionIcon = this.remainingCriterions[this.remainingCriterions.length - 1].icon;
-      console.log(removedCriterionText, removedCriterionDescription, removedCriterionIcon);
-      this.remainingCriterions.splice(-1, 1);
-      this.validatedCriterions.push({ text: removedCriterionText, description: removedCriterionDescription, icon: removedCriterionIcon });
-      this.notifyChange();
     }
+
+    const [c] = this.remainingCriterions.splice(-1, 1);
+    this.validatedCriterions.push(c);
+
+    this.notifyChange();
   }
 
   removeQuestion(): void {
