@@ -1,6 +1,5 @@
 import { Observable, Subject } from 'rxjs';
 import { Player } from 'src/app/model/player';
-import { LOCALE_ID, Inject } from '@angular/core';
 
 export interface Question {
   id: number;
@@ -87,25 +86,14 @@ export class Game {
   }
 
   removeAdditionalCriterion(): void {
-    if (this.remainingCriterions == null) {
+    if (this.remainingCriterions === null || this.remainingCriterions.length === 0) {
       return; /*useful ??*/
-    } else {
-      const removedCriterionText = this.remainingCriterions[this.remainingCriterions.length - 1].title;
-      const removedCriterionDescription = this.remainingCriterions[this.remainingCriterions.length - 1].subtitle;
-      const removedCriterionIcon = this.remainingCriterions[this.remainingCriterions.length - 1].icon;
-      const removedCriterionId = this.remainingCriterions[this.remainingCriterions.length - 1].id;
-      const removedCriterionLang = this.remainingCriterions[this.remainingCriterions.length - 1].lang;
-      console.log(removedCriterionText, removedCriterionDescription, removedCriterionIcon);
-      this.remainingCriterions.splice(-1, 1);
-      this.validatedCriterions.push({
-        title: removedCriterionText,
-        subtitle: removedCriterionDescription,
-        icon: removedCriterionIcon,
-        id: removedCriterionId,
-        lang: removedCriterionLang,
-      });
-      this.notifyChange();
     }
+
+    const [c] = this.remainingCriterions.splice(-1, 1);
+    this.validatedCriterions.push(c);
+
+    this.notifyChange();
   }
 
   removeQuestion(): void {

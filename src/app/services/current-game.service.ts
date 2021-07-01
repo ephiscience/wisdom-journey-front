@@ -3,7 +3,6 @@ import { Apollo, gql } from 'apollo-angular';
 import { BehaviorSubject, concat, EMPTY, Observable, of, from } from 'rxjs';
 import { map, switchMap, mergeMap, toArray } from 'rxjs/operators';
 import { Player } from 'src/app/model/player';
-//import { Criterion } from 'src/app/modules/game/board/board.component';
 import { asJSON, fromJSON, Game, Question, Criterion } from 'src/app/model/game';
 import { LOCALE_ID, Inject } from '@angular/core';
 import { combineLatest } from 'rxjs';
@@ -47,6 +46,9 @@ function saveGameToLocalStorage(game: Game | null) {
     localStorage.setItem(SAVE_GAME_KEY, asJSON(game));
   }
 }
+
+type QueryCriterion = Pick<Criterion, 'id' | 'title' | 'subtitle' | 'icon'>;
+type Nullable<T> = T | null;
 
 @Injectable({
   providedIn: 'root',
@@ -113,7 +115,7 @@ export class CurrentGameService {
 
   fetchCriterions(): Observable<Criterion[]> {
     return this.apollo
-      .query<{ criterions: { id: number; title: string; subtitle: string; icon: string }[] }>({
+      .query<{ criterions: QueryCriterion[] }>({
         query: gql`
           query loadCriterions($lang: String!) {
             criterions {
@@ -147,8 +149,8 @@ export class CurrentGameService {
         turnsTalking: 0,
       });
     }
-    const allObservables = combineLatest(this.fetchQuestions(), this.fetchCriterions(), (q, c) => ({ q, c }));
-    allObservables.subscribe(({ q, c }) => {
+    const allObservables = combineLatest([this.fetchQuestions(), this.fetchCriterions()]);
+    allObservables.subscribe(([q, c]) => {
       const newExampleQuestions: Question[] = [];
       const questions = [...q];
       shuffle(questions);
@@ -159,35 +161,13 @@ export class CurrentGameService {
       const newExampleCriterions = [...c];
       shuffle(newExampleCriterions);
 
-      //console.log(newExamplePlayers, newExampleCriterions, newExampleQuestions);
-
       this.game$.next(new Game(newExamplePlayers, newExampleCriterions, newExampleQuestions, [], [], this.locale));
     });
   }
 
-  /*fetchCriterionsByLanguage(language: string): Observable<Criterion[]> {
+  fetchQuestionsByLanguage(questionID: number, language: string): Observable<Question | null> {
     return this.apollo
-      .query<{ criterions: { id: number; title: string; subtitle: string; icon: string }[] }>({
-        query: gql`
-          query loadCriterions($lang: String!) {
-            criterions {
-              id
-              title(lang: $lang)
-              subtitle(lang: $lang)
-              icon
-            }
-          }
-        `,
-        variables: {
-          lang: language,
-        },
-      })
-      .pipe(map((r) => r.data.criterions.map((e) => ({ ...e, lang: language }))));
-  }*/
-
-  fetchQuestionsByLanguage(questionID: number, language: string): Observable<Question> {
-    return this.apollo
-      .query<{ question: { id: number; text: string } }>({
+      .query<{ question: Nullable<{ id: number; text: string }> }>({
         query: gql`
           query loadQuestion($lang: String!, $id: Int!) {
             question(id: $id) {
@@ -201,12 +181,20 @@ export class CurrentGameService {
           id: questionID,
         },
       })
-      .pipe(map((r) => ({ ...r.data.question, lang: language })));
+      .pipe(
+        map((r) => {
+          if (r.data.question) {
+            return { ...r.data.question, lang: language };
+          } else {
+            return null;
+          }
+        })
+      );
   }
 
-  fetchCriterionsByLanguage(criterionID: number, language: string): Observable<Criterion> {
+  fetchCriterionsByLanguage(criterionID: number, language: string): Observable<Criterion | null> {
     return this.apollo
-      .query<{ criterion: { id: number; icon: string; title: string; subtitle: string } }>({
+      .query<{ criterion: Nullable<QueryCriterion> }>({
         query: gql`
           query loadCriterion($lang: String!, $id: Int!) {
             criterion(id: $id) {
@@ -222,34 +210,40 @@ export class CurrentGameService {
           id: criterionID,
         },
       })
-      .pipe(map((r) => ({ ...r.data.criterion, lang: language })));
+      .pipe(
+        map((r) => {
+          if (r.data.criterion) {
+            return { ...r.data.criterion, lang: language };
+          } else {
+            return null;
+          }
+        })
+      );
   }
 
   changeGameLanguage(lang: string): void {
-    const questionIDs = this.game$.value?.remainingQuestions.map((question) => question.id);
-    const criterionIDs = this.game$.value?.remainingCriterions.map((criterion) => criterion.id);
+    const game = this.game$.value;
 
-    if (questionIDs !== undefined && criterionIDs !== undefined) {
-      const allObservables = combineLatest(
-        from(questionIDs).pipe(
-          mergeMap((id) => this.fetchQuestionsByLanguage(id, lang)),
-          toArray()
-        ),
-        from(criterionIDs).pipe(
-          mergeMap((id) => this.fetchCriterionsByLanguage(id, lang)),
-          toArray()
-        ),
-        (q, c) => ({ q, c })
-      );
-      allObservables.subscribe(({ q, c }) => {
-        //console.log(newquestions);
-        this.game$.next(
-          new Game(this.game$.value?.players, c, q, this.game$.value?.validatedCriterions, this.game$.value?.validatedQuestions, lang)
-        );
-      });
-    }
-    //console.log(this.game$.value?.players);
-    //return newExampleQuestions;
+    if (game === null) return;
+
+    const questionIDs = game.remainingQuestions.map((question) => question.id);
+    const criterionIDs = game.remainingCriterions.map((criterion) => criterion.id);
+
+    const questions$ = from(questionIDs).pipe(
+      mergeMap((id) => this.fetchQuestionsByLanguage(id, lang)),
+      toArray()
+    );
+    const criterions$ = from(criterionIDs).pipe(
+      mergeMap((id) => this.fetchCriterionsByLanguage(id, lang)),
+      toArray()
+    );
+
+    combineLatest([questions$, criterions$]).subscribe(([qs, cs]) => {
+      const questions = qs.flatMap((q) => (q === null ? [] : [q]));
+      const criterions = cs.flatMap((q) => (q === null ? [] : [q]));
+
+      this.game$.next(new Game(game.players, criterions, questions, game.validatedCriterions, game.validatedQuestions, lang));
+    });
   }
 
   reloadGame(): boolean {

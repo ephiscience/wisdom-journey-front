@@ -22,7 +22,7 @@ import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
       <app-board #board [game]="game" [endOfTurn]="this.endOfTurn" (checkGameState)="checkGameState()"></app-board>
       <app-players #players [game]="game"></app-players>
       <button class="home" (click)="openQuitGameModal()"></button>
-      <button class="parameters" (click)="openParameters()">{{ this.game.language }}</button>
+      <button class="parameters" (click)="changeLanguage()">{{ this.game.language }}</button>
       <div class="pause" *ngIf="this.pausedTimer" [style.height.px]="this.viewHeight"></div>
     </ng-container>
   `,
@@ -137,7 +137,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  openParameters(): void {
+  changeLanguage(): void {
     //getting question ids
     const nextLang = this.langs[(this.langs.indexOf(this.game.language) + 1) % this.langs.length];
     //reload questions and criterions with a different language
@@ -218,12 +218,6 @@ export class GameComponent implements OnInit {
 
   updatePausedTimer(state: boolean): void {
     this.viewHeight = this.boardView.nativeElement.offsetHeight + this.playersView.nativeElement.offsetHeight;
-    //console.log(this.viewHeight);
-    //console.log(state);
     this.pausedTimer = state;
   }
 }
-
-//function delay(ms: number) {
-// return new Promise((resolve) => setTimeout(resolve, ms));
-//}
