@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Game } from 'src/app/model/game';
 
 import { PipeTransform, Pipe } from '@angular/core';
 
@@ -27,7 +26,7 @@ import { PipeTransform, Pipe } from '@angular/core';
       div.image {
         width: 33px;
         height: 47px;
-        background: transparent url('/assets/images/Inverse_question@2x.png') 0% 0% no-repeat padding-box;
+        background: transparent url('src/assets/images/Inverse_question@2x.png') 0% 0% no-repeat padding-box;
         background-size: contain;
         opacity: 1;
         margin: 2px;

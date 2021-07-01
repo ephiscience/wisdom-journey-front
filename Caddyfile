@@ -1,12 +1,25 @@
 :80 {
-  root .
-  encode zstd gzip
-  log {
-    output stdout
-  }
+    root .
 
-  redir / fr
+    encode zstd gzip
 
-  try_files {path} {path}/ /
-  file_server
+    log {
+        output stdout
+    }
+
+    header {
+        -Server
+    }
+
+    @lang path_regexp lang ^/(fr|en|es|de)
+    handle @lang {
+        @try_files {
+            file {
+                try_files {path} {path}/ {re.lang.1}/
+            }
+        }
+
+        rewrite @try_files {http.matchers.file.relative}
+        file_server
+    }
 }

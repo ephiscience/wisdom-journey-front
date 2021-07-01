@@ -79,7 +79,7 @@ export interface Player {
         left: 120px;
         width: 18px;
         height: 18px;
-        background: transparent url('/assets/images/Croix@2x.png') 0% 0% no-repeat padding-box;
+        background: transparent url('src/assets/images/Croix@2x.png') 0% 0% no-repeat padding-box;
         background-size: contain;
         border: 0px;
         position: absolute;

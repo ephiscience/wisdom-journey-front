@@ -53,7 +53,7 @@ import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
         right: 1%;
         width: 56px;
         height: 56px;
-        background: transparent url('/assets/images/home@2x.png') 0 0 no-repeat padding-box;
+        background: transparent url('src/assets/images/home@2x.png') 0 0 no-repeat padding-box;
         background-size: contain;
         border: 0;
         z-index: 100;
