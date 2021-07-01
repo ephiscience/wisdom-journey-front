@@ -31,7 +31,7 @@ import { Component, Input, OnInit } from '@angular/core';
         flex-basis: 42px;
         width: 42px;
         height: 41px;
-        background: transparent url('/assets/images/noun_Star_1015739.png') 0% 0% no-repeat padding-box;
+        background: transparent url('src/assets/images/noun_Star_1015739.png') 0% 0% no-repeat padding-box;
         opacity: 1;
       }
 

@@ -120,7 +120,7 @@ import { Criterion } from 'src/app/model/game';
         left: 22px;
         width: 99px;
         height: 95px;
-        background: transparent url('/assets/images/etoileCritere@2x.png') 0% 0% no-repeat padding-box;
+        background: transparent url('src/assets/images/etoileCritere@2x.png') 0% 0% no-repeat padding-box;
         opacity: 1;
       }
 
@@ -263,7 +263,7 @@ import { Criterion } from 'src/app/model/game';
         left: 10px;
         width: 30px;
         height: 22px;
-        background: transparent url('/assets/images/check@2x.png') 0% 0% no-repeat padding-box;
+        background: transparent url('src/assets/images/check@2x.png') 0% 0% no-repeat padding-box;
         background-size: contain;
         z-index: 2;
         position: absolute;
@@ -290,7 +290,7 @@ export class CriterionCardComponent implements OnInit, OnChanges {
   }
 
   getIcon(path: string): string {
-    const thePath = `transparent url('/assets/images/${path}') 0% 0% no-repeat padding-box`;
+    const thePath = `transparent url('src/assets/images/${path}') 0% 0% no-repeat padding-box`;
     return thePath;
   }
 

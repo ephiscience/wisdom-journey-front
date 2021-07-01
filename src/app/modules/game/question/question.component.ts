@@ -69,7 +69,7 @@ import { Question } from 'src/app/model/game';
         width: 74px;
         height: 105px;
         flex-basis: 74px;
-        background: transparent url('/assets/images/Inverse_question@2x.png') 0% 0% no-repeat padding-box;
+        background: transparent url('src/assets/images/Inverse_question@2x.png') 0% 0% no-repeat padding-box;
         background-size: contain;
         opacity: 1;
         margin-left: 50px;
@@ -163,7 +163,7 @@ import { Question } from 'src/app/model/game';
       div.pause {
         width: 30px;
         height: 34px;
-        background: transparent url('/assets/images/pause@2x.png') 0% 0% no-repeat padding-box;
+        background: transparent url('src/assets/images/pause@2x.png') 0% 0% no-repeat padding-box;
         background-size: contain;
       }
     `,
