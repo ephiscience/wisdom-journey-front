@@ -1,6 +1,5 @@
-import { Game } from 'src/app/model/game';
+import { Game, Question } from 'src/app/model/game';
 import { Player } from 'src/app/model/player';
-import { Question } from 'src/app/modules/game/board/board.component';
 
 function makePlayer(name: string): Player {
   return {
@@ -14,7 +13,9 @@ function makePlayer(name: string): Player {
 
 function makeQuestion(): Question {
   return {
+    id: 1,
     text: 'blabla',
+    lang: 'fr',
   };
 }
 
@@ -30,14 +31,14 @@ describe('Game', () => {
   describe('methods', () => {
     it('should have a list of players', () => {
       const players = [makePlayer('toto')];
-      const game = new Game(players);
+      const game = new Game(players, [], [], [], [], 'fr');
 
       expect(game.players).toEqual(players);
     });
 
     it('removes the question from remaining array on question validated', () => {
       const question = makeQuestion();
-      const game = new Game([], [], [question]);
+      const game = new Game([], [], [question], [], [], 'fr');
       game.removeQuestion();
 
       expect(game.remainingQuestions).toEqual([]);
