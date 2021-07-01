@@ -10,9 +10,9 @@
     "test:ci:locales": "ng build --configuration lint-locales",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "docker:build": "docker build --pull -t registry.gkny.fr/wisdom-journey/front .",
-    "docker:push": "docker build --pull -t registry.gkny.fr/wisdom-journey/front . && docker push registry.gkny.fr/wisdom-journey/front:latest",
-    "docker:run": "docker run --rm -p 0.0.0.0:2015:80 -it registry.gkny.fr/wisdom-journey/front",
+    "docker:build": "docker build --pull -t ghcr.io/ephiscience/wisdom-journey/front .",
+    "docker:push": "docker build --pull -t ghcr.io/ephiscience/wisdom-journey/front . && docker push ghcr.io/ephiscience/wisdom-journey/front:latest",
+    "docker:run": "docker run --rm -p 0.0.0.0:2015:80 -it ghcr.io/ephiscience/wisdom-journey/front",
     "i18n": "ng extract-i18n --output-path src/locale"
   },
   "private": true,
