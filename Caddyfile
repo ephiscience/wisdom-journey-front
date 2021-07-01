@@ -4,6 +4,9 @@
   log {
     output stdout
   }
+
+  redir / fr
+
   try_files {path} {path}/ /
   file_server
 }
