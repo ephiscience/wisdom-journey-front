@@ -1,35 +1,29 @@
 import { Injectable } from '@angular/core';
-import { EMPTY, interval, Observable, of } from 'rxjs';
+import { BehaviorSubject, EMPTY, interval, Observable } from 'rxjs';
 import { scan, share, switchMap } from 'rxjs/operators';
-import { Ticker } from '../../../lib/wisdom-journey-types/src';
+import { Ticker } from 'wisdom-journey-types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TickerService implements Ticker {
   private readonly observable: Observable<number>;
-  private paused = true;
+  private sources = new BehaviorSubject<Observable<number>>(EMPTY);
 
   constructor() {
-    this.observable = interval(1000).pipe(
-      switchMap((e) => {
-        if (this.paused) {
-          return EMPTY;
-        } else {
-          return of(e);
-        }
-      }),
+    this.observable = this.sources.pipe(
+      switchMap((e) => e),
       scan((acc) => acc + 1, 0),
       share()
     );
   }
 
   start(): void {
-    this.paused = false;
+    this.sources.next(interval(1000));
   }
 
   stop(): void {
-    this.paused = true;
+    this.sources.next(EMPTY);
   }
 
   ticks(): Observable<number> {

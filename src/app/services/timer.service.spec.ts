@@ -24,21 +24,6 @@ describe('TimerService', () => {
     expect(timer.expired).toBeTruthy();
   });
 
-  it('should register itself to the provided ticker', () => {
-    expect(ticker.ticks).toHaveBeenCalledTimes(1);
-  });
-
-  it('forwards the start and stop calls to the ticker', () => {
-    spyOn(ticker, 'start').and.returnValue(undefined);
-    spyOn(ticker, 'stop').and.returnValue(undefined);
-
-    timer.start();
-    expect(ticker.start).toHaveBeenCalledTimes(1);
-
-    timer.stop();
-    expect(ticker.stop).toHaveBeenCalledTimes(1);
-  });
-
   it('sets the state of the timer to the provided value to start', () => {
     spyOn(ticker, 'start').and.returnValue(undefined);
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EMPTY, merge, Observable, of, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, EMPTY, merge, Observable, of, ReplaySubject } from 'rxjs';
 import { map, scan, share, switchMap, tap } from 'rxjs/operators';
 import { Timer } from 'wisdom-journey-types';
 import { TickerService } from './ticker.service';
@@ -11,8 +11,8 @@ export class TimerService implements Timer {
   readonly valueChanges: Observable<number>;
   readonly expired: Observable<true>;
   private onStateSet = new ReplaySubject<number>(1);
+  private tickers = new BehaviorSubject<Observable<number>>(EMPTY);
   private timerState = 0;
-  private started = false;
 
   get state() {
     return this.timerState;
@@ -21,8 +21,8 @@ export class TimerService implements Timer {
   constructor(private ticker: TickerService) {
     this.valueChanges = merge(
       this.onStateSet.asObservable().pipe(map((value) => ({ kind: 'set', value }))),
-      ticker.ticks().pipe(
-        switchMap((e) => (this.started ? of(e) : EMPTY)),
+      this.tickers.asObservable().pipe(
+        switchMap((e) => e),
         map((value) => ({ kind: 'tick', value }))
       )
     ).pipe(
@@ -49,19 +49,19 @@ export class TimerService implements Timer {
       }),
       share()
     );
+
+    this.expired.subscribe((e) => this.stop());
   }
 
   start(seconds?: number): void {
     if (seconds) {
       this.onStateSet.next(seconds);
     }
-    this.started = true;
-    this.ticker.start();
-    this.expired.subscribe((e) => (this.started = false));
+
+    this.tickers.next(this.ticker.ticks());
   }
 
   stop(): void {
-    this.started = false;
-    this.ticker.stop();
+    this.tickers.next(EMPTY);
   }
 }

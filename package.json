@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently --kill-others \"npm:x-serve-*\"",
+    "start": "concurrently --kill-others \"yarn:x-serve-*\"",
     "build": "ng build",
     "test": "ng test",
     "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
@@ -15,7 +15,7 @@
     "docker:run": "docker run --rm -p 0.0.0.0:2015:80 -it ghcr.io/ephiscience/wisdom-journey/front",
     "i18n": "ng extract-i18n --output-path src/locale",
     "x-serve-ng": "ng serve --hmr --configuration=fr",
-    "x-serve-watchlib": "(cd lib/wisdom-journey-types && yarn ttsc -w)"
+    "x-serve-watchlib": "(cd lib/wisdom-journey-types && yarn && yarn ttsc -w)"
   },
   "private": true,
   "dependencies": {
