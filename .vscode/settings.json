@@ -1,6 +1,6 @@
 {
-    "files.associations": {
-        ".xtm": "xml",
-        ".ngI18nconfig": "json"
-    }
+	"files.associations": {
+		".xtm": "xml",
+		".ngI18nconfig": "json"
+	}
 }

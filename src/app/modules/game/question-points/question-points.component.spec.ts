@@ -4,23 +4,23 @@ import { QuestionPointsComponent } from 'src/app/modules/game/question-points/qu
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 
 describe('QuestionPointsComponent', () => {
-  let component: QuestionPointsComponent;
-  let fixture: ComponentFixture<QuestionPointsComponent>;
+	let component: QuestionPointsComponent;
+	let fixture: ComponentFixture<QuestionPointsComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [QuestionPointsComponent],
-      imports: [SharedModule],
-    }).compileComponents();
-  });
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			declarations: [QuestionPointsComponent],
+			imports: [SharedModule],
+		}).compileComponents();
+	});
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(QuestionPointsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(QuestionPointsComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

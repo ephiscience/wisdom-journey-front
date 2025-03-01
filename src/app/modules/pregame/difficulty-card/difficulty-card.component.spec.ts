@@ -3,22 +3,22 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DifficultyCardComponent } from 'src/app/modules/pregame/difficulty-card/difficulty-card.component';
 
 describe('DifficultyCardComponent', () => {
-  let component: DifficultyCardComponent;
-  let fixture: ComponentFixture<DifficultyCardComponent>;
+	let component: DifficultyCardComponent;
+	let fixture: ComponentFixture<DifficultyCardComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [DifficultyCardComponent],
-    }).compileComponents();
-  });
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			declarations: [DifficultyCardComponent],
+		}).compileComponents();
+	});
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DifficultyCardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(DifficultyCardComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

@@ -5,7 +5,7 @@ import { PregameComponent } from 'src/app/modules/pregame/pregame.component';
 const routes: Routes = [{ path: '', component: PregameComponent }];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule],
 })
 export class PregameRoutingModule {}

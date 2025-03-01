@@ -11,8 +11,8 @@ import { GraphQLModule } from './graphql.module';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
-  imports: [BrowserModule, AppRoutingModule, GraphQLModule, HttpClientModule, NgbModule, FormsModule],
-  bootstrap: [AppComponent],
+	declarations: [AppComponent, HomeComponent],
+	imports: [BrowserModule, AppRoutingModule, GraphQLModule, HttpClientModule, NgbModule, FormsModule],
+	bootstrap: [AppComponent],
 })
 export class AppModule {}
