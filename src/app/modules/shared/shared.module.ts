@@ -5,9 +5,8 @@ import { QuitGameConfirmationModalComponent } from 'src/app/modules/shared/quit-
 import { TimesPipe } from 'src/app/modules/shared/times.pipe';
 
 @NgModule({
-  declarations: [TimesPipe, ModalComponent, QuitGameConfirmationModalComponent],
-  imports: [CommonModule],
-  entryComponents: [QuitGameConfirmationModalComponent],
-  exports: [ModalComponent, TimesPipe, QuitGameConfirmationModalComponent],
+    declarations: [TimesPipe, ModalComponent, QuitGameConfirmationModalComponent],
+    imports: [CommonModule],
+    exports: [ModalComponent, TimesPipe, QuitGameConfirmationModalComponent]
 })
 export class SharedModule {}

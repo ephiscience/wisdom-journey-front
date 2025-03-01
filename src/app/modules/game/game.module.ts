@@ -18,23 +18,22 @@ import { VictoryModalComponent } from './victory-modal/victory-modal.component';
 import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
 
 @NgModule({
-  declarations: [
-    BoardComponent,
-    PlayerComponent,
-    CriterionCardComponent,
-    QuestionComponent,
-    GameComponent,
-    GameStatusComponent,
-    PlayersComponent,
-    CriterionPointsComponent,
-    QuestionPointsComponent,
-    TimerComponent,
-    EndOfTurnModalComponent,
-    VictoryModalComponent,
-    DefeatModalComponent,
-  ],
-  entryComponents: [EndOfTurnModalComponent, VictoryModalComponent, DefeatModalComponent],
-  imports: [CommonModule, LuxonModule, SharedModule, GameRoutingModule],
-  exports: [EndOfTurnModalComponent, VictoryModalComponent, DefeatModalComponent],
+    declarations: [
+        BoardComponent,
+        PlayerComponent,
+        CriterionCardComponent,
+        QuestionComponent,
+        GameComponent,
+        GameStatusComponent,
+        PlayersComponent,
+        CriterionPointsComponent,
+        QuestionPointsComponent,
+        TimerComponent,
+        EndOfTurnModalComponent,
+        VictoryModalComponent,
+        DefeatModalComponent,
+    ],
+    imports: [CommonModule, LuxonModule, SharedModule, GameRoutingModule],
+    exports: [EndOfTurnModalComponent, VictoryModalComponent, DefeatModalComponent]
 })
 export class GameModule {}

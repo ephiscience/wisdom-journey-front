@@ -11,16 +11,15 @@ import { MissingLevelSelectionModalComponent } from './missing-level-selection-m
 import { DifficultyCardComponent } from './difficulty-card/difficulty-card.component';
 
 @NgModule({
-  declarations: [
-    PregameComponent,
-    PlayerSelectionComponent,
-    LevelSelectionComponent,
-    MissingPlayerNameModalComponent,
-    MissingLevelSelectionModalComponent,
-    DifficultyCardComponent,
-  ],
-  entryComponents: [MissingPlayerNameModalComponent, MissingLevelSelectionModalComponent],
-  imports: [CommonModule, FormsModule, SharedModule, PregameRoutingModule],
-  exports: [MissingPlayerNameModalComponent, MissingLevelSelectionModalComponent],
+    declarations: [
+        PregameComponent,
+        PlayerSelectionComponent,
+        LevelSelectionComponent,
+        MissingPlayerNameModalComponent,
+        MissingLevelSelectionModalComponent,
+        DifficultyCardComponent,
+    ],
+    imports: [CommonModule, FormsModule, SharedModule, PregameRoutingModule],
+    exports: [MissingPlayerNameModalComponent, MissingLevelSelectionModalComponent]
 })
 export class PregameModule {}
