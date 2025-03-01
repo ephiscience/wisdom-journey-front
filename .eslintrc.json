@@ -31,7 +31,8 @@
 						"style": "camelCase"
 					}
 				],
-				"prefer-arrow/prefer-arrow-functions": ["off"]
+				"prefer-arrow/prefer-arrow-functions": ["off"],
+        "@typescript-eslint/member-ordering": ["off"]
 			}
 		},
 		{
