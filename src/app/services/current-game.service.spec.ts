@@ -9,8 +9,8 @@ describe('CurrentGameService', () => {
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-      imports: [ApolloModule, ApolloTestingModule],
-    });
+			imports: [ApolloModule, ApolloTestingModule],
+		});
 		service = TestBed.inject(CurrentGameService);
 	});
 

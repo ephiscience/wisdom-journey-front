@@ -27,7 +27,7 @@ describe('Game', () => {
 				remainingQuestions: [],
 			});
 
-      expect(validJson).toBeTruthy()
+			expect(validJson).toBeTruthy();
 		});
 	});
 	describe('methods', () => {

@@ -13,7 +13,7 @@ describe('PregameComponent', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			declarations: [PregameComponent, MockComponent(PlayerSelectionComponent)],
-      providers: [{provide: CurrentGameService, useValue: {}}],
+			providers: [{ provide: CurrentGameService, useValue: {} }],
 			imports: [RouterTestingModule],
 		}).compileComponents();
 	});
