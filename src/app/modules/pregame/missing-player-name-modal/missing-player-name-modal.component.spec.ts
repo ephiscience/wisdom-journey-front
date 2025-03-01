@@ -4,23 +4,23 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MissingPlayerNameModalComponent } from './missing-player-name-modal.component';
 
 describe('MissingPlayerNameModalComponent', () => {
-  let component: MissingPlayerNameModalComponent;
-  let fixture: ComponentFixture<MissingPlayerNameModalComponent>;
+	let component: MissingPlayerNameModalComponent;
+	let fixture: ComponentFixture<MissingPlayerNameModalComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [MissingPlayerNameModalComponent],
-      providers: [NgbModal, NgbActiveModal],
-    }).compileComponents();
-  });
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			declarations: [MissingPlayerNameModalComponent],
+			providers: [NgbModal, NgbActiveModal],
+		}).compileComponents();
+	});
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(MissingPlayerNameModalComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(MissingPlayerNameModalComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });
