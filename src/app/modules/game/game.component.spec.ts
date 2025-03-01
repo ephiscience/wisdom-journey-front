@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { GameComponent } from 'src/app/modules/game/game.component';
 import { CurrentGameService } from '../../services/current-game.service';
-import { EMPTY, of } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { PlayerSelectionComponent } from '../pregame/player-selection/player-selection.component';
 import { MockComponent } from 'ng-mocks';
 

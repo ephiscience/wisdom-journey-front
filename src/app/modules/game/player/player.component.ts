@@ -75,6 +75,4 @@ import { Player } from 'src/app/model/player';
 export class PlayerComponent {
 	@Input() player!: Player;
 	@Input() orateur!: boolean; // TODO ???
-
-	constructor() {}
 }

@@ -7,7 +7,7 @@ import { asJSON, fromJSON, Game, Question, Criterion } from 'src/app/model/game'
 import { LOCALE_ID, Inject } from '@angular/core';
 import { combineLatest } from 'rxjs';
 
-function shuffle(array: any[]): Array<any> {
+function shuffle<T>(array: T[]): Array<T> {
 	let currentIndex = array.length;
 	let temporaryValue;
 	let randomIndex;

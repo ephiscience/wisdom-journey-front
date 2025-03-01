@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
 import { Game } from 'src/app/model/game';
@@ -21,7 +21,7 @@ import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
 			></app-game-status>
 			<app-board #board [game]="game" [endOfTurn]="this.endOfTurn" (checkGameState)="checkGameState()"></app-board>
 			<app-players #players [game]="game"></app-players>
-			<button class="home" (click)="openQuitGameModal()"></button>
+			<button class="home" (click)="openQuitGameModal()"> </button>
 			<button class="parameters" (click)="changeLanguage()">{{ this.game.language }}</button>
 			<div class="pause" *ngIf="this.pausedTimer" [style.height.px]="this.viewHeight"></div>
 		</ng-container>

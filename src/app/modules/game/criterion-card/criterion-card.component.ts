@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Criterion } from 'src/app/model/game';
 
 /* [ngStyle]="{'backgroundColor': check1 ? '#1B8CD0 0% 0% no-repeat padding-box' : '#FFA935 0% 0% no-repeat padding-box'}"*/
@@ -271,16 +271,12 @@ import { Criterion } from 'src/app/model/game';
 		`,
 	],
 })
-export class CriterionCardComponent implements OnInit, OnChanges {
+export class CriterionCardComponent implements OnChanges {
 	@Input() criterion?: Criterion;
 	@Input() endOfTurn!: boolean;
 	@Output() validated = new EventEmitter<boolean>();
 	check1 = false;
 	check2 = false;
-
-	constructor() {}
-
-	ngOnInit(): void {}
 
 	ngOnChanges(): void {
 		if (this.endOfTurn === true) {

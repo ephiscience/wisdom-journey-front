@@ -1,8 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MissingPlayerNameModalComponent } from '../missing-player-name-modal/missing-player-name-modal.component';
-
-const AVAILABLE_PLAYERS_CHOICES = [1, 2, 3];
 
 const PLAYER_ICONS = ['dogBlack.png', 'squirrelBlack.png', 'dolphinBlack.png', 'lionBlack.png', 'monkeyBlack.png', 'sheepBlack.png'];
 
@@ -27,7 +25,7 @@ export interface Player {
 					placeholder="Enter your name here"
 					[(ngModel)]="player.name"
 				/>
-				<button class="cross" *ngIf="players.length > 3" (click)="removePlayer(player)"></button>
+				<button class="cross" *ngIf="players.length > 3" (click)="removePlayer(player)"> </button>
 			</div>
 			<button class="add-player" *ngIf="players.length < 6" (click)="addPlayer()">
 				<img class="cross-img" src="assets/images/plus@2x.png" alt="add player button" />

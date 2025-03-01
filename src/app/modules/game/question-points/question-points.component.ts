@@ -1,6 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-
-import { PipeTransform, Pipe } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
 	selector: 'app-question-points',
@@ -34,10 +32,6 @@ import { PipeTransform, Pipe } from '@angular/core';
 		`,
 	],
 })
-export class QuestionPointsComponent implements OnInit {
+export class QuestionPointsComponent {
 	@Input() questionCount!: number;
-
-	constructor() {}
-
-	ngOnInit(): void {}
 }

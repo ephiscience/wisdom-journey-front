@@ -5,7 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 	selector: 'app-missing-player-name-modal',
 	template: `
 		<div class="modal-header">
-			<h4 class="modal-title w-100 text-center"></h4>
+			<h4 class="modal-title w-100 text-center"> </h4>
 			<button type="button" class="close" aria-label="Close" (click)="dismiss()">
 				<span aria-hidden="true">&times;</span>
 			</button>

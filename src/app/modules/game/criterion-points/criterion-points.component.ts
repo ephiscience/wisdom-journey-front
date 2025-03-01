@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
 	selector: 'app-criterion-points',
@@ -77,12 +77,8 @@ import { Component, Input, OnInit } from '@angular/core';
 		`,
 	],
 })
-export class CriterionPointsComponent implements OnInit {
+export class CriterionPointsComponent {
 	@Input() numCriterions!: number;
-
-	constructor() {}
-
-	ngOnInit(): void {}
 
 	getWidth(): string {
 		return (this.numCriterions / 20) * 100 + '%';

@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Game, Question, Criterion } from 'src/app/model/game';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Game } from 'src/app/model/game';
 
 @Component({
 	selector: 'app-board',
@@ -49,14 +49,10 @@ import { Game, Question, Criterion } from 'src/app/model/game';
 		`,
 	],
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent {
 	@Input() game!: Game;
 	@Input() endOfTurn!: boolean;
 	@Output() checkGameState = new EventEmitter();
-
-	constructor() {}
-
-	ngOnInit(): void {}
 
 	emitCheckGameState(): void {
 		this.checkGameState.emit();
