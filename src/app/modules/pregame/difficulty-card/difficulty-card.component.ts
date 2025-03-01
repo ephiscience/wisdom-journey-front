@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LevelData } from 'src/app/modules/pregame/level-selection/level-selection.component';
 
 @Component({
@@ -68,12 +68,8 @@ import { LevelData } from 'src/app/modules/pregame/level-selection/level-selecti
 		`,
 	],
 })
-export class DifficultyCardComponent implements OnInit {
+export class DifficultyCardComponent {
 	@Input() item!: LevelData;
 	@Input() selected = false;
 	@Output() clicked = new EventEmitter<void>();
-
-	constructor() {}
-
-	ngOnInit(): void {}
 }

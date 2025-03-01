@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Game } from 'src/app/model/game';
 import { TimerComponent } from 'src/app/modules/game/timer/timer.component';
 
@@ -42,7 +42,7 @@ import { TimerComponent } from 'src/app/modules/game/timer/timer.component';
 		`,
 	],
 })
-export class GameStatusComponent implements OnInit, OnChanges {
+export class GameStatusComponent implements OnChanges {
 	@Input() game!: Game;
 	@Input() pauseTimer!: boolean;
 	@Output() endOfGameTurn = new EventEmitter();
@@ -51,15 +51,11 @@ export class GameStatusComponent implements OnInit, OnChanges {
 
 	@ViewChild(TimerComponent) timer!: TimerComponent;
 
-	constructor() {}
-
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes.game && !changes.game.isFirstChange()) {
 			this.timer.reset();
 		}
 	}
-
-	ngOnInit(): void {}
 
 	emitEndOfGameTurn(): void {
 		this.endOfGameTurn.emit();

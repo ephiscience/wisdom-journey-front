@@ -15,7 +15,7 @@ export interface Criterion {
 	lang: string;
 }
 
-function shuffle(array: any[]): Array<any> {
+function shuffle<T>(array: T[]): Array<T> {
 	let currentIndex = array.length;
 	let temporaryValue;
 	let randomIndex;

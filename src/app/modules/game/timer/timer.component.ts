@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output } from '@angular/core';
 
 const maximumTime = 3 * 60 * 1000;
 
@@ -56,7 +56,7 @@ const maximumTime = 3 * 60 * 1000;
 		`,
 	],
 })
-export class TimerComponent implements OnInit, OnChanges, OnDestroy {
+export class TimerComponent implements OnChanges, OnDestroy {
 	@Input() endOfGame!: boolean;
 	@Input() modalActive!: boolean;
 	@Output() endTimer = new EventEmitter();
@@ -73,8 +73,6 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
 	ngOnDestroy(): void {
 		this.stop();
 	}
-
-	ngOnInit(): void {}
 
 	start(): void {
 		if (this.timerID === null) {

@@ -1,4 +1,4 @@
-import { Component, Inject, Injectable } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Player } from 'src/app/modules/pregame/player-selection/player-selection.component';
@@ -11,7 +11,7 @@ import { CurrentGameService } from 'src/app/services/current-game.service';
 		<div class="container">
 			<app-player-selection *ngIf="!this.level" (numPlayers)="loadLevelSelection($event)"></app-player-selection>
 			<app-level-selection *ngIf="this.level" [playerNames]="this.playerNames"></app-level-selection>
-			<button class="home" (click)="openQuitGameModal()"></button>
+			<button class="home" (click)="openQuitGameModal()"> </button>
 		</div>
 	`,
 	styles: [
@@ -49,10 +49,7 @@ export class PregameComponent {
 	}
 
 	handleQuitGameModalResult(p: Promise<unknown>) {
-		p.then(
-			() => this.router.navigate(['/']),
-			() => {}
-		);
+		p.then(() => this.router.navigate(['/'])).catch((e) => console.error(e));
 	}
 
 	loadLevelSelection(players: Player[]): void {
