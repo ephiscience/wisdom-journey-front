@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayerSelectionComponent } from 'src/app/modules/pregame/player-selection/player-selection.component';
+import { FormsModule } from '@angular/forms';
 
 describe('PlayerSelectionComponent', () => {
 	let component: PlayerSelectionComponent;
@@ -8,6 +9,7 @@ describe('PlayerSelectionComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
+      imports: [FormsModule],
 			declarations: [PlayerSelectionComponent],
 		}).compileComponents();
 	});
