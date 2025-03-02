@@ -11,7 +11,7 @@ const maximumTime = 3 * 60 * 1000;
 				<img #play src="assets/images/pause.png" alt="pause button" />
 			</ng-template>
 		</button>
-		<div class="timer">{{ this.time | durationFromMilliseconds | durationToFormat: 'mm:ss' }}</div>
+		<div class="timer">{{ this.time | durationFromMilliseconds | durationToFormat : 'mm:ss' }}</div>
 	`,
 
 	styles: [
