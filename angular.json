@@ -91,22 +91,22 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "wisdom-journey-front:build",
-            "proxyConfig": "server-proxy.json"
+            "proxyConfig": "server-proxy.json",
+            "buildTarget": "wisdom-journey-front:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "wisdom-journey-front:build:production"
+              "buildTarget": "wisdom-journey-front:build:production"
             },
             "fr": {
-              "browserTarget": "wisdom-journey-front:build:fr"
+              "buildTarget": "wisdom-journey-front:build:fr"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "wisdom-journey-front:build"
+            "buildTarget": "wisdom-journey-front:build"
           }
         },
         "test": {
