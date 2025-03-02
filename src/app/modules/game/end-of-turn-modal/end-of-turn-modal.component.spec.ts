@@ -9,9 +9,9 @@ describe('EndOfTurnModalComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [EndOfTurnModalComponent],
-			providers: [NgbModal, NgbActiveModal],
-		}).compileComponents();
+    imports: [EndOfTurnModalComponent],
+    providers: [NgbModal, NgbActiveModal],
+}).compileComponents();
 	});
 
 	beforeEach(() => {

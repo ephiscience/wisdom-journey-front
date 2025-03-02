@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { LuxonModule } from 'luxon-angular';
 
 const maximumTime = 3 * 60 * 1000;
 
 @Component({
-	selector: 'app-timer',
-	template: `
+    selector: 'app-timer',
+    template: `
 		<button (click)="pause()">
 			<img *ngIf="paused; else play" src="assets/images/play.png" alt="play button" />
 			<ng-template #play>
@@ -13,9 +15,8 @@ const maximumTime = 3 * 60 * 1000;
 		</button>
 		<div class="timer">{{ this.time | durationFromMilliseconds | durationToFormat : 'mm:ss' }}</div>
 	`,
-
-	styles: [
-		`
+    styles: [
+        `
 			:host {
 				width: 270px;
 				place-self: center;
@@ -54,7 +55,8 @@ const maximumTime = 3 * 60 * 1000;
 				width: 33px;
 			}
 		`,
-	],
+    ],
+    imports: [NgIf, LuxonModule]
 })
 export class TimerComponent implements OnChanges, OnDestroy {
 	@Input() endOfGame!: boolean;

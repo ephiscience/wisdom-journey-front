@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MissingLevelSelectionModalComponent } from '../missing-level-selection-modal/missing-level-selection-modal.component';
+import { NgFor } from '@angular/common';
+import { DifficultyCardComponent } from '../difficulty-card/difficulty-card.component';
 
 export interface LevelData {
 	readonly backgroundColor: string;
@@ -39,8 +41,8 @@ const LEVELS: LevelData[] = [
 ];
 
 @Component({
-	selector: 'app-level-selection',
-	template: `
+    selector: 'app-level-selection',
+    template: `
 		<div class="texte">
 			2/2 -
 			<ng-container i18n>Select the difficulty</ng-container>
@@ -55,8 +57,8 @@ const LEVELS: LevelData[] = [
 		</div>
 		<button class="play" (click)="loadGame()" i18n="play button|Button to launch the game">Play</button>
 	`,
-	styles: [
-		`
+    styles: [
+        `
 			:host {
 				display: flex;
 				flex-direction: column;
@@ -94,7 +96,8 @@ const LEVELS: LevelData[] = [
 				cursor: pointer;
 			}
 		`,
-	],
+    ],
+    imports: [NgFor, DifficultyCardComponent]
 })
 export class LevelSelectionComponent {
 	@Input() playerNames!: string[];

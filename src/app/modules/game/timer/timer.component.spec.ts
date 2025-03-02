@@ -9,9 +9,8 @@ describe('TimerComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [TimerComponent],
-			imports: [LuxonModule],
-		}).compileComponents();
+    imports: [LuxonModule, TimerComponent],
+}).compileComponents();
 	});
 
 	beforeEach(() => {

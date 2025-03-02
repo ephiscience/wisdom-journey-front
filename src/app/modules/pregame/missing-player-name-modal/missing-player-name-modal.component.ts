@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-	selector: 'app-missing-player-name-modal',
-	template: `
+    selector: 'app-missing-player-name-modal',
+    template: `
 		<div class="modal-header">
 			<h4 class="modal-title w-100 text-center"> </h4>
 			<button type="button" class="close" aria-label="Close" (click)="dismiss()">
@@ -17,7 +17,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 			<button type="button" class="btn-ok" (click)="dismiss()">Ok</button>
 		</div>
 	`,
-	styleUrls: ['../../shared/modals.scss'],
+    styleUrls: ['../../shared/modals.scss']
 })
 export class MissingPlayerNameModalComponent {
 	constructor(private modal: NgbActiveModal) {}

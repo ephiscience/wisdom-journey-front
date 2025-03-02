@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Game } from 'src/app/model/game';
+import { NgIf, NgFor } from '@angular/common';
+import { QuestionComponent } from '../question/question.component';
+import { CriterionCardComponent } from '../criterion-card/criterion-card.component';
 
 @Component({
-	selector: 'app-board',
-	template: `
+    selector: 'app-board',
+    template: `
 		<ng-container *ngIf="game">
 			<div class="question">
 				<app-question [question]="game.remainingQuestions[0]" (next)="game.removeQuestion(); emitCheckGameState()"></app-question>
@@ -21,8 +24,8 @@ import { Game } from 'src/app/model/game';
 			</div>
 		</ng-container>
 	`,
-	styles: [
-		`
+    styles: [
+        `
 			:host {
 				display: flex;
 				flex-direction: column;
@@ -47,7 +50,8 @@ import { Game } from 'src/app/model/game';
 				flex-basis: 162px;
 			}
 		`,
-	],
+    ],
+    imports: [NgIf, QuestionComponent, NgFor, CriterionCardComponent]
 })
 export class BoardComponent {
 	@Input() game!: Game;

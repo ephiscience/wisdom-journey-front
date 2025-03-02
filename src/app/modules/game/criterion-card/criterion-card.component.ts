@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Criterion } from 'src/app/model/game';
+import { NgIf, NgClass, NgStyle } from '@angular/common';
 
 /* [ngStyle]="{'backgroundColor': check1 ? '#1B8CD0 0% 0% no-repeat padding-box' : '#FFA935 0% 0% no-repeat padding-box'}"*/
 
 @Component({
-	selector: 'app-criterion-card',
-	template: `
+    selector: 'app-criterion-card',
+    template: `
 		<div class="outer" *ngIf="criterion">
 			<div class="inner">
 				<div
@@ -64,8 +65,8 @@ import { Criterion } from 'src/app/model/game';
 			</div>
 		</div>
 	`,
-	styles: [
-		`
+    styles: [
+        `
 			.outer {
 				width: 162px;
 				height: 231px;
@@ -269,7 +270,8 @@ import { Criterion } from 'src/app/model/game';
 				position: absolute;
 			}
 		`,
-	],
+    ],
+    imports: [NgIf, NgClass, NgStyle]
 })
 export class CriterionCardComponent implements OnChanges {
 	@Input() criterion?: Criterion;

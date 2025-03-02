@@ -7,10 +7,14 @@ import { QuitGameConfirmationModalComponent } from 'src/app/modules/shared/quit-
 import { EndOfTurnModalComponent } from './end-of-turn-modal/end-of-turn-modal.component';
 import { VictoryModalComponent } from './victory-modal/victory-modal.component';
 import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
+import { NgIf } from '@angular/common';
+import { GameStatusComponent } from './game-status/game-status.component';
+import { BoardComponent } from './board/board.component';
+import { PlayersComponent } from './players/players.component';
 
 @Component({
-	selector: 'app-game',
-	template: `
+    selector: 'app-game',
+    template: `
 		<ng-container *ngIf="game">
 			<app-game-status
 				[game]="game"
@@ -26,8 +30,8 @@ import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
 			<div class="pause" *ngIf="this.pausedTimer" [style.height.px]="this.viewHeight"></div>
 		</ng-container>
 	`,
-	styles: [
-		`
+    styles: [
+        `
 			:host {
 				display: flex;
 				flex-direction: column;
@@ -88,7 +92,8 @@ import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
 				justify-content: center;
 			}
 		`,
-	],
+    ],
+    imports: [NgIf, GameStatusComponent, BoardComponent, PlayersComponent]
 })
 export class GameComponent implements OnInit {
 	@Input() theQuestions!: number;

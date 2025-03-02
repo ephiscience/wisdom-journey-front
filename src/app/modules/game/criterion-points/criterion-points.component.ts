@@ -1,16 +1,16 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-	selector: 'app-criterion-points',
-	template: `
+    selector: 'app-criterion-points',
+    template: `
 		<div class="image"></div>
 		<div class="bar-container">
 			<div class="text">{{ numCriterions + '/20' }}</div>
 			<div class="bar" [class.transparent]="this.numCriterions === 0" [style.width]="getWidth()"></div>
 		</div>
 	`,
-	styles: [
-		`
+    styles: [
+        `
 			:host {
 				margin-left: 30px;
 				place-self: center;
@@ -75,7 +75,7 @@ import { Component, Input } from '@angular/core';
 				opacity: 0;
 			}
 		`,
-	],
+    ]
 })
 export class CriterionPointsComponent {
 	@Input() numCriterions!: number;

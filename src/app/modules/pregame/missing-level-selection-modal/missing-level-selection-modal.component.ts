@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-	selector: 'app-missing-level-selection-modal',
-	template: `
+    selector: 'app-missing-level-selection-modal',
+    template: `
 		<div class="modal-content">
 			<div class="modal-header ">
 				<h4 class="modal-title w-100 text-center"> </h4>
@@ -19,7 +19,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 			</div>
 		</div>
 	`,
-	styleUrls: ['../../shared/modals.scss'],
+    styleUrls: ['../../shared/modals.scss']
 })
 export class MissingLevelSelectionModalComponent {
 	constructor(private modal: NgbActiveModal) {}

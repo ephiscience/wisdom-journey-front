@@ -5,21 +5,18 @@ import { LevelSelectionComponent } from 'src/app/modules/pregame/level-selection
 import { PlayerSelectionComponent } from 'src/app/modules/pregame/player-selection/player-selection.component';
 import { PregameRoutingModule } from 'src/app/modules/pregame/pregame-routing.module';
 import { PregameComponent } from 'src/app/modules/pregame/pregame.component';
-import { SharedModule } from 'src/app/modules/shared/shared.module';
+
 import { MissingPlayerNameModalComponent } from './missing-player-name-modal/missing-player-name-modal.component';
 import { MissingLevelSelectionModalComponent } from './missing-level-selection-modal/missing-level-selection-modal.component';
 import { DifficultyCardComponent } from './difficulty-card/difficulty-card.component';
 
 @NgModule({
-	declarations: [
-		PregameComponent,
-		PlayerSelectionComponent,
-		LevelSelectionComponent,
-		MissingPlayerNameModalComponent,
-		MissingLevelSelectionModalComponent,
-		DifficultyCardComponent,
-	],
-	imports: [CommonModule, FormsModule, SharedModule, PregameRoutingModule],
-	exports: [MissingPlayerNameModalComponent, MissingLevelSelectionModalComponent],
+    imports: [CommonModule, FormsModule, PregameRoutingModule, PregameComponent,
+    PlayerSelectionComponent,
+    LevelSelectionComponent,
+    MissingPlayerNameModalComponent,
+    MissingLevelSelectionModalComponent,
+    DifficultyCardComponent],
+    exports: [MissingPlayerNameModalComponent, MissingLevelSelectionModalComponent],
 })
 export class PregameModule {}
