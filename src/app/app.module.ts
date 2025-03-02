@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -12,7 +12,8 @@ import { HomeComponent } from './home/home.component';
 
 @NgModule({
 	declarations: [AppComponent, HomeComponent],
-	imports: [BrowserModule, AppRoutingModule, GraphQLModule, HttpClientModule, NgbModule, FormsModule],
 	bootstrap: [AppComponent],
+	imports: [BrowserModule, AppRoutingModule, GraphQLModule, NgbModule, FormsModule],
+	providers: [provideHttpClient(withInterceptorsFromDi())],
 })
 export class AppModule {}
