@@ -13,10 +13,9 @@ describe('GameComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [GameComponent, MockComponent(PlayerSelectionComponent)],
-			providers: [{ provide: CurrentGameService, useValue: { currentGame: () => EMPTY } }],
-			imports: [RouterTestingModule],
-		}).compileComponents();
+    providers: [{ provide: CurrentGameService, useValue: { currentGame: () => EMPTY } }],
+    imports: [RouterTestingModule, GameComponent, MockComponent(PlayerSelectionComponent)],
+}).compileComponents();
 	});
 
 	beforeEach(() => {

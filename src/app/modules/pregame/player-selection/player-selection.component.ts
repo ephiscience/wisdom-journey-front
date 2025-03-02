@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MissingPlayerNameModalComponent } from '../missing-player-name-modal/missing-player-name-modal.component';
+import { NgFor, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 const PLAYER_ICONS = ['dogBlack.png', 'squirrelBlack.png', 'dolphinBlack.png', 'lionBlack.png', 'monkeyBlack.png', 'sheepBlack.png'];
 
@@ -10,8 +12,8 @@ export interface Player {
 }
 
 @Component({
-	selector: 'app-player-selection',
-	template: `
+    selector: 'app-player-selection',
+    template: `
 		<div class="texte">
 			1/2 -
 			<ng-container i18n>Select the number of players</ng-container>
@@ -33,8 +35,8 @@ export interface Player {
 		</div>
 		<button class="play" (click)="loadLevelSelection()" i18n="continue|Go the the next step">Continue</button>
 	`,
-	styles: [
-		`
+    styles: [
+        `
 			:host {
 				display: flex;
 				flex-direction: column;
@@ -123,7 +125,8 @@ export interface Player {
 				height: 100px;
 			}
 		`,
-	],
+    ],
+    imports: [NgFor, FormsModule, NgIf]
 })
 export class PlayerSelectionComponent implements OnInit {
 	@Output() numPlayers = new EventEmitter<Player[]>();

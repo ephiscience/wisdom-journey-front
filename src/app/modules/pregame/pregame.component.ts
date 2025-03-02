@@ -4,18 +4,21 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Player } from 'src/app/modules/pregame/player-selection/player-selection.component';
 import { QuitGameConfirmationModalComponent } from 'src/app/modules/shared/quit-game-confirmation-modal/quit-game-confirmation-modal.component';
 import { CurrentGameService } from 'src/app/services/current-game.service';
+import { NgIf } from '@angular/common';
+import { PlayerSelectionComponent } from './player-selection/player-selection.component';
+import { LevelSelectionComponent } from './level-selection/level-selection.component';
 
 @Component({
-	selector: 'app-pregame',
-	template: `
+    selector: 'app-pregame',
+    template: `
 		<div class="container">
 			<app-player-selection *ngIf="!this.level" (numPlayers)="loadLevelSelection($event)"></app-player-selection>
 			<app-level-selection *ngIf="this.level" [playerNames]="this.playerNames"></app-level-selection>
 			<button class="home" (click)="openQuitGameModal()"> </button>
 		</div>
 	`,
-	styles: [
-		`
+    styles: [
+        `
 			div.container {
 				display: flex;
 				flex-direction: column;
@@ -36,7 +39,8 @@ import { CurrentGameService } from 'src/app/services/current-game.service';
 				cursor: pointer;
 			}
 		`,
-	],
+    ],
+    imports: [NgIf, PlayerSelectionComponent, LevelSelectionComponent]
 })
 export class PregameComponent {
 	level = false;

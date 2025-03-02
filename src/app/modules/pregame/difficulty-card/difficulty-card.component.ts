@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LevelData } from 'src/app/modules/pregame/level-selection/level-selection.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-	selector: 'app-difficulty-card',
-	template: `
+    selector: 'app-difficulty-card',
+    template: `
 		<button *ngIf="item" class="level" [style.backgroundColor]="item.backgroundColor" [class.selected]="selected" (click)="clicked.next()">
 			<div class="upper-text">
 				{{ item.title }}
@@ -15,8 +16,8 @@ import { LevelData } from 'src/app/modules/pregame/level-selection/level-selecti
 			</div>
 		</button>
 	`,
-	styles: [
-		`
+    styles: [
+        `
 			.level {
 				width: 176px;
 				height: 189px;
@@ -66,7 +67,8 @@ import { LevelData } from 'src/app/modules/pregame/level-selection/level-selecti
 				color: #000000;
 			}
 		`,
-	],
+    ],
+    imports: [NgIf]
 })
 export class DifficultyCardComponent {
 	@Input() item!: LevelData;

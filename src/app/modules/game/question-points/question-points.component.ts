@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
+import { NgFor } from '@angular/common';
+import { TimesPipe } from 'src/app/modules/shared/times.pipe';
 
 @Component({
-	selector: 'app-question-points',
-	template: ` <div class="image" *ngFor="let item of questionCount | times"></div> `,
-	styles: [
-		`
+    selector: 'app-question-points',
+    template: ` <div class="image" *ngFor="let item of questionCount | times"></div> `,
+    styles: [
+        `
 			:host {
 				width: 333px;
 				height: 60px;
@@ -30,7 +32,8 @@ import { Component, Input } from '@angular/core';
 				margin: 2px;
 			}
 		`,
-	],
+    ],
+    imports: [NgFor, TimesPipe]
 })
 export class QuestionPointsComponent {
 	@Input() questionCount!: number;

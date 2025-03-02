@@ -8,8 +8,8 @@ describe('CriterionCardComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [CriterionCardComponent],
-		}).compileComponents();
+    imports: [CriterionCardComponent],
+}).compileComponents();
 	});
 
 	beforeEach(() => {

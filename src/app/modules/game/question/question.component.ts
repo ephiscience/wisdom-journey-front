@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Question } from 'src/app/model/game';
+import { NgIf, NgClass } from '@angular/common';
 
 @Component({
-	selector: 'app-question',
-	template: `
+    selector: 'app-question',
+    template: `
 		<div class="outer">
 			<div class="inner">
 				<div class="image"></div>
@@ -35,8 +36,8 @@ import { Question } from 'src/app/model/game';
 			</div>
 		</div>
 	`,
-	styles: [
-		`
+    styles: [
+        `
 			:host {
 				padding-left: 20px;
 			}
@@ -167,7 +168,8 @@ import { Question } from 'src/app/model/game';
 				background-size: contain;
 			}
 		`,
-	],
+    ],
+    imports: [NgIf, NgClass]
 })
 export class QuestionComponent {
 	@Input() question: Question | null = null;

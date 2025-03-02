@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-	selector: 'app-victory-modal',
-	template: `
+    selector: 'app-victory-modal',
+    template: `
 		<div class="modal-content">
 			<div class="modal-header ">
 				<h4 class="modal-title w-100 text-center">Victoire !</h4>
@@ -20,7 +20,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 			</div>
 		</div>
 	`,
-	styleUrls: ['../../shared/modals.scss'],
+    styleUrls: ['../../shared/modals.scss']
 })
 export class VictoryModalComponent {
 	constructor(private modal: NgbActiveModal) {}

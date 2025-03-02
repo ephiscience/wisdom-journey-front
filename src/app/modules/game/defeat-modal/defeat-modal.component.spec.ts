@@ -9,9 +9,9 @@ describe('DefeatModalComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [DefeatModalComponent],
-			providers: [NgbModal, NgbActiveModal],
-		}).compileComponents();
+    imports: [DefeatModalComponent],
+    providers: [NgbModal, NgbActiveModal],
+}).compileComponents();
 	});
 
 	beforeEach(() => {

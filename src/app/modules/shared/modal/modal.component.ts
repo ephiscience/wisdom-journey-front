@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-	selector: 'app-modal',
-	template: `
+    selector: 'app-modal',
+    template: `
 		<div class="background">
 			<div class="body">
 				<div class="title">{{ title }}</div>
@@ -14,8 +14,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 			</div>
 		</div>
 	`,
-	styles: [
-		`
+    styles: [
+        `
 			div.background {
 				position: absolute;
 				top: 0px;
@@ -92,7 +92,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 				font: normal normal normal 45px/53px Chela One;
 			}
 		`,
-	],
+    ]
 })
 export class ModalComponent {
 	@Input() title!: string;

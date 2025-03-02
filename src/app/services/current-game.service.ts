@@ -7,7 +7,7 @@ import { asJSON, fromJSON, Game, Question, Criterion } from 'src/app/model/game'
 import { LOCALE_ID, Inject } from '@angular/core';
 import { combineLatest } from 'rxjs';
 
-function shuffle<T>(array: T[]): Array<T> {
+function shuffle<T>(array: T[]): T[] {
 	let currentIndex = array.length;
 	let temporaryValue;
 	let randomIndex;
@@ -86,7 +86,7 @@ export class CurrentGameService {
 				};
 			}
 			this.game$.next(loadedGame);
-		} catch (e) {
+		} catch {
 			saveGameToLocalStorage(null);
 		}
 	}

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
-	selector: 'app-home',
-	template: `
+    selector: 'app-home',
+    template: `
 		<img src="assets/images/logo@2x.png" alt="ephiscience logo" />
 		<button routerLink="/new" i18n class="newgame">Create a game</button>
 	`,
-	styles: [
-		`
+    styles: [
+        `
 			:host {
 				display: flex;
 				flex-direction: column;
@@ -36,6 +37,7 @@ import { Component } from '@angular/core';
 				width: 650px;
 			}
 		`,
-	],
+    ],
+    imports: [RouterLink]
 })
 export class HomeComponent {}

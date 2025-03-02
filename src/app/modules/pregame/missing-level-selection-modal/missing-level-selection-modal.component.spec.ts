@@ -9,9 +9,9 @@ describe('MissingLevelSelectionModalComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [MissingLevelSelectionModalComponent],
-			providers: [NgbModal, NgbActiveModal],
-		}).compileComponents();
+    imports: [MissingLevelSelectionModalComponent],
+    providers: [NgbModal, NgbActiveModal],
+}).compileComponents();
 	});
 
 	beforeEach(() => {
