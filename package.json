@@ -10,9 +10,7 @@
     "test:ci:locales": "ng build --configuration lint-locales",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "docker:build": "docker build --pull -t ghcr.io/ephiscience/wisdom-journey/front .",
-    "docker:push": "docker build --pull -t ghcr.io/ephiscience/wisdom-journey/front . && docker push ghcr.io/ephiscience/wisdom-journey/front:latest",
-    "docker:run": "docker run --rm -p 0.0.0.0:2015:80 -it ghcr.io/ephiscience/wisdom-journey/front",
+    "bake": "ng build --configuration=production && docker buildx bake -f docker/github/ci.hcl -f docker/caddy-base/docker-bake.hcl -f docker-bake.hcl",
     "i18n": "ng extract-i18n --output-path src/locale"
   },
   "private": true,
