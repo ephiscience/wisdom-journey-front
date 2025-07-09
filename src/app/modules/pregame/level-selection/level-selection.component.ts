@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MissingLevelSelectionModalComponent } from '../missing-level-selection-modal/missing-level-selection-modal.component';
-import { NgFor } from '@angular/common';
+
 import { DifficultyCardComponent } from '../difficulty-card/difficulty-card.component';
 
 export interface LevelData {
@@ -41,24 +41,21 @@ const LEVELS: LevelData[] = [
 ];
 
 @Component({
-    selector: 'app-level-selection',
-    template: `
+	selector: 'app-level-selection',
+	template: `
 		<div class="texte">
 			2/2 -
 			<ng-container i18n>Select the difficulty</ng-container>
 		</div>
 		<div class="container">
-			<app-difficulty-card
-				*ngFor="let item of levels"
-				[item]="item"
-				[selected]="item === clickedButton"
-				(clicked)="levelSelection(item)"
-			></app-difficulty-card>
+			@for (item of levels; track item) {
+				<app-difficulty-card [item]="item" [selected]="item === clickedButton" (clicked)="levelSelection(item)"></app-difficulty-card>
+			}
 		</div>
 		<button class="play" (click)="loadGame()" i18n="play button|Button to launch the game">Play</button>
 	`,
-    styles: [
-        `
+	styles: [
+		`
 			:host {
 				display: flex;
 				flex-direction: column;
@@ -96,18 +93,20 @@ const LEVELS: LevelData[] = [
 				cursor: pointer;
 			}
 		`,
-    ],
-    imports: [NgFor, DifficultyCardComponent]
+	],
+	imports: [DifficultyCardComponent],
 })
 export class LevelSelectionComponent {
+	private cg = inject(CurrentGameService);
+	private router = inject(Router);
+	private modalService = inject(NgbModal);
+
 	@Input() playerNames!: string[];
 
 	maxQuestions = 0;
 	levels = LEVELS;
 
 	clickedButton?: LevelData;
-
-	constructor(private cg: CurrentGameService, private router: Router, private modalService: NgbModal) {}
 
 	levelSelection(level: LevelData) {
 		this.clickedButton = level;

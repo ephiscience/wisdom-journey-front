@@ -1,72 +1,74 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Criterion } from 'src/app/model/game';
-import { NgIf, NgClass, NgStyle } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 
 /* [ngStyle]="{'backgroundColor': check1 ? '#1B8CD0 0% 0% no-repeat padding-box' : '#FFA935 0% 0% no-repeat padding-box'}"*/
 
 @Component({
-    selector: 'app-criterion-card',
-    template: `
-		<div class="outer" *ngIf="criterion">
-			<div class="inner">
-				<div
-					[ngClass]="{
-						'text-upper-short': criterion.title.length < 10,
-						'text-upper-long': criterion.title.length >= 10
-					}"
-				>
-					{{ criterion.title }}
+	selector: 'app-criterion-card',
+	template: `
+		@if (criterion) {
+			<div class="outer">
+				<div class="inner">
+					<div
+						[ngClass]="{
+							'text-upper-short': criterion.title.length < 10,
+							'text-upper-long': criterion.title.length >= 10,
+						}"
+					>
+						{{ criterion.title }}
+					</div>
+					<div
+						[ngClass]="{
+							'text-left-short': criterion.subtitle.length <= 22,
+							'text-left-long': criterion.subtitle.length > 22,
+						}"
+					>
+						{{ criterion.subtitle }}
+					</div>
+					<div
+						[ngClass]="{
+							'text-right-short': criterion.subtitle.length <= 22,
+							'text-right-long': criterion.subtitle.length > 22,
+						}"
+					>
+						{{ criterion.subtitle }}
+					</div>
+					<div
+						[ngClass]="{
+							'text-lower-short': criterion.title.length < 10,
+							'text-lower-long': criterion.title.length >= 10,
+						}"
+					>
+						{{ criterion.title }}
+					</div>
+					<div class="image">
+						<img class="icon" src="{{ 'assets/images/' + criterion.icon }}" alt="criterion icon" />
+					</div>
+					<button
+						class="upper"
+						(click)="check1 = !check1"
+						(click)="buttonClicked()"
+						[ngStyle]="{ background: check1 ? '#FFA935 0% 0% no-repeat padding-box' : '#1B8CD0 0% 0% no-repeat padding-box' }"
+					>
+						<div class="inner-button"></div>
+						<div class="check"></div>
+					</button>
+					<button
+						class="lower"
+						(click)="check2 = !check2"
+						(click)="buttonClicked()"
+						[ngStyle]="{ background: check2 ? '#FFA935 0% 0% no-repeat padding-box' : '#1B8CD0 0% 0% no-repeat padding-box' }"
+					>
+						<div class="inner-button"></div>
+						<div class="check"></div>
+					</button>
 				</div>
-				<div
-					[ngClass]="{
-						'text-left-short': criterion.subtitle.length <= 22,
-						'text-left-long': criterion.subtitle.length > 22
-					}"
-				>
-					{{ criterion.subtitle }}
-				</div>
-				<div
-					[ngClass]="{
-						'text-right-short': criterion.subtitle.length <= 22,
-						'text-right-long': criterion.subtitle.length > 22
-					}"
-				>
-					{{ criterion.subtitle }}
-				</div>
-				<div
-					[ngClass]="{
-						'text-lower-short': criterion.title.length < 10,
-						'text-lower-long': criterion.title.length >= 10
-					}"
-				>
-					{{ criterion.title }}
-				</div>
-				<div class="image">
-					<img class="icon" src="{{ 'assets/images/' + criterion.icon }}" alt="criterion icon" />
-				</div>
-				<button
-					class="upper"
-					(click)="check1 = !check1"
-					(click)="buttonClicked()"
-					[ngStyle]="{ background: check1 ? '#FFA935 0% 0% no-repeat padding-box' : '#1B8CD0 0% 0% no-repeat padding-box' }"
-				>
-					<div class="inner-button"></div>
-					<div class="check"></div>
-				</button>
-				<button
-					class="lower"
-					(click)="check2 = !check2"
-					(click)="buttonClicked()"
-					[ngStyle]="{ background: check2 ? '#FFA935 0% 0% no-repeat padding-box' : '#1B8CD0 0% 0% no-repeat padding-box' }"
-				>
-					<div class="inner-button"></div>
-					<div class="check"></div>
-				</button>
 			</div>
-		</div>
+		}
 	`,
-    styles: [
-        `
+	styles: [
+		`
 			.outer {
 				width: 162px;
 				height: 231px;
@@ -270,8 +272,8 @@ import { NgIf, NgClass, NgStyle } from '@angular/common';
 				position: absolute;
 			}
 		`,
-    ],
-    imports: [NgIf, NgClass, NgStyle]
+	],
+	imports: [NgClass, NgStyle],
 })
 export class CriterionCardComponent implements OnChanges {
 	@Input() criterion?: Criterion;

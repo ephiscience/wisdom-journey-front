@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MissingPlayerNameModalComponent } from '../missing-player-name-modal/missing-player-name-modal.component';
-import { NgFor, NgIf } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 const PLAYER_ICONS = ['dogBlack.png', 'squirrelBlack.png', 'dolphinBlack.png', 'lionBlack.png', 'monkeyBlack.png', 'sheepBlack.png'];
@@ -12,31 +12,37 @@ export interface Player {
 }
 
 @Component({
-    selector: 'app-player-selection',
-    template: `
+	selector: 'app-player-selection',
+	template: `
 		<div class="texte">
 			1/2 -
 			<ng-container i18n>Select the number of players</ng-container>
 		</div>
 		<div class="container">
-			<div class="player" *ngFor="let player of players">
-				<img class="player-img" src="assets/images/{{ player.icon }}" alt="player icon" />
-				<input
-					class="input"
-					i18n-placeholder="Player name input placeholder"
-					placeholder="Enter your name here"
-					[(ngModel)]="player.name"
-				/>
-				<button class="cross" *ngIf="players.length > 3" (click)="removePlayer(player)"> </button>
-			</div>
-			<button class="add-player" *ngIf="players.length < 6" (click)="addPlayer()">
-				<img class="cross-img" src="assets/images/plus@2x.png" alt="add player button" />
-			</button>
+			@for (player of players; track player) {
+				<div class="player">
+					<img class="player-img" src="assets/images/{{ player.icon }}" alt="player icon" />
+					<input
+						class="input"
+						i18n-placeholder="Player name input placeholder"
+						placeholder="Enter your name here"
+						[(ngModel)]="player.name"
+					/>
+					@if (players.length > 3) {
+						<button class="cross" (click)="removePlayer(player)">&nbsp;</button>
+					}
+				</div>
+			}
+			@if (players.length < 6) {
+				<button class="add-player" (click)="addPlayer()">
+					<img class="cross-img" src="assets/images/plus@2x.png" alt="add player button" />
+				</button>
+			}
 		</div>
 		<button class="play" (click)="loadLevelSelection()" i18n="continue|Go the the next step">Continue</button>
 	`,
-    styles: [
-        `
+	styles: [
+		`
 			:host {
 				display: flex;
 				flex-direction: column;
@@ -125,15 +131,15 @@ export interface Player {
 				height: 100px;
 			}
 		`,
-    ],
-    imports: [NgFor, FormsModule, NgIf]
+	],
+	imports: [FormsModule],
 })
 export class PlayerSelectionComponent implements OnInit {
+	private modalService = inject(NgbModal);
+
 	@Output() numPlayers = new EventEmitter<Player[]>();
 
 	players: Player[] = [];
-
-	constructor(private modalService: NgbModal) {}
 
 	ngOnInit(): void {
 		for (let i = 0; i < 3; i++) {

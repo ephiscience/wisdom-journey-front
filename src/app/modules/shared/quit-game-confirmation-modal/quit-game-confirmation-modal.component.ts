@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-    selector: 'app-quit-game-confirm',
-    template: `
+	selector: 'app-quit-game-confirm',
+	template: `
 		<div class="modal-content">
 			<div class="modal-header ">
 				<h4 class="modal-title w-100 text-center">Quitter</h4>
@@ -20,10 +20,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 			</div>
 		</div>
 	`,
-    styleUrls: ['../../shared/modals.scss']
+	styleUrls: ['../../shared/modals.scss'],
 })
 export class QuitGameConfirmationModalComponent {
-	constructor(private modal: NgbActiveModal) {}
+	private modal = inject(NgbActiveModal);
 
 	dismiss() {
 		this.modal.dismiss();

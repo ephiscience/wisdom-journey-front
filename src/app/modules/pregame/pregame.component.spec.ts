@@ -12,9 +12,9 @@ describe('PregameComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-    providers: [{ provide: CurrentGameService, useValue: {} }],
-    imports: [RouterTestingModule, PregameComponent, MockComponent(PlayerSelectionComponent)],
-}).compileComponents();
+			providers: [{ provide: CurrentGameService, useValue: {} }],
+			imports: [RouterTestingModule, PregameComponent, MockComponent(PlayerSelectionComponent)],
+		}).compileComponents();
 	});
 
 	beforeEach(() => {

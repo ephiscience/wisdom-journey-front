@@ -12,9 +12,9 @@ describe('LevelSelectionComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-    imports: [RouterTestingModule, LevelSelectionComponent, MockComponent(DifficultyCardComponent)],
-    providers: [{ provide: CurrentGameService, useValue: {} }],
-}).compileComponents();
+			imports: [RouterTestingModule, LevelSelectionComponent, MockComponent(DifficultyCardComponent)],
+			providers: [{ provide: CurrentGameService, useValue: {} }],
+		}).compileComponents();
 	});
 
 	beforeEach(() => {

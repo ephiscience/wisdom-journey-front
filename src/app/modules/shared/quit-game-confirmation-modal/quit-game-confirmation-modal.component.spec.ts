@@ -9,9 +9,9 @@ describe('MymodalComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-    imports: [QuitGameConfirmationModalComponent],
-    providers: [NgbModal, NgbActiveModal],
-}).compileComponents();
+			imports: [QuitGameConfirmationModalComponent],
+			providers: [NgbModal, NgbActiveModal],
+		}).compileComponents();
 	});
 
 	beforeEach(() => {

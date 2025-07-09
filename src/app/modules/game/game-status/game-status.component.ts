@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Game } from 'src/app/model/game';
 import { TimerComponent } from 'src/app/modules/game/timer/timer.component';
-import { NgIf } from '@angular/common';
+
 import { CriterionPointsComponent } from '../criterion-points/criterion-points.component';
 import { TimerComponent as TimerComponent_1 } from '../timer/timer.component';
 import { QuestionPointsComponent } from '../question-points/question-points.component';
 
 @Component({
-    selector: 'app-game-status',
-    template: `
-		<ng-container *ngIf="game">
+	selector: 'app-game-status',
+	template: `
+		@if (game) {
 			<app-criterion-points [numCriterions]="20 - game.remainingCriterions.length"></app-criterion-points>
 			<app-timer
 				(endTimer)="emitEndOfGameTurn()"
@@ -18,10 +18,10 @@ import { QuestionPointsComponent } from '../question-points/question-points.comp
 				[modalActive]="this.pauseTimer"
 			></app-timer>
 			<app-question-points [questionCount]="game.remainingQuestions.length"></app-question-points>
-		</ng-container>
+		}
 	`,
-    styles: [
-        `
+	styles: [
+		`
 			:host {
 				background: #404040 0% 0% no-repeat padding-box;
 				box-shadow: 3px 6px 6px #0000005a;
@@ -44,8 +44,8 @@ import { QuestionPointsComponent } from '../question-points/question-points.comp
 				flex-basis: 333px;
 			}
 		`,
-    ],
-    imports: [NgIf, CriterionPointsComponent, TimerComponent_1, QuestionPointsComponent]
+	],
+	imports: [CriterionPointsComponent, TimerComponent_1, QuestionPointsComponent],
 })
 export class GameStatusComponent implements OnChanges {
 	@Input() game!: Game;
