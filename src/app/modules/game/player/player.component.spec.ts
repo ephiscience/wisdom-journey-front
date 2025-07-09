@@ -8,8 +8,8 @@ describe('PlayerComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-    imports: [PlayerComponent],
-}).compileComponents();
+			imports: [PlayerComponent],
+		}).compileComponents();
 	});
 
 	beforeEach(() => {

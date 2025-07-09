@@ -1,34 +1,36 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Question } from 'src/app/model/game';
-import { NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
-    selector: 'app-question',
-    template: `
+	selector: 'app-question',
+	template: `
 		<div class="outer">
 			<div class="inner">
 				<div class="image"></div>
 				<div class="texts">
-					<div
-						*ngIf="question"
-						[ngClass]="{
-							'upper-short': question.text.length <= 58,
-							'upper-long': question.text.length > 58 && question.text.length < 75,
-							'upper-extralong': question.text.length >= 75
-						}"
-					>
-						{{ question.text }}
-					</div>
-					<div
-						*ngIf="question"
-						[ngClass]="{
-							'lower-short': question.text.length <= 58,
-							'lower-long': question.text.length > 58 && question.text.length < 75,
-							'lower-extralong': question.text.length >= 75
-						}"
-					>
-						{{ question.text }}
-					</div>
+					@if (question) {
+						<div
+							[ngClass]="{
+								'upper-short': question.text.length <= 58,
+								'upper-long': question.text.length > 58 && question.text.length < 75,
+								'upper-extralong': question.text.length >= 75,
+							}"
+						>
+							{{ question.text }}
+						</div>
+					}
+					@if (question) {
+						<div
+							[ngClass]="{
+								'lower-short': question.text.length <= 58,
+								'lower-long': question.text.length > 58 && question.text.length < 75,
+								'lower-extralong': question.text.length >= 75,
+							}"
+						>
+							{{ question.text }}
+						</div>
+					}
 				</div>
 				<button (click)="nextQuestion()">
 					<div class="pause"></div>
@@ -36,8 +38,8 @@ import { NgIf, NgClass } from '@angular/common';
 			</div>
 		</div>
 	`,
-    styles: [
-        `
+	styles: [
+		`
 			:host {
 				padding-left: 20px;
 			}
@@ -168,8 +170,8 @@ import { NgIf, NgClass } from '@angular/common';
 				background-size: contain;
 			}
 		`,
-    ],
-    imports: [NgIf, NgClass]
+	],
+	imports: [NgClass],
 })
 export class QuestionComponent {
 	@Input() question: Question | null = null;

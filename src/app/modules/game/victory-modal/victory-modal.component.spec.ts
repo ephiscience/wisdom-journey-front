@@ -9,9 +9,9 @@ describe('VictoryModalComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-    imports: [VictoryModalComponent],
-    providers: [NgbModal, NgbActiveModal],
-}).compileComponents();
+			imports: [VictoryModalComponent],
+			providers: [NgbModal, NgbActiveModal],
+		}).compileComponents();
 	});
 
 	beforeEach(() => {

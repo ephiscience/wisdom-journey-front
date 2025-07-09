@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
 import { Game } from 'src/app/model/game';
@@ -7,31 +7,33 @@ import { QuitGameConfirmationModalComponent } from 'src/app/modules/shared/quit-
 import { EndOfTurnModalComponent } from './end-of-turn-modal/end-of-turn-modal.component';
 import { VictoryModalComponent } from './victory-modal/victory-modal.component';
 import { DefeatModalComponent } from './defeat-modal/defeat-modal.component';
-import { NgIf } from '@angular/common';
+
 import { GameStatusComponent } from './game-status/game-status.component';
 import { BoardComponent } from './board/board.component';
 import { PlayersComponent } from './players/players.component';
 
 @Component({
-    selector: 'app-game',
-    template: `
-		<ng-container *ngIf="game">
+	selector: 'app-game',
+	template: `
+		@if (game) {
 			<app-game-status
 				[game]="game"
 				(endOfGameTurn)="updateGameStatus()"
 				(pausedTimer)="updatePausedTimer($event)"
 				[reloadTimer]="this.resetTimer"
 				[pauseTimer]="this.pauseTime"
-			></app-game-status>
+			/>
 			<app-board #board [game]="game" [endOfTurn]="this.endOfTurn" (checkGameState)="checkGameState()"></app-board>
 			<app-players #players [game]="game"></app-players>
-			<button class="home" (click)="openQuitGameModal()"> </button>
+			<button class="home" (click)="openQuitGameModal()">&nbsp;</button>
 			<button class="parameters" (click)="changeLanguage()">{{ this.game.language }}</button>
-			<div class="pause" *ngIf="this.pausedTimer" [style.height.px]="this.viewHeight"></div>
-		</ng-container>
+			@if (this.pausedTimer) {
+				<div class="pause" [style.height.px]="this.viewHeight"></div>
+			}
+		}
 	`,
-    styles: [
-        `
+	styles: [
+		`
 			:host {
 				display: flex;
 				flex-direction: column;
@@ -92,10 +94,14 @@ import { PlayersComponent } from './players/players.component';
 				justify-content: center;
 			}
 		`,
-    ],
-    imports: [NgIf, GameStatusComponent, BoardComponent, PlayersComponent]
+	],
+	imports: [GameStatusComponent, BoardComponent, PlayersComponent],
 })
 export class GameComponent implements OnInit {
+	private cg = inject(CurrentGameService);
+	private router = inject(Router);
+	private modalService = inject(NgbModal);
+
 	@Input() theQuestions!: number;
 	@Input() thePlayers!: number;
 	@Output() returnHome = new EventEmitter();
@@ -114,8 +120,6 @@ export class GameComponent implements OnInit {
 	viewHeight!: number;
 
 	langs = ['fr', 'en', 'de', 'es'];
-
-	constructor(private cg: CurrentGameService, private router: Router, private modalService: NgbModal) {}
 
 	ngOnInit(): void {
 		this.cg.currentGame().subscribe((game) => {
@@ -162,7 +166,7 @@ export class GameComponent implements OnInit {
 			},
 			() => {
 				this.pauseTime = false;
-			}
+			},
 		);
 	}
 
@@ -183,7 +187,7 @@ export class GameComponent implements OnInit {
 				this.checkGameState();
 				this.endOfTurn = false;
 				this.pauseTime = false;
-			}
+			},
 		);
 	}
 
@@ -198,7 +202,7 @@ export class GameComponent implements OnInit {
 			},
 			() => {
 				this.router.navigate(['']);
-			}
+			},
 		);
 	}
 
@@ -213,7 +217,7 @@ export class GameComponent implements OnInit {
 			},
 			() => {
 				this.router.navigate(['']);
-			}
+			},
 		);
 	}
 

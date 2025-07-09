@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { BehaviorSubject, concat, EMPTY, Observable, of, from } from 'rxjs';
 import { map, switchMap, mergeMap, toArray } from 'rxjs/operators';
 import { Player } from 'src/app/model/player';
 import { asJSON, fromJSON, Game, Question, Criterion } from 'src/app/model/game';
-import { LOCALE_ID, Inject } from '@angular/core';
+import { LOCALE_ID } from '@angular/core';
 import { combineLatest } from 'rxjs';
 
 function shuffle<T>(array: T[]): T[] {
@@ -54,11 +54,14 @@ type Nullable<T> = T | null;
 	providedIn: 'root',
 })
 export class CurrentGameService {
+	private apollo = inject(Apollo);
+	private locale = inject(LOCALE_ID);
+
 	game$ = new BehaviorSubject<Game | null>(null);
 
 	lastGameState?: { numQuestions: number; playerNames: string[] };
 
-	constructor(private apollo: Apollo, @Inject(LOCALE_ID) private locale: string) {
+	constructor() {
 		this.load();
 
 		this.game$
@@ -69,7 +72,7 @@ export class CurrentGameService {
 					} else {
 						return EMPTY;
 					}
-				})
+				}),
 			)
 			.subscribe((game) => {
 				saveGameToLocalStorage(game);
@@ -138,7 +141,7 @@ export class CurrentGameService {
 		const newExamplePlayers: Player[] = [];
 		newExamplePlayers.push(
 			{ name: playerNames[0], blackIcon: BLACK_PLAYER_ICONS[0], whiteIcon: WHITE_PLAYER_ICONS[0], speaking: true, turnsTalking: 0 },
-			{ name: playerNames[1], blackIcon: BLACK_PLAYER_ICONS[1], whiteIcon: WHITE_PLAYER_ICONS[1], speaking: true, turnsTalking: 0 }
+			{ name: playerNames[1], blackIcon: BLACK_PLAYER_ICONS[1], whiteIcon: WHITE_PLAYER_ICONS[1], speaking: true, turnsTalking: 0 },
 		);
 		for (let i = 2; i < playerNames.length; i++) {
 			newExamplePlayers.push({
@@ -188,7 +191,7 @@ export class CurrentGameService {
 					} else {
 						return null;
 					}
-				})
+				}),
 			);
 	}
 
@@ -217,7 +220,7 @@ export class CurrentGameService {
 					} else {
 						return null;
 					}
-				})
+				}),
 			);
 	}
 
@@ -231,11 +234,11 @@ export class CurrentGameService {
 
 		const questions$ = from(questionIDs).pipe(
 			mergeMap((id) => this.fetchQuestionsByLanguage(id, lang)),
-			toArray()
+			toArray(),
 		);
 		const criterions$ = from(criterionIDs).pipe(
 			mergeMap((id) => this.fetchCriterionsByLanguage(id, lang)),
-			toArray()
+			toArray(),
 		);
 
 		combineLatest([questions$, criterions$]).subscribe(([qs, cs]) => {

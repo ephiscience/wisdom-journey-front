@@ -9,8 +9,8 @@ describe('PlayerSelectionComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-    imports: [FormsModule, PlayerSelectionComponent],
-}).compileComponents();
+			imports: [FormsModule, PlayerSelectionComponent],
+		}).compileComponents();
 	});
 
 	beforeEach(() => {

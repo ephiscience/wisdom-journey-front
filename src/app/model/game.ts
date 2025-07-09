@@ -53,7 +53,7 @@ export function fromJSON(json: string): Game {
 		values.remainingQuestions,
 		values.validatedCriterions,
 		values.validatedQuestions,
-		values.language
+		values.language,
 	);
 
 	return game;
@@ -68,7 +68,7 @@ export class Game {
 		public remainingQuestions: Question[] = [],
 		public validatedCriterions: Criterion[] = [],
 		public validatedQuestions: Question[] = [],
-		public language: string
+		public language: string,
 	) {}
 
 	changes(): Observable<void> {

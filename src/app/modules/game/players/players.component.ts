@@ -1,15 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { Game } from 'src/app/model/game';
-import { NgIf, NgFor } from '@angular/common';
+
 import { PlayerComponent } from '../player/player.component';
 
 @Component({
-    selector: 'app-players',
-    template: ` <ng-container *ngIf="game">
-		<app-player *ngFor="let p of game.players" [player]="p" [orateur]="p.speaking"></app-player>
-	</ng-container>`,
-    styles: [
-        `
+	selector: 'app-players',
+	template: ` @if (game) {
+		@for (p of game.players; track p) {
+			<app-player [player]="p" [orateur]="p.speaking"></app-player>
+		}
+	}`,
+	styles: [
+		`
 			:host {
 				display: flex;
 				flex-direction: row;
@@ -17,8 +19,8 @@ import { PlayerComponent } from '../player/player.component';
 				justify-content: center;
 			}
 		`,
-    ],
-    imports: [NgIf, NgFor, PlayerComponent]
+	],
+	imports: [PlayerComponent],
 })
 export class PlayersComponent {
 	@Input() game!: Game;

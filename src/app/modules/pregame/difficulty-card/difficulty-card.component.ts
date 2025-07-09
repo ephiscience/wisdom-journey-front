@@ -1,23 +1,24 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LevelData } from 'src/app/modules/pregame/level-selection/level-selection.component';
-import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-difficulty-card',
-    template: `
-		<button *ngIf="item" class="level" [style.backgroundColor]="item.backgroundColor" [class.selected]="selected" (click)="clicked.next()">
-			<div class="upper-text">
-				{{ item.title }}
-			</div>
-			<img class="icon" src="assets/images/{{ item.icon }}" alt="level icon" />
-			<div class="lower-text">
-				{{ item.cardCount }}
-				<ng-container i18n>questions</ng-container>
-			</div>
-		</button>
+	selector: 'app-difficulty-card',
+	template: `
+		@if (item) {
+			<button class="level" [style.backgroundColor]="item.backgroundColor" [class.selected]="selected" (click)="clicked.next()">
+				<div class="upper-text">
+					{{ item.title }}
+				</div>
+				<img class="icon" src="assets/images/{{ item.icon }}" alt="level icon" />
+				<div class="lower-text">
+					{{ item.cardCount }}
+					<ng-container i18n>questions</ng-container>
+				</div>
+			</button>
+		}
 	`,
-    styles: [
-        `
+	styles: [
+		`
 			.level {
 				width: 176px;
 				height: 189px;
@@ -67,8 +68,8 @@ import { NgIf } from '@angular/common';
 				color: #000000;
 			}
 		`,
-    ],
-    imports: [NgIf]
+	],
+	imports: [],
 })
 export class DifficultyCardComponent {
 	@Input() item!: LevelData;

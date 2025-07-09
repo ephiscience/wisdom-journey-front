@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-    selector: 'app-missing-level-selection-modal',
-    template: `
+	selector: 'app-missing-level-selection-modal',
+	template: `
 		<div class="modal-content">
 			<div class="modal-header ">
-				<h4 class="modal-title w-100 text-center"> </h4>
+				<h4 class="modal-title w-100 text-center">&nbsp;</h4>
 				<button type="button" class="close" aria-label="Close" (click)="dismiss()">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -19,10 +19,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 			</div>
 		</div>
 	`,
-    styleUrls: ['../../shared/modals.scss']
+	styleUrls: ['../../shared/modals.scss'],
 })
 export class MissingLevelSelectionModalComponent {
-	constructor(private modal: NgbActiveModal) {}
+	private modal = inject(NgbActiveModal);
 
 	dismiss() {
 		this.modal.dismiss();

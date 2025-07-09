@@ -9,9 +9,9 @@ describe('MissingPlayerNameModalComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-    imports: [MissingPlayerNameModalComponent],
-    providers: [NgbModal, NgbActiveModal],
-}).compileComponents();
+			imports: [MissingPlayerNameModalComponent],
+			providers: [NgbModal, NgbActiveModal],
+		}).compileComponents();
 	});
 
 	beforeEach(() => {

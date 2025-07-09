@@ -1,26 +1,26 @@
 import { Component, Input } from '@angular/core';
 import { Player } from 'src/app/model/player';
-import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-player',
-    template: `
-		<ng-container *ngIf="player">
-			<div *ngIf="orateur; else listener" class="outer speaker">
-				<img class="icon" src="{{ 'assets/images/' + player.blackIcon }}" alt="player icon" />
-				<img class="role" src="assets/images/talk@2x.png" alt="player role" />
-			</div>
-			<ng-template #listener>
+	selector: 'app-player',
+	template: `
+		@if (player) {
+			@if (orateur) {
+				<div class="outer speaker">
+					<img class="icon" src="{{ 'assets/images/' + player.blackIcon }}" alt="player icon" />
+					<img class="role" src="assets/images/talk@2x.png" alt="player role" />
+				</div>
+			} @else {
 				<div class="outer listener">
 					<img class="icon" src="{{ 'assets/images/' + player.whiteIcon }}" alt="player icon" />
 					<img class="role" src="assets/images/tap@2x.png" alt="player role" />
 				</div>
-			</ng-template>
+			}
 			<div class="name">{{ player.name }}</div>
-		</ng-container>
+		}
 	`,
-    styles: [
-        `
+	styles: [
+		`
 			:host {
 				position: relative;
 			}
@@ -71,8 +71,8 @@ import { NgIf } from '@angular/common';
 				position: absolute;
 			}
 		`,
-    ],
-    imports: [NgIf]
+	],
+	imports: [],
 })
 export class PlayerComponent {
 	@Input() player!: Player;
