@@ -1,6 +1,7 @@
 import csv from "csv-parser";
 import fs from "fs";
-import { PrismaClient, Criterion, CriterionTranslation } from "@prisma/client";
+import { Criterion, CriterionTranslation } from "@prisma/client";
+import { db as prisma } from "../db";
 
 //const csv = require('csv-parser')
 const results: { [k: string]: string }[] = [];
@@ -11,8 +12,6 @@ fs.createReadStream(__dirname + "/../../resources/i18n_criterions.csv")
   .on("end", () => {
     //console.log(results); // see results
   });
-
-const prisma = new PrismaClient();
 
 function createCriterion(icon: string): Promise<Criterion> {
   return prisma.criterion.create({

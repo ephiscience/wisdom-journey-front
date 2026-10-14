@@ -1,26 +1,26 @@
-FROM node:14-alpine AS build
+FROM node:24-alpine AS build
 WORKDIR /app
 
 COPY package.json yarn.lock ./
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 COPY . .
 RUN yarn prisma generate && yarn build
 # Ici, l'application est compilée
 
-FROM node:14-alpine AS deps
+FROM node:24-alpine AS deps
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-COPY prisma .
-RUN yarn install --production && yarn prisma generate
+COPY package.json yarn.lock prisma.config.ts ./
+COPY prisma ./prisma
+RUN yarn install --frozen-lockfile --production && yarn prisma generate
 
-FROM node:14-alpine
+FROM node:24-alpine
 EXPOSE 4000
 WORKDIR /app
 
-COPY package.json yarn.lock src/context.ts docker/entrypoint.sh ./
-COPY prisma .
+COPY package.json yarn.lock prisma.config.ts src/context.ts docker/entrypoint.sh ./
+COPY prisma ./prisma
 COPY --from=deps /app/node_modules ./node_modules
 
 COPY --from=build /app/dist/src ./

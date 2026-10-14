@@ -4,3 +4,4 @@
 /prisma/
 /resources/
 /src/generated/
+/prisma.config.ts

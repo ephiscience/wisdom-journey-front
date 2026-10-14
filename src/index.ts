@@ -1,20 +1,32 @@
 import { server } from "./server";
+import { context } from "./context";
 import express from "express";
+import cors from "cors";
 import morgan from "morgan";
+import { expressMiddleware } from "@as-integrations/express4";
 
-const app = express();
+async function main() {
+  await server.start();
 
-app.use(morgan("combined"));
-server.applyMiddleware({ app, path: "/api" });
+  const app = express();
 
-new Promise<void>((resolve) => {
-  const server = app.listen({ port: 4000 }, () => resolve());
+  app.use(morgan("combined"));
+  app.use(
+    "/api",
+    cors(),
+    express.json(),
+    expressMiddleware(server, { context: async () => context })
+  );
+
+  const httpServer = app.listen({ port: 4000 }, () => {
+    console.log(`🚀 Server ready`);
+  });
 
   process.on("SIGTERM", () => {
-    server.close(() => {
+    httpServer.close(() => {
       console.log("HTTP server closed");
     });
   });
-}).then((server) => {
-  console.log(`🚀 Server ready`);
-});
+}
+
+main();

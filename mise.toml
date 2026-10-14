@@ -1,8 +1,6 @@
 [tools]
-node = "14.21.3"
+node = "24.21.0"
 
 [settings]
 # yarn version is read from the "packageManager" field in package.json
 idiomatic_version_file_enable_tools = ["yarn"]
-# Node 14 has no Apple Silicon build; use the x64 one (runs under Rosetta)
-arch = "x64"

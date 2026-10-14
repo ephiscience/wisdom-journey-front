@@ -3,11 +3,11 @@
 
 
 type Criterion {
-  icon: String
-  id: Int
+  icon: String!
+  id: Int!
   subtitle(lang: String!): String
   title(lang: String!): String
-  translations(lang: String): [CriterionTranslation]
+  translations(lang: String): [CriterionTranslation]!
 }
 
 type CriterionTranslation {

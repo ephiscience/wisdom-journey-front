@@ -3,8 +3,8 @@
  * Do not make changes to this file directly
  */
 
-import * as P from ".prisma/client"
-import { Context } from "./../context"
+import type * as P from ".prisma/client"
+import type { Context } from "./../context"
 
 
 
@@ -47,11 +47,11 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Criterion: { // field return type
-    icon: string | null; // String
-    id: number | null; // Int
+    icon: string; // String!
+    id: number; // Int!
     subtitle: string | null; // String
     title: string | null; // String
-    translations: Array<NexusGenRootTypes['CriterionTranslation'] | null> | null; // [CriterionTranslation]
+    translations: Array<NexusGenRootTypes['CriterionTranslation'] | null>; // [CriterionTranslation]!
   }
   CriterionTranslation: { // field return type
     criterionid: number | null; // Int
@@ -203,6 +203,8 @@ export interface NexusGenTypes {
 
 declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
+  }
+  interface NexusGenPluginInputTypeConfig<TypeName extends string> {
   }
   interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
   }
