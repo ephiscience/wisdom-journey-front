@@ -7,15 +7,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
-        uses: 'actions/checkout@v4'
-      - run: 'corepack enable'
-      - name: 'Install Node'
-        uses: 'actions/setup-node@v4'
+        uses: 'actions/checkout@v7'
+      - name: 'Install tools (mise)'
+        uses: 'jdx/mise-action@v5'
+      - name: 'Get pnpm store path'
+        id: 'pnpm-store'
+        run: 'echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"'
+      - name: 'Cache pnpm store'
+        uses: 'actions/cache@v6'
         with:
-          node-version-file: 'package.json'
-          cache: 'yarn'
-      - run: 'yarn install --immutable'
-      - run: 'yarn lint'
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: pnpm-store-${{ runner.os }}-
+      - run: 'pnpm install --frozen-lockfile'
+      - run: 'pnpm lint'
 
 
   locales:
@@ -23,15 +28,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
-        uses: 'actions/checkout@v4'
-      - run: 'corepack enable'
-      - name: 'Install Node'
-        uses: 'actions/setup-node@v4'
+        uses: 'actions/checkout@v7'
+      - name: 'Install tools (mise)'
+        uses: 'jdx/mise-action@v5'
+      - name: 'Get pnpm store path'
+        id: 'pnpm-store'
+        run: 'echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"'
+      - name: 'Cache pnpm store'
+        uses: 'actions/cache@v6'
         with:
-          node-version-file: 'package.json'
-          cache: 'yarn'
-      - run: 'yarn install --immutable'
-      - run: yarn run test:ci:locales
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: pnpm-store-${{ runner.os }}-
+      - run: 'pnpm install --frozen-lockfile'
+      - run: pnpm run test:ci:locales
         continue-on-error: true
         env:
           CI: true
@@ -39,14 +49,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
-        uses: 'actions/checkout@v4'
-      - run: 'corepack enable'
-      - name: 'Install Node'
-        uses: 'actions/setup-node@v4'
+        uses: 'actions/checkout@v7'
+      - name: 'Install tools (mise)'
+        uses: 'jdx/mise-action@v5'
+      - name: 'Get pnpm store path'
+        id: 'pnpm-store'
+        run: 'echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"'
+      - name: 'Cache pnpm store'
+        uses: 'actions/cache@v6'
         with:
-          node-version-file: 'package.json'
-          cache: 'yarn'
-      - run: 'yarn install --immutable'
-      - run: yarn run test:ci
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: pnpm-store-${{ runner.os }}-
+      - run: 'pnpm install --frozen-lockfile'
+      - run: pnpm run test:ci
         env:
           CI: true
