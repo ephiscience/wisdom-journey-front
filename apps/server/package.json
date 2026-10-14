@@ -1,5 +1,5 @@
 {
-  "name": "wisdowm-journey-server",
+  "name": "wisdom-journey-server",
   "version": "1.0.0",
   "main": "src/index.ts",
   "repository": "git@github.com:ephiscience/wisdowm-journey-server.git",
@@ -38,6 +38,5 @@
     "tsx": "^4.23.15",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.71.2"
-  },
-  "packageManager": "pnpm@12.11.2"
+  }
 }

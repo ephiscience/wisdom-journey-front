@@ -1,6 +1,6 @@
 target "caddy-base" {
-  dockerfile = "docker/caddy-base/Dockerfile"
+  dockerfile = "common/docker/caddy-base/Dockerfile"
   contexts = {
-    src = "docker/caddy-base"
+    src = "common/docker/caddy-base"
   }
 }

@@ -1,0 +1,11 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+allowBuilds:
+  '@apollo/protobufjs': false
+  '@parcel/watcher': true
+  '@prisma/engines': true
+  esbuild: true
+  lmdb: true
+  msgpackr-extract: true
+  prisma: true
