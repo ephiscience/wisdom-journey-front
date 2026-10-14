@@ -1,0 +1,34 @@
+type Criterion {
+  icon: String!
+  id: Int!
+  subtitle(lang: String!): String
+  title(lang: String!): String
+  translations(lang: String): [CriterionTranslation]!
+}
+
+type CriterionTranslation {
+  criterionid: Int
+  id: Int
+  lang: String
+  subtitle: String
+  title: String
+}
+
+type Query {
+  criterions(lang: String): [Criterion!]!
+  question(id: Int!): Question
+  questions(lang: String): [Question!]!
+}
+
+type Question {
+  id: Int
+  text(lang: String!): String
+  translations(lang: String): [QuestionTranslation]
+}
+
+type QuestionTranslation {
+  id: Int
+  lang: String
+  questionid: Int
+  translation: String
+}

@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  database:
+    image: postgres:13-alpine
+    env_file:
+      - .env.dist
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 0.0.0.0:5433:5432
+
+  pgadmin:
+    image: dpage/pgadmin4:4.27
+    ports:
+      - 0.0.0.0:8080:80
+    env_file:
+      - .env.dist
+      - .env
+volumes:
+  postgres_data: ~
