@@ -30,7 +30,10 @@
         }
 
         rewrite @try_files {http.matchers.file.relative}
-        file_server
+        file_server {
+            # .br/.zst/.gz files generated at image build (apps/front/Dockerfile)
+            precompressed br zstd gzip
+        }
     }
 
     # Any path without a locale prefix: redirect to the preferred locale,
