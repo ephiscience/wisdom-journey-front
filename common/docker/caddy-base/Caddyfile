@@ -11,7 +11,17 @@
         -Server
     }
 
-    @lang path_regexp lang ^/(fr|en|es|de)
+    # Supported locales: keep in sync with "i18n.locales" in
+    # apps/front/angular.json (plus the source locale, en).
+    #
+    # Picks the first supported language listed in Accept-Language
+    # (browsers list them by preference), defaulting to en.
+    map {header.Accept-Language} {preferred_lang} {
+        ~(?:^|,)\s*(fr|en|es|de)(?:[-_;,\s]|$) "${1}"
+        default en
+    }
+
+    @lang path_regexp lang ^/(fr|en|es|de)(?:/|$)
     handle @lang {
         @try_files {
             file {
@@ -20,6 +30,16 @@
         }
 
         rewrite @try_files {http.matchers.file.relative}
-        file_server
+        file_server {
+            # .br/.zst/.gz files generated at image build (apps/front/Dockerfile)
+            precompressed br zstd gzip
+        }
+    }
+
+    # Any path without a locale prefix: redirect to the preferred locale,
+    # keeping the rest of the path and the query string.
+    handle {
+        header Vary Accept-Language
+        redir * /{preferred_lang}{uri} 302
     }
 }
