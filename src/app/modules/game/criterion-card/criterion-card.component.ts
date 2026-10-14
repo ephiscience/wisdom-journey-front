@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Criterion } from 'src/app/model/game';
 import { NgClass, NgStyle } from '@angular/common';
 
@@ -273,6 +273,7 @@ import { NgClass, NgStyle } from '@angular/common';
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [NgClass, NgStyle],
 })
 export class CriterionCardComponent implements OnChanges {

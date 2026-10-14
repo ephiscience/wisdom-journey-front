@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Question } from 'src/app/model/game';
 import { NgClass } from '@angular/common';
 
@@ -171,6 +171,7 @@ import { NgClass } from '@angular/common';
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [NgClass],
 })
 export class QuestionComponent {

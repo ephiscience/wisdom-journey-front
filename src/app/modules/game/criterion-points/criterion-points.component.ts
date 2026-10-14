@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'app-criterion-points',
@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
 			<div class="bar" [class.transparent]="this.numCriterions === 0" [style.width]="getWidth()"></div>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styles: [
 		`
 			:host {

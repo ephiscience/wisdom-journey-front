@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Player } from 'src/app/model/player';
 
 @Component({
@@ -72,6 +72,7 @@ import { Player } from 'src/app/model/player';
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [],
 })
 export class PlayerComponent {

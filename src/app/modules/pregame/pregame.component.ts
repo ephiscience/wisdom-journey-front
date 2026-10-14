@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Player } from 'src/app/modules/pregame/player-selection/player-selection.component';
@@ -44,6 +44,7 @@ import { LevelSelectionComponent } from './level-selection/level-selection.compo
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [PlayerSelectionComponent, LevelSelectionComponent],
 })
 export class PregameComponent {

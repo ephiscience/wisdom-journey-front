@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { LevelData } from 'src/app/modules/pregame/level-selection/level-selection.component';
 
 @Component({
@@ -69,6 +69,7 @@ import { LevelData } from 'src/app/modules/pregame/level-selection/level-selecti
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [],
 })
 export class DifficultyCardComponent {

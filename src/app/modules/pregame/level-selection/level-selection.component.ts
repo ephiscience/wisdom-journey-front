@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -94,6 +94,7 @@ const LEVELS: LevelData[] = [
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [DifficultyCardComponent],
 })
 export class LevelSelectionComponent {

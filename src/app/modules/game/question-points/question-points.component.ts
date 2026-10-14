@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { TimesPipe } from 'src/app/modules/shared/times.pipe';
 
@@ -37,6 +37,7 @@ import { TimesPipe } from 'src/app/modules/shared/times.pipe';
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [TimesPipe],
 })
 export class QuestionPointsComponent {

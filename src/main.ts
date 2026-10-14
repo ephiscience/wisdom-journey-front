@@ -1,7 +1,7 @@
 import { enableProdMode, inject, provideZoneChangeDetection } from '@angular/core';
 
 import { environment } from './environments/environment';
-import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { routes } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
@@ -28,6 +28,6 @@ bootstrapApplication(AppComponent, {
 				// other options...
 			};
 		}),
-		provideHttpClient(withInterceptorsFromDi()),
+		provideHttpClient(withXhr(), withInterceptorsFromDi()),
 	],
 }).catch((err) => console.error(err));

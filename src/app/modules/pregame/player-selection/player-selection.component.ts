@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MissingPlayerNameModalComponent } from '../missing-player-name-modal/missing-player-name-modal.component';
 
@@ -132,6 +132,7 @@ export interface Player {
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule],
 })
 export class PlayerSelectionComponent implements OnInit {

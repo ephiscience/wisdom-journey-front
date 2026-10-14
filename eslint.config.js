@@ -30,6 +30,9 @@ module.exports = tseslint.config(
 					style: "kebab-case",
 				},
 			],
+			// The v22 migration pins components to Eager change detection to keep pre-v22 behavior.
+			// Re-enable once components are migrated to OnPush.
+			"@angular-eslint/prefer-on-push-component-change-detection": "off",
 		},
 	},
 	{
