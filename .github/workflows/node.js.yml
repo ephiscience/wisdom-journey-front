@@ -1,0 +1,28 @@
+name: Node.js CI
+
+on: [pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    # Prisma 2 does not support OpenSSL 3 (current ubuntu runners);
+    # bullseye ships OpenSSL 1.1
+    container: node:14-bullseye
+    steps:
+      - name: 'Checkout'
+        uses: 'actions/checkout@v7'
+      - name: 'Install tools (mise)'
+        uses: 'jdx/mise-action@v5'
+      - name: 'Get yarn cache path'
+        id: 'yarn-cache'
+        run: 'echo "path=$(yarn cache dir)" >> "$GITHUB_OUTPUT"'
+      - name: 'Cache yarn'
+        uses: 'actions/cache@v6'
+        with:
+          path: ${{ steps.yarn-cache.outputs.path }}
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: yarn-${{ runner.os }}-
+      - run: 'yarn install --frozen-lockfile'
+      - run: 'yarn prisma generate'
+      - run: 'yarn lint'
+      - run: 'yarn build'
