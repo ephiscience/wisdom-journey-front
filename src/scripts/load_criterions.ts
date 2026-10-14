@@ -25,7 +25,7 @@ function addTranslation(
   criterion: Criterion,
   lang: string,
   title: string,
-  subtitle: string
+  subtitle: string,
 ): Promise<CriterionTranslation> {
   return prisma.criterionTranslation.create({
     data: {
@@ -66,8 +66,8 @@ async function main() {
       const criterion = await createCriterion(icon);
       await Promise.all(
         translations.map(({ lang, title, subtitle }) =>
-          addTranslation(criterion, lang, title, subtitle)
-        )
+          addTranslation(criterion, lang, title, subtitle),
+        ),
       );
     }
   }

@@ -22,7 +22,7 @@ function createQuestion(): Promise<Question> {
 function addTranslation(
   question: Question,
   lang: string,
-  text: string
+  text: string,
 ): Promise<QuestionTranslation> {
   return prisma.questionTranslation.create({
     data: {
@@ -53,8 +53,8 @@ async function main() {
       const question = await createQuestion();
       await Promise.all(
         translations.map(({ lang, text }) =>
-          addTranslation(question, lang, text)
-        )
+          addTranslation(question, lang, text),
+        ),
       );
     }
   }

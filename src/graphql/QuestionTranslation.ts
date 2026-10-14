@@ -2,7 +2,7 @@ import type { QuestionTranslation } from "@prisma/client";
 import { builder } from "./builder";
 
 export const QuestionTranslationGql = builder.objectRef<QuestionTranslation>(
-  "QuestionTranslation"
+  "QuestionTranslation",
 );
 
 builder.objectType(QuestionTranslationGql, {

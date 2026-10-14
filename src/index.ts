@@ -15,7 +15,7 @@ async function main() {
     "/api",
     cors(),
     express.json(),
-    expressMiddleware(server, { context: async () => context })
+    expressMiddleware(server, { context: async () => context }),
   );
 
   const httpServer = app.listen({ port: 4000 }, () => {

@@ -5,5 +5,5 @@ import { schema } from "../schema";
 
 fs.writeFileSync(
   join(__dirname, "..", "generated", "schema.graphql"),
-  printSchema(lexicographicSortSchema(schema)) + "\n"
+  printSchema(lexicographicSortSchema(schema)) + "\n",
 );
