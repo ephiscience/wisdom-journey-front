@@ -1,5 +1,5 @@
 variable "DOCKER_FQ_IMAGE_NAME" {
-  default = "ghcr.io/ephiscience/wisdom-journey-server/server"
+  default = "ghcr.io/ephiscience/wisdom-journey/server"
 }
 
 target "wisdom-journey-server" {
