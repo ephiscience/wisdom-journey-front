@@ -1,5 +1,9 @@
-Dockerfile
-
-/.idea/
-/dist/
-/node_modules/
+# Images are built from the repository root; apps are compiled outside of
+# Docker and passed as named contexts, so only manifests and config are needed.
+**/node_modules
+**/dist
+**/.angular
+.git
+.idea
+apps/server/.env
+apps/server/src/generated/prisma

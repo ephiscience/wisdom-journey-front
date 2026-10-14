@@ -1,0 +1,35 @@
+[tasks.gen]
+description = "Generate the Prisma client into src/generated/prisma"
+sources = ["prisma/schema.prisma", "prisma.config.ts"]
+outputs = ["src/generated/prisma/client.ts"]
+run = "pnpm exec prisma generate"
+
+[tasks."gen:schema"]
+description = "Print the GraphQL schema to src/generated/schema.graphql"
+depends = ["gen"]
+run = "pnpm exec tsx ./src/scripts/print_schema.ts"
+
+[tasks.lint]
+description = "Lint the server"
+depends = ["gen"]
+run = "pnpm exec eslint ."
+
+[tasks.build]
+description = "Compile the server into dist/"
+depends = ["gen"]
+run = "pnpm exec tsc"
+
+[tasks.dev]
+description = "Start the server in watch mode"
+depends = ["gen"]
+run = "pnpm exec tsx watch --env-file-if-exists=.env src/index.ts"
+
+[tasks.prisma]
+description = "Run the Prisma CLI (e.g. mise run //apps/server:prisma migrate dev)"
+run = "pnpm exec prisma"
+
+[tasks.bake]
+description = "Build the server Docker image"
+depends = ["build"]
+dir = "{{ config_root }}/../.."
+run = "docker buildx bake -f common/docker/bake/ci.hcl -f apps/server/docker-bake.hcl"

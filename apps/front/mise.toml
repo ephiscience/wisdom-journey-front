@@ -1,0 +1,29 @@
+[tasks.lint]
+description = "Lint the front"
+run = "pnpm exec ng lint"
+
+[tasks.test]
+description = "Run the front unit tests (Vitest)"
+run = "pnpm exec ng test --no-watch --no-progress"
+
+[tasks."lint:locales"]
+description = "Build with missing translations as errors"
+run = "pnpm exec ng build --configuration lint-locales"
+
+[tasks.build]
+description = "Build the front for production into dist/"
+run = "pnpm exec ng build --configuration=production"
+
+[tasks.dev]
+description = "Start the Angular dev server (fr locale)"
+run = "pnpm exec ng serve --hmr --configuration=fr"
+
+[tasks.i18n]
+description = "Extract the i18n messages into src/locale"
+run = "pnpm exec ng extract-i18n --output-path src/locale"
+
+[tasks.bake]
+description = "Build the front Docker image"
+depends = ["build"]
+dir = "{{ config_root }}/../.."
+run = "docker buildx bake -f common/docker/bake/ci.hcl -f common/docker/caddy-base/docker-bake.hcl -f apps/front/docker-bake.hcl"

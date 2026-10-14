@@ -1,23 +1,33 @@
-# WisdomJourneyFront
+# Wisdom Journey
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4.
+A pnpm workspace (`apps/*`, `packages/*`) whose tasks are run with [mise](https://mise.jdx.dev) in [monorepo mode](https://mise.jdx.dev/tasks/monorepo.html). Each project's tasks live in its own `mise.toml`.
 
-## Development server
+| Project       | What it is                                                     |
+| ------------- | -------------------------------------------------------------- |
+| `apps/front`  | Angular front (served by Caddy in production)                  |
+| `apps/server` | GraphQL API (Apollo Server, Pothos, Prisma on PostgreSQL)      |
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Shared Docker tooling (bake CI helpers, the Caddy base image) lives in `common/docker`.
 
-## Code scaffolding
+## Setup
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```sh
+mise install
+mise run install
+```
 
-## Build
+## Common tasks
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+| Command                                         | What it does                                                    |
+| ----------------------------------------------- | --------------------------------------------------------------- |
+| `mise run dev`                                  | Start the server and the front in watch mode                    |
+| `mise run gen`                                  | Run every code generator (Prisma client)                        |
+| `mise run lint`                                 | Lint every project                                              |
+| `mise run test`                                 | Run every project's tests                                       |
+| `mise run build`                                | Build every project                                             |
+| `mise run bake`                                 | Build every Docker image                                        |
+| `mise run //apps/server:prisma migrate dev`     | Run the Prisma CLI against the development database             |
+| `mise run //apps/server:gen:schema`             | Print the GraphQL schema to `apps/server/src/generated`         |
+| `mise run //apps/front:i18n`                    | Extract the front's i18n messages                               |
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Vitest](https://vitest.dev).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+`mise tasks --all` lists every task. A single project's task is run as `mise run //apps/front:build`.

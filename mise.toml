@@ -1,6 +1,40 @@
+min_version = "2026.9.3"
+monorepo_root = true
+
+[monorepo]
+config_roots = ["apps/*", "packages/*"]
+
 [tools]
 node = "24.21.0"
 
 [settings]
 # pnpm version is read from the "packageManager" field in package.json
 idiomatic_version_file_enable_tools = ["pnpm"]
+
+[tasks.install]
+description = "Install the workspace dependencies from the lockfile"
+run = "pnpm install --frozen-lockfile"
+
+[tasks.gen]
+description = "Run every code generator (Prisma client)"
+depends = ["//...:gen"]
+
+[tasks.lint]
+description = "Lint every project"
+depends = ["//...:lint"]
+
+[tasks.test]
+description = "Run every project's tests"
+depends = ["//...:test"]
+
+[tasks.build]
+description = "Build every project"
+depends = ["//...:build"]
+
+[tasks.dev]
+description = "Start the server and the front in watch mode"
+depends = ["//...:dev"]
+
+[tasks.bake]
+description = "Build every Docker image"
+depends = ["//...:bake"]
