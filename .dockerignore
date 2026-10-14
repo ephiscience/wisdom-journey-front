@@ -12,3 +12,4 @@
 /.prettierrc.json
 /docker-compose.yml
 /README.md
+/src/generated/prisma/

@@ -1,4 +1,4 @@
-import type { Criterion } from "@prisma/client";
+import type { Criterion } from "../generated/prisma/client";
 import { builder } from "./builder";
 import { CriterionTranslationGql } from "./CriterionTranslation";
 

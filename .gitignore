@@ -6,3 +6,4 @@
 /temp/
 
 /pnpm-debug.log
+/src/generated/prisma/

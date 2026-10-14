@@ -1,6 +1,6 @@
 import csv from "csv-parser";
 import fs from "fs";
-import { Criterion, CriterionTranslation } from "@prisma/client";
+import { Criterion, CriterionTranslation } from "../generated/prisma/client";
 import { db as prisma } from "../db";
 
 //const csv = require('csv-parser')

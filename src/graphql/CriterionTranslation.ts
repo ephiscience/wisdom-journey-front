@@ -1,4 +1,4 @@
-import type { CriterionTranslation } from "@prisma/client";
+import type { CriterionTranslation } from "../generated/prisma/client";
 import { builder } from "./builder";
 
 export const CriterionTranslationGql = builder.objectRef<CriterionTranslation>(

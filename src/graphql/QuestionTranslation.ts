@@ -1,4 +1,4 @@
-import type { QuestionTranslation } from "@prisma/client";
+import type { QuestionTranslation } from "../generated/prisma/client";
 import { builder } from "./builder";
 
 export const QuestionTranslationGql = builder.objectRef<QuestionTranslation>(

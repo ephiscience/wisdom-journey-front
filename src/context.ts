@@ -1,5 +1,5 @@
 import { db } from "./db";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "./generated/prisma/client";
 
 export interface Context {
   db: PrismaClient;

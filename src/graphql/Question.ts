@@ -1,4 +1,4 @@
-import type { Question } from "@prisma/client";
+import type { Question } from "../generated/prisma/client";
 import { builder } from "./builder";
 import { QuestionTranslationGql } from "./QuestionTranslation";
 
