@@ -7,6 +7,7 @@
   "dependencies": {
     "@apollo/server": "^5.5.1",
     "@as-integrations/express4": "^1.1.2",
+    "@pothos/core": "^4.15.1",
     "@prisma/adapter-pg": "7.10.0",
     "@prisma/client": "7.10.0",
     "cors": "^2.8.5",
@@ -14,12 +15,12 @@
     "express": "^4.21.2",
     "graphql": "^16.11.0",
     "morgan": "^1.10.0",
-    "nexus": "^1.3.0",
     "prisma": "7.10.0"
   },
   "scripts": {
     "load_questions": "node --unhandled-rejections=strict --import tsx ./src/scripts/load_questions.ts",
     "load_criterions": "node --unhandled-rejections=strict --import tsx ./src/scripts/load_criterions.ts",
+    "schema": "tsx ./src/scripts/print_schema.ts",
     "dev": "tsx watch --env-file-if-exists=.env src/index.ts",
     "build": "tsc",
     "lint": "eslint ."

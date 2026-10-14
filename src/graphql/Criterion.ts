@@ -1,74 +1,68 @@
-import { objectType, extendType, stringArg, nonNull } from "nexus";
+import type { Criterion } from "@prisma/client";
+import { builder } from "./builder";
+import { CriterionTranslationGql } from "./CriterionTranslation";
 
-export const Criterion = objectType({
+export const CriterionGql = builder.objectRef<Criterion>("Criterion");
+
+builder.queryFields((t) => ({
+  criterions: t.field({
+    type: [CriterionGql],
+    nullable: false,
+    args: {
+      lang: t.arg.string(),
+    },
+    resolve: (_root, { lang }, { db }) => {
+      if (lang) {
+        return db.criterion.findMany({
+          where: { translations: { some: { lang } } },
+        });
+      } else {
+        return db.criterion.findMany();
+      }
+    },
+  }),
+}));
+
+builder.objectType(CriterionGql, {
   name: "Criterion",
-  definition(t) {
-    t.nonNull.int("id");
-    t.nonNull.string("icon");
-    t.nonNull.list.field("translations", {
-      type: "CriterionTranslation",
-      args: { lang: stringArg() },
-      resolve(criterion, args, ctx) {
-        return ctx.db.criterionTranslation.findMany({
-          where: {
-            criterionId: criterion.id,
-            lang: args.lang!, // TODO: Remove the `!`
-          },
+  fields: (t) => ({
+    id: t.exposeInt("id", { nullable: false }),
+    icon: t.exposeString("icon", { nullable: false }),
+    translations: t.field({
+      type: [CriterionTranslationGql],
+      nullable: { list: false, items: true },
+      args: {
+        lang: t.arg.string(),
+      },
+      resolve: (criterion, { lang }, { db }) => {
+        return db.criterionTranslation.findMany({
+          where: { criterionId: criterion.id, lang: lang ?? undefined },
         });
       },
-    });
-    t.string("title", {
-      args: { lang: nonNull(stringArg()) },
-      async resolve(criterion, args, ctx) {
-        const translation = await ctx.db.criterionTranslation.findFirst({
-          where: { criterionId: criterion.id, lang: args.lang },
+    }),
+    title: t.string({
+      args: {
+        lang: t.arg.string({ required: true }),
+      },
+      resolve: async (criterion, { lang }, { db }) => {
+        const translation = await db.criterionTranslation.findFirst({
+          where: { criterionId: criterion.id, lang },
         });
 
-        if (translation) {
-          return translation.title;
-        } else {
-          return null;
-        }
+        return translation ? translation.title : null;
       },
-    });
-    t.string("subtitle", {
-      args: { lang: nonNull(stringArg()) },
-      async resolve(criterion, args, ctx) {
-        const translation = await ctx.db.criterionTranslation.findFirst({
-          where: { criterionId: criterion.id, lang: args.lang },
+    }),
+    subtitle: t.string({
+      args: {
+        lang: t.arg.string({ required: true }),
+      },
+      resolve: async (criterion, { lang }, { db }) => {
+        const translation = await db.criterionTranslation.findFirst({
+          where: { criterionId: criterion.id, lang },
         });
 
-        if (translation) {
-          return translation.subtitle;
-        } else {
-          return null;
-        }
+        return translation ? translation.subtitle : null;
       },
-    });
-  },
-});
-
-export const CriterionQuery = extendType({
-  type: "Query",
-  definition(t) {
-    t.nonNull.list.field("criterions", {
-      type: nonNull(Criterion),
-      args: { lang: stringArg() },
-      resolve(root, args, ctx) {
-        if (args.lang) {
-          return ctx.db.criterion.findMany({
-            where: {
-              translations: {
-                some: {
-                  lang: args.lang!, // TODO: Remove the `!`
-                },
-              },
-            },
-          });
-        } else {
-          return ctx.db.criterion.findMany();
-        }
-      },
-    });
-  },
+    }),
+  }),
 });

@@ -19,7 +19,7 @@ FROM node:24-alpine
 EXPOSE 4000
 WORKDIR /app
 
-COPY package.json yarn.lock prisma.config.ts src/context.ts docker/entrypoint.sh ./
+COPY package.json yarn.lock prisma.config.ts docker/entrypoint.sh ./
 COPY prisma ./prisma
 COPY --from=deps /app/node_modules ./node_modules
 

@@ -1,4 +1,6 @@
-export * from "./Question";
-export * from "./QuestionTranslation";
-export * from "./Criterion";
-export * from "./CriterionTranslation";
+export { builder } from "./builder";
+
+import "./Question";
+import "./QuestionTranslation";
+import "./Criterion";
+import "./CriterionTranslation";

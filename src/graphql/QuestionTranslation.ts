@@ -1,11 +1,18 @@
-import { objectType } from "nexus";
+import type { QuestionTranslation } from "@prisma/client";
+import { builder } from "./builder";
 
-export const QuestionTranslation = objectType({
-  name: "QuestionTranslation", // <- Name of your type
-  definition(t) {
-    t.int("id"); // <- Field named `id` of type `Int`
-    t.string("lang");
-    t.string("translation");
-    t.int("questionid"); //question???
-  },
+export const QuestionTranslationGql = builder.objectRef<QuestionTranslation>(
+  "QuestionTranslation"
+);
+
+builder.objectType(QuestionTranslationGql, {
+  name: "QuestionTranslation",
+  fields: (t) => ({
+    id: t.exposeInt("id"),
+    lang: t.exposeString("lang"),
+    translation: t.exposeString("translation"),
+    questionid: t.int({
+      resolve: (translation) => translation.questionId,
+    }),
+  }),
 });
