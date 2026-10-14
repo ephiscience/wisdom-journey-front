@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -17,6 +17,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 			<button type="button" class="btn-ok" (click)="dismiss()">Ok</button>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['../../shared/modals.scss'],
 })
 export class MissingPlayerNameModalComponent {

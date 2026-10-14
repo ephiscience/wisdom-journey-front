@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Game } from 'src/app/model/game';
 
 import { QuestionComponent } from '../question/question.component';
@@ -49,6 +49,7 @@ import { CriterionCardComponent } from '../criterion-card/criterion-card.compone
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [QuestionComponent, CriterionCardComponent],
 })
 export class BoardComponent {

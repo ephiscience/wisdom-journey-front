@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Game } from 'src/app/model/game';
 
 import { PlayerComponent } from '../player/player.component';
@@ -20,6 +20,7 @@ import { PlayerComponent } from '../player/player.component';
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [PlayerComponent],
 })
 export class PlayersComponent {

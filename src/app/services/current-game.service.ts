@@ -113,7 +113,7 @@ export class CurrentGameService {
 					lang: this.locale,
 				},
 			})
-			.pipe(map((r) => r.data.questions.map((e) => ({ ...e, lang: this.locale }))));
+			.pipe(map((r) => (r.data?.questions ?? []).map((e) => ({ ...e, lang: this.locale }))));
 	}
 
 	fetchCriterions(): Observable<Criterion[]> {
@@ -133,7 +133,7 @@ export class CurrentGameService {
 					lang: this.locale,
 				},
 			})
-			.pipe(map((r) => r.data.criterions.map((e) => ({ ...e, lang: this.locale }))));
+			.pipe(map((r) => (r.data?.criterions ?? []).map((e) => ({ ...e, lang: this.locale }))));
 	}
 
 	createGame(numQuestions: number, playerNames: string[]): void {
@@ -186,7 +186,7 @@ export class CurrentGameService {
 			})
 			.pipe(
 				map((r) => {
-					if (r.data.question) {
+					if (r.data?.question) {
 						return { ...r.data.question, lang: language };
 					} else {
 						return null;
@@ -215,7 +215,7 @@ export class CurrentGameService {
 			})
 			.pipe(
 				map((r) => {
-					if (r.data.criterion) {
+					if (r.data?.criterion) {
 						return { ...r.data.criterion, lang: language };
 					} else {
 						return null;

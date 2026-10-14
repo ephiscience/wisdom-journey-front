@@ -5,7 +5,7 @@ import { provideApollo } from 'apollo-angular';
 import { inject } from '@angular/core';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 describe('CurrentGameService', () => {
 	let service: CurrentGameService;
@@ -13,7 +13,7 @@ describe('CurrentGameService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
 			providers: [
-				provideHttpClient(),
+				provideHttpClient(withXhr()),
 				provideApollo(() => {
 					const httpLink = inject(HttpLink);
 

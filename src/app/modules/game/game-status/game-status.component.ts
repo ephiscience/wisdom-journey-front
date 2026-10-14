@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Game } from 'src/app/model/game';
 import { TimerComponent } from 'src/app/modules/game/timer/timer.component';
 
@@ -45,6 +45,7 @@ import { QuestionPointsComponent } from '../question-points/question-points.comp
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CriterionPointsComponent, TimerComponent_1, QuestionPointsComponent],
 })
 export class GameStatusComponent implements OnChanges {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, ChangeDetectionStrategy } from '@angular/core';
 
 import { LuxonModule } from 'luxon-angular';
 
@@ -57,6 +57,7 @@ const maximumTime = 3 * 60 * 1000;
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [LuxonModule],
 })
 export class TimerComponent implements OnChanges, OnDestroy {

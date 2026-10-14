@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentGameService } from 'src/app/services/current-game.service';
 import { Game } from 'src/app/model/game';
@@ -95,6 +95,7 @@ import { PlayersComponent } from './players/players.component';
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [GameStatusComponent, BoardComponent, PlayersComponent],
 })
 export class GameComponent implements OnInit {

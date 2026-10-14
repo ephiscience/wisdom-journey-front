@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -38,6 +38,7 @@ import { RouterLink } from '@angular/router';
 			}
 		`,
 	],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [RouterLink],
 })
 export class HomeComponent {}
