@@ -1,25 +1,27 @@
 FROM node:24-alpine AS build
 WORKDIR /app
+RUN corepack enable
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile
 
 COPY . .
-RUN yarn prisma generate && yarn build
+RUN pnpm prisma generate && pnpm build
 # Ici, l'application est compilée
 
 FROM node:24-alpine AS deps
 WORKDIR /app
+RUN corepack enable
 
-COPY package.json yarn.lock prisma.config.ts ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml prisma.config.ts ./
 COPY prisma ./prisma
-RUN yarn install --frozen-lockfile --production && yarn prisma generate
+RUN pnpm install --frozen-lockfile --prod && pnpm prisma generate
 
 FROM node:24-alpine
 EXPOSE 4000
 WORKDIR /app
 
-COPY package.json yarn.lock prisma.config.ts docker/entrypoint.sh ./
+COPY package.json prisma.config.ts docker/entrypoint.sh ./
 COPY prisma ./prisma
 COPY --from=deps /app/node_modules ./node_modules
 

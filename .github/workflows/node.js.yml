@@ -10,16 +10,16 @@ jobs:
         uses: 'actions/checkout@v7'
       - name: 'Install tools (mise)'
         uses: 'jdx/mise-action@v5'
-      - name: 'Get yarn cache path'
-        id: 'yarn-cache'
-        run: 'echo "path=$(yarn cache dir)" >> "$GITHUB_OUTPUT"'
-      - name: 'Cache yarn'
+      - name: 'Get pnpm store path'
+        id: 'pnpm-store'
+        run: 'echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"'
+      - name: 'Cache pnpm store'
         uses: 'actions/cache@v6'
         with:
-          path: ${{ steps.yarn-cache.outputs.path }}
-          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
-          restore-keys: yarn-${{ runner.os }}-
-      - run: 'yarn install --frozen-lockfile'
-      - run: 'yarn prisma generate'
-      - run: 'yarn lint'
-      - run: 'yarn build'
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: pnpm-store-${{ runner.os }}-
+      - run: 'pnpm install --frozen-lockfile'
+      - run: 'pnpm prisma generate'
+      - run: 'pnpm lint'
+      - run: 'pnpm build'

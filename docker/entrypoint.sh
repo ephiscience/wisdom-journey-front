@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 set -e
 
-yarn prisma migrate deploy
+./node_modules/.bin/prisma migrate deploy
 
 exec node --unhandled-rejections=strict index.js
